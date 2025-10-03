@@ -277,7 +277,7 @@ class AuthController extends Controller
 
     public function generate2faSecret(Google2FA $google2fa)
     {
-        $user = User::find(JWTAuth::user()->id);
+        $user = JWTAuth::user();
         $user->google2fa_secret = $google2fa->generateSecretKey();
         $user->save();
 
@@ -304,7 +304,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $user = User::find(JWTAuth::user()->id);
+        $user = JWTAuth::user();
 
         if ($user->google2fa_secret !== $request->secret) {
             return response()->json(['error' => 'Invalid secret.'], 400);
@@ -330,7 +330,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $user = User::find(JWTAuth::user()->id);
+        $user = JWTAuth::user();
 
         if (!$google2fa->verifyKey($user->google2fa_secret, $request->code)) {
             return response()->json(['error' => 'Invalid 2FA code.'], 400);
@@ -353,7 +353,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $user = User::find(JWTAuth::user()->id);
+        $user = JWTAuth::user();
 
         if (!$user->google2fa_enabled || !$user->google2fa_secret) {
             return response()->json(['error' => 'Two-factor authentication is not enabled for this user.'], 400);
