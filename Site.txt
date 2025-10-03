@@ -1,0 +1,190 @@
+1. Présentation générale de l'application :
+L'application est une plateforme web dédiée à la gestion complète des stages, intégrant diverses fonctionnalités allant du dépôt de candidatures à l'évaluation finale. Elle permet la gestion des candidatures, le suivi des stages, l'encadrement, et les évaluations, avec une approche robuste qui inclut des workflows, des rôles multiples, des notifications et des statistiques. Ce système n'est pas simplement une application CRUD mais une solution complète et personnalisée selon le rôle de chaque utilisateur.
+
+2. Acteurs et rôles (une fois connectés) :
+
+Administrateur (Université) :
+
+Crée des sessions de stage, valide les entreprises partenaires, attribue les encadrants aux étudiants et génère des rapports statistiques.
+
+Entreprise (Maître de stage) :
+
+Publie des offres de stage, accepte ou refuse les candidatures, et évalue le stagiaire à la fin du stage.
+
+Étudiant :
+
+Crée un compte, dépose une candidature, télécharge des documents (CV, lettre de motivation, rapport final) et suit l’avancement de son dossier.
+
+Encadrant (Enseignant) :
+
+Suit les étudiants, valide les étapes du stage (rapports intermédiaires, soutenance) et évalue les stagiaires en fin de parcours.
+
+3. Fonctionnalités détaillées :
+
+Authentification et gestion des rôles :
+
+Gestion des connexions (login/signup), multi-rôles et droits d’accès pour chaque acteur.
+
+Gestion des stages :
+
+Création et gestion des sessions de stage, des entreprises partenaires et des offres de stage. Suivi des candidatures en temps réel.
+
+Workflow du stage :
+
+Processus complet du stage : dépôt de candidature → validation par l'entreprise → attribution de l'encadrant → rapports intermédiaires → soutenance.
+
+Gestion des documents :
+
+Upload et téléchargement de documents tels que CV, conventions, rapports. Génération automatique de documents (attestation, convention de stage).
+
+Notifications et communication :
+
+Notifications par email ou alertes internes pour chaque acteur. Messagerie simple entre étudiants, encadrants et entreprises.
+
+Tableaux de bord et statistiques :
+
+Suivi de la progression des stages, statistiques par entreprise, étudiant, et globales pour les administrateurs.
+
+4. Technologies recommandées :
+
+Frontend : HTML5, CSS3, Bootstrap, JavaScript
+
+Backend : PHP (Laravel)
+
+Base de données : MySQL
+
+Authentification : JWT (JSON Web Token)
+
+Plan de Logique Professionnelle :
+
+Page d’accueil pour les utilisateurs non connectés :
+
+4 menus : Accueil, Offres de Stage, À propos, FAQ.
+
+2 boutons en haut à droite : "Se connecter" et "S’inscrire".
+
+Page d’accueil pour les utilisateurs connectés :
+
+5 menus : Accueil, Offres de Stage, Tableau de bord (selon le type d'utilisateur), FAQ.
+
+lorsque lutilisateur est connecter, mettre À la place des boutons "Se connecter" et "S’inscrire", un cercle avec la photo de profil de l'utilisateur connecté, offrant des sous-options : "Modifier le Profil", "Paramètres", "Se déconnecter".
+
+Tableau de bord spécifique à chaque utilisateur :
+Chaque utilisateur accède à un tableau de bord personnalisé avec ses fonctionnalités spécifiques :
+
+Étudiant : Statistiques personnelles (stages postulés, acceptés), suivi des candidatures, téléchargement des documents liés à son stage.
+
+Entreprise, Encadrant, Administrateur : Accès aux fonctionnalités propres à leur rôle (gestion des offres, suivi des stages, évaluation des stagiaires, gestion des sessions).
+
+1. Principes Généraux d'Accès :
+
+Utilisateurs non connectés :
+
+Accès limité aux pages publiques (accueil, à propos, FAQ, contact).
+
+Nécessité de se connecter ou de s'inscrire pour accéder aux fonctionnalités spécifiques.
+
+Utilisateur connecté :
+
+Accès aux fonctionnalités du tableau de bord correspondant au rôle.
+
+Sessions expirant après 30 minutes d'inactivité pour garantir la sécurité.
+
+Actions sensibles (modification de profil, suppression de documents) nécessitant une confirmation.
+
+2. Logique par Type d'Utilisateur :
+2.1 Utilisateur Non Connecté :
+
+Peut consulter les pages publiques, voir la liste des offres de stage mais ne peut pas postuler.
+
+Doit s'inscrire ou se connecter pour accéder aux fonctionnalités.
+
+2.2 Étudiant :
+
+Complète son profil avant de pouvoir postuler à une offre.
+
+Peut consulter, modifier ou supprimer ses candidatures et suivre leur état (acceptée, en attente, refusée).
+
+Téléverse des documents (CV, lettre, rapports) et soumet des rapports intermédiaires.
+
+Accède à ses évaluations une fois validées par l’encadrant.
+
+2.3 Entreprise :
+
+Valide par l'administrateur avant de publier des offres de stage.
+
+Crée, modifie, ou supprime des offres et consulte les candidatures reçues.
+
+Accepte ou refuse les candidatures et évalue les stagiaires.
+
+Accède uniquement à l'historique des stages de l'entreprise.
+
+2.4 Encadrant :
+
+Suivi des étudiants qu’il encadre et validation des rapports intermédiaires.
+
+Communication avec les étudiants et maîtres de stage.
+
+Évaluation finale des étudiants et génération de rapports.
+
+2.5 Administrateur :
+
+Accès à toutes les fonctionnalités, gestion des sessions de stage et des utilisateurs.
+
+Attribution des encadrants, validation des offres, création de rapports et statistiques.
+
+Paramétrage de la plateforme (notifications, formats de documents acceptés).
+
+3. Workflow du Stage :
+
+Publication des offres :
+
+L’administrateur valide la publication des offres des entreprises partenaires.
+
+Candidature :
+
+L’étudiant postule après avoir complété son profil et téléversé ses documents.
+
+L’entreprise examine et accepte/refuse les candidatures.
+
+Sélection :
+
+L'administrateur attribue un encadrant à l'étudiant accepté.
+
+Le processus de validation de la convention de stage commence.
+
+Déroulement du stage :
+
+L’étudiant soumet des rapports intermédiaires, validés par l’encadrant.
+
+L’entreprise peut évaluer les progrès du stagiaire.
+
+Fin du stage :
+
+L’étudiant soumet son rapport final.
+
+L’entreprise et l’encadrant évaluent l’étudiant.
+
+L’administrateur valide la fin du stage et génère l'attestation de stage.
+
+4. Gestion des Documents :
+
+Les documents (CV, conventions, rapports, etc.) sont stockés de manière sécurisée avec des restrictions de formats et de taille (max. 5 Mo). Les documents sensibles sont chiffrés, et un historique des versions est conservé.
+
+5. Notifications :
+
+Les utilisateurs reçoivent des notifications par email et sur leur tableau de bord pour les événements importants, les rappels de délais, et les communications entre les acteurs.
+
+6. Sécurité et Confidentialité :
+
+Authentification à deux facteurs pour les administrateurs.
+
+Mots de passe sécurisés, verrouillage après 5 tentatives infructueuses.
+
+Chiffrement des données personnelles et des documents confidentiels.
+
+Conformité avec le RGPD.
+
+7. Statistiques et Rapports :
+
+Des tableaux de bord personnalisés permettent à chaque type d'utilisateur de suivre la progression, les statistiques des offres de stage, des candidatures, des stages en cours, et d’obtenir des rapports

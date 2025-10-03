@@ -1,0 +1,301 @@
+/* Animations de base */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+}
+
+.animate-bounce {
+    animation: bounce 1s infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Animations au survol */
+.hover\:scale-105:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.hover\:scale-110:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.hover\:rotate-3:hover {
+    transform: rotate(3deg);
+    transition: transform 0.3s ease;
+}
+
+.hover\:translate-y-1:hover {
+    transform: translateY(-4px);
+    transition: transform 0.3s ease;
+}
+
+/* Animations au clic */
+.active\:scale-95:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+.active\:translate-y-1:active {
+    transform: translateY(1px);
+    transition: transform 0.1s ease;
+}
+
+/* Animations au défilement */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animations personnalisées */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .5;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animations pour les cartes */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Animations pour les boutons */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* Animations pour les liens */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Animations pour les icônes */
+.icon-animate {
+    transition: all 0.3s ease;
+}
+
+.icon-animate:hover {
+    transform: scale(1.2);
+}
+
+/* Animations pour les formulaires */
+.form-control {
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Animations pour les badges */
+.badge {
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    transform: scale(1.1);
+}
+
+/* Animations pour les alertes */
+.alert {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Animations pour les modales */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: scale(0.9);
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+}
+
+/* Animations pour les tooltips */
+.tooltip {
+    transition: all 0.3s ease;
+}
+
+/* Animations pour les dropdown menus */
+.dropdown-menu {
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Animations pour les spinners */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Animations pour les progress bars */
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* Animations pour les switchs */
+.switch {
+    transition: all 0.3s ease;
+}
+
+/* Animations pour les checkboxes et radios */
+.form-check-input {
+    transition: all 0.2s ease;
+}
+
+/* Animations pour les pagination */
+.page-link {
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    transform: translateY(-2px);
+}
+
+/* Animations pour les avatars */
+.avatar {
+    transition: all 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+/* Animations pour les breadcrumbs */
+.breadcrumb-item {
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-item:hover {
+    transform: translateX(2px);
+}
+
+/* Animations pour le curseur personnalisé */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.1s ease;
+    transform: translate(-50%, -50%);
+}
+
+.custom-cursor.active {
+    transform: translate(-50%, -50%) scale(0.5);
+    background-color: var(--primary);
+}
+
+/* Animation du curseur au survol des éléments interactifs */
+a:hover ~ .custom-cursor,
+button:hover ~ .custom-cursor,
+input:hover ~ .custom-cursor,
+select:hover ~ .custom-cursor,
+textarea:hover ~ .custom-cursor {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: transparent;
+    border-color: var(--primary-hover);
+}

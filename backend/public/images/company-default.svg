@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <rect width="200" height="200" fill="#f5f5f5"/>
+ <g transform="matrix(8.3333 0 0 8.3333 41.667 41.667)" fill="#999">
+  <path d="m14 11h-1v-1c0-0.552-0.448-1-1-1h-1v-1c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v1h-1c-0.552 0-1 0.448-1 1v1h-1v2h14v-2zm-3-3v1h-6v-1h6zm2 2v1h-10v-1h10z"/>
+ </g>
+</svg>

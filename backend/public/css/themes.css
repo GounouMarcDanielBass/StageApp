@@ -1,0 +1,203 @@
+/* Thèmes */
+:root {
+    /* Thème clair */
+    --light-primary: #4e73df;
+    --light-secondary: #858796;
+    --light-success: #1cc88a;
+    --light-info: #36b9cc;
+    --light-warning: #f6c23e;
+    --light-danger: #e74a3b;
+    --light-bg: #f8f9fc;
+    --light-text: #5a5c69;
+    --light-heading: #2e3235;
+    --light-card: #ffffff;
+    --light-border: #e3e6f0;
+    --light-input: #ffffff;
+    --light-input-border: #d1d3e2;
+
+    /* Thème sombre */
+    --dark-primary: #6f8df7;
+    --dark-secondary: #9fa6bc;
+    --dark-success: #2de2a3;
+    --dark-info: #4dd4e7;
+    --dark-warning: #f8d163;
+    --dark-danger: #ed6d60;
+    --dark-bg: #1a1c23;
+    --dark-text: #e0e2e7;
+    --dark-heading: #ffffff;
+    --dark-card: #2d2f38;
+    --dark-border: #3d404c;
+    --dark-input: #2d2f38;
+    --dark-input-border: #3d404c;
+}
+
+/* Application des thèmes */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body[data-theme="light"] {
+    --primary: var(--light-primary);
+    --secondary: var(--light-secondary);
+    --success: var(--light-success);
+    --info: var(--light-info);
+    --warning: var(--light-warning);
+    --danger: var(--light-danger);
+    --bg: var(--light-bg);
+    --text: var(--light-text);
+    --heading: var(--light-heading);
+    --card: var(--light-card);
+    --border: var(--light-border);
+    --input: var(--light-input);
+    --input-border: var(--light-input-border);
+    
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+body[data-theme="dark"] {
+    --primary: var(--dark-primary);
+    --secondary: var(--dark-secondary);
+    --success: var(--dark-success);
+    --info: var(--dark-info);
+    --warning: var(--dark-warning);
+    --danger: var(--dark-danger);
+    --bg: var(--dark-bg);
+    --text: var(--dark-text);
+    --heading: var(--dark-heading);
+    --card: var(--dark-card);
+    --border: var(--dark-border);
+    --input: var(--dark-input);
+    --input-border: var(--dark-input-border);
+    
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* Styles communs */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading);
+}
+
+.card {
+    background-color: var(--card);
+    border-color: var(--border);
+}
+
+.form-control {
+    background-color: var(--input);
+    border-color: var(--input-border);
+    color: var(--text);
+}
+
+.form-control:focus {
+    background-color: var(--input);
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+/* Animation du curseur */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s;
+    transform: translate(-50%, -50%);
+}
+
+.custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+/* Animations Tailwind */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+.scale-in {
+    animation: scaleIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Hover animations */
+.hover-scale {
+    transition: transform 0.2s;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-lift {
+    transition: transform 0.2s;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
+
+/* Theme switcher styles */
+.theme-switcher {
+    position: relative;
+    display: inline-block;
+    margin-left: 1rem;
+}
+
+.theme-switcher-button {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-switcher-button:hover {
+    background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+.theme-switcher-icon {
+    font-size: 1.25rem;
+}

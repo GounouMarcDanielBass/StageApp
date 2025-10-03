@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres de Stage - StageApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #6366f1;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --card-shadow: rgba(0, 0, 0, 0.05);
+            --gradient-start: #2563eb;
+            --gradient-end: #6366f1;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #60a5fa;
+            --secondary-color: #818cf8;
+            --background-color: #0f172a;
+            --text-color: #e2e8f0;
+            --card-bg: #1e293b;
+            --card-shadow: rgba(0, 0, 0, 0.2);
+            --gradient-start: #1e40af;
+            --gradient-end: #3730a3;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        [data-theme="dark"] .nav-link {
+            color: var(--text-color) !important;
+        }
+
+        [data-theme="dark"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: var(--card-bg);
+        }
+
+        [data-theme="dark"] .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .btn-outline-primary:hover {
+            color: #fff;
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .text-muted {
+            color: var(--secondary-color) !important;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            padding: 80px 0;
+        }
+
+        .offer-card {
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px var(--card-shadow);
+        }
+
+        .form-control, .form-select {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
+        }
+
+        .theme-switcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .theme-switcher button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border: none;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-switcher button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px var(--card-shadow);
+        }
+
+        .theme-switcher i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+        }
+
+        .skeleton-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        .skeleton {
+            background-color: var(--background-color);
+            border-radius: 4px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        .skeleton.title { width: 60%; height: 24px; margin-bottom: 10px; }
+        .skeleton.text { width: 80%; height: 16px; margin-bottom: 8px; }
+        .skeleton.tag { width: 25%; height: 20px; display: inline-block; margin-right: 10px; }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        .filters-sidebar {
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 20px var(--card-shadow);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" data-aos="fade-right">
+                <i class="fas fa-graduation-cap me-2"></i>StageApp
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="offres-stage.html">Offres de Stage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-outline-primary me-3 px-4">
+                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                    </a>
+                    <a href="signup.html" class="btn btn-primary px-4">
+                        <i class="fas fa-user-plus me-2"></i>S'inscrire
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-white text-center">
+        <div class="container" data-aos="fade-up">
+            <h1 class="display-4 fw-bold">Trouvez Votre Stage de Rêve</h1>
+            <p class="lead my-4">Des milliers d'opportunités vous attendent. Lancez votre carrière maintenant.</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="input-group input-group-lg shadow-lg">
+                        <input type="text" id="search-input" class="form-control" placeholder="Rechercher par mot-clé, compétence, entreprise...">
+                        <button class="btn btn-light text-primary" type="button" id="search-button" aria-label="Lancer la recherche"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Filters -->
+                <div class="col-lg-3 mb-4">
+                    <div class="p-4 rounded-3 filters-sidebar" data-aos="fade-right">
+                        <h4 class="mb-4 fw-bold">Filtres</h4>
+                        <div class="mb-3">
+                            <label for="filter-domain" class="form-label">Domaine</label>
+                            <select id="filter-domain" class="form-select">
+                                <option value="">Tous</option>
+                                <!-- Options will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="filter-location" class="form-label">Localisation</label>
+                            <select id="filter-location" class="form-select">
+                                <option value="">Toutes</option>
+                                <!-- Options will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="filter-duration" class="form-label">Durée (mois)</label>
+                            <input type="range" id="filter-duration" class="form-range" min="1" max="12" step="1" value="12">
+                            <div class="text-center">Max: <span id="duration-value">12</span> mois</div>
+                        </div>
+                        <div class="d-grid">
+                            <button id="filter-button" class="btn btn-primary">Appliquer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offers Grid -->
+                <div class="col-lg-9">
+                    <div id="offers-grid" class="row g-4">
+                        <!-- Skeleton loaders -->
+                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
+                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
+                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
+                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
+                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
+                        </div>
+                    </div>
+                    <div id="no-results" class="text-center d-none mt-5">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h4 class="fw-bold">Aucune offre trouvée</h4>
+                        <p>Essayez d'ajuster vos filtres de recherche.</p>
+                    </div>
+                    <nav id="pagination-container" class="d-flex justify-content-center mt-5"></nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 StageApp. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="theme-toggle" class="btn btn-secondary" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Theme switcher logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                root.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                root.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        };
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) applyTheme(currentTheme);
+        themeToggle.addEventListener('click', () => {
+            let theme = root.getAttribute('data-theme');
+            if (theme === 'dark') {
+                localStorage.removeItem('theme');
+                applyTheme('light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        // Offers page logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const offersGrid = document.getElementById('offers-grid');
+            const noResults = document.getElementById('no-results');
+            const searchInput = document.getElementById('search-input');
+            const filterButton = document.getElementById('filter-button');
+            const domainFilter = document.getElementById('filter-domain');
+            const locationFilter = document.getElementById('filter-location');
+            const durationSlider = document.getElementById('filter-duration');
+            const durationValue = document.getElementById('duration-value');
+
+            let allOffers = [];
+            let currentPage = 1;
+            const offersPerPage = 6;
+
+            durationSlider.addEventListener('input', () => {
+                durationValue.textContent = durationSlider.value;
+            });
+
+            async function fetchOffers() {
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/api/offres');
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const data = await response.json();
+                    allOffers = data;
+                    populateFilters(allOffers);
+                    displayOffers(allOffers);
+                } catch (error) {
+                    console.error('Failed to fetch offers:', error);
+                    offersGrid.innerHTML = `<div class="col-12 text-center text-danger">Impossible de charger les offres.</div>`;
+                }
+            }
+
+            function populateFilters(offers) {
+                const domains = [...new Set(offers.map(offer => offer.domain))];
+                const locations = [...new Set(offers.map(offer => offer.location))];
+                
+                domains.forEach(domain => {
+                    const option = new Option(domain, domain);
+                    domainFilter.add(option);
+                });
+
+                locations.forEach(location => {
+                    const option = new Option(location, location);
+                    locationFilter.add(option);
+                });
+            }
+
+            function displayOffers(offers) {
+                offersGrid.innerHTML = '';
+                noResults.classList.add('d-none');
+
+                if (offers.length === 0) {
+                    noResults.classList.remove('d-none');
+                    return;
+                }
+
+                const paginatedOffers = offers.slice((currentPage - 1) * offersPerPage, currentPage * offersPerPage);
+
+                paginatedOffers.forEach(offer => {
+                    const card = document.createElement('div');
+                    card.className = 'col-md-6 col-lg-6';
+                    card.setAttribute('data-aos', 'fade-up');
+                    card.innerHTML = `
+                        <div class="offer-card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">${offer.title}</h5>
+                                <p class="text-muted small mb-2">${offer.company_name || 'Entreprise non spécifiée'}</p>
+                                <p class="card-text small">${offer.description.substring(0, 100)}...</p>
+                                <div class="mt-auto">
+                                    <span class="badge bg-primary bg-opacity-10 text-primary me-2">${offer.domain}</span>
+                                    <span class="badge bg-secondary bg-opacity-10 text-secondary me-2"><i class="fas fa-map-marker-alt me-1"></i>${offer.location}</span>
+                                    <span class="badge bg-info bg-opacity-10 text-info"><i class="far fa-clock me-1"></i>${offer.duration_months} mois</span>
+                                </div>
+                                <a href="#" class="btn btn-outline-primary btn-sm mt-3 stretched-link">Voir l'offre</a>
+                            </div>
+                        </div>
+                    `;
+                    offersGrid.appendChild(card);
+                });
+                setupPagination(offers.length);
+            }
+
+            function setupPagination(totalOffers) {
+                const pageCount = Math.ceil(totalOffers / offersPerPage);
+                const paginationContainer = document.getElementById('pagination-container');
+                paginationContainer.innerHTML = '';
+
+                if (pageCount <= 1) return;
+
+                const ul = document.createElement('ul');
+                ul.className = 'pagination';
+
+                for (let i = 1; i <= pageCount; i++) {
+                    const li = document.createElement('li');
+                    li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                    const a = document.createElement('a');
+                    a.className = 'page-link';
+                    a.href = '#';
+                    a.innerText = i;
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        currentPage = i;
+                        filterAndDisplayOffers();
+                    });
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                }
+                paginationContainer.appendChild(ul);
+            }
+
+            function filterAndDisplayOffers() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedDomain = domainFilter.value;
+                const selectedLocation = locationFilter.value;
+                const maxDuration = parseInt(durationSlider.value, 10);
+
+                const filtered = allOffers.filter(offer => {
+                    const matchesSearch = searchTerm === '' || 
+                        offer.title.toLowerCase().includes(searchTerm) ||
+                        (offer.company_name && offer.company_name.toLowerCase().includes(searchTerm)) ||
+                        offer.description.toLowerCase().includes(searchTerm) ||
+                        offer.skills_required.toLowerCase().includes(searchTerm);
+                    
+                    const matchesDomain = selectedDomain === '' || offer.domain === selectedDomain;
+                    const matchesLocation = selectedLocation === '' || offer.location === selectedLocation;
+                    const matchesDuration = offer.duration_months <= maxDuration;
+
+                    return matchesSearch && matchesDomain && matchesLocation && matchesDuration;
+                });
+                
+                currentPage = 1;
+                displayOffers(filtered);
+            }
+
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') filterAndDisplayOffers();
+            });
+            document.getElementById('search-button').addEventListener('click', filterAndDisplayOffers);
+            filterButton.addEventListener('click', filterAndDisplayOffers);
+
+            fetchOffers();
+        });
+    </script>
+</body>
+</html>

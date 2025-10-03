@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Administrateur - StageApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #7c3aed;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --card-shadow: rgba(0, 0, 0, 0.05);
+            --gradient-start: #4f46e5;
+            --gradient-end: #7c3aed;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #818cf8;
+            --secondary-color: #a78bfa;
+            --background-color: #0f172a;
+            --text-color: #e2e8f0;
+            --card-bg: #1e293b;
+            --card-shadow: rgba(0, 0, 0, 0.2);
+            --gradient-start: #3730a3;
+            --gradient-end: #5b21b6;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        [data-theme="dark"] .nav-link {
+            color: var(--text-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        [data-theme="dark"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+
+        .card {
+            border: none;
+            background: var(--card-bg);
+            box-shadow: 0 8px 32px var(--card-shadow);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--card-shadow);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-bottom: none;
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 32px var(--card-shadow);
+        }
+        
+        .stat-card .icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .theme-switcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .theme-switcher button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border: none;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-switcher button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px var(--card-shadow);
+        }
+
+        .theme-switcher i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+        }
+        
+        .table {
+            color: var(--text-color);
+        }
+        
+        .list-group-item {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" data-aos="fade-right">
+                <i class="fas fa-shield-alt me-2"></i>StageApp Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-users-cog me-1"></i> Utilisateurs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-cogs me-1"></i> Paramètres
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="User menu">
+                            <i class="fas fa-user-shield me-1"></i>
+                            <span id="admin-name-nav"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Mon Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-button">Déconnexion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-down">
+                <h1 class="fw-bold">Tableau de Bord Administrateur</h1>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-2"></i>Créer un utilisateur
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3" data-aos="fade-up">
+                    <div class="stat-card h-100">
+                        <div class="icon"><i class="fas fa-users"></i></div>
+                        <h3 class="fw-bold" id="total-users">0</h3>
+                        <p class="text-muted mb-0">Utilisateurs Actifs</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card h-100">
+                        <div class="icon"><i class="fas fa-building"></i></div>
+                        <h3 class="fw-bold" id="total-companies">0</h3>
+                        <p class="text-muted mb-0">Entreprises Partenaires</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card h-100">
+                        <div class="icon"><i class="fas fa-briefcase"></i></div>
+                        <h3 class="fw-bold" id="active-offers">0</h3>
+                        <p class="text-muted mb-0">Offres Actives</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card h-100">
+                        <div class="icon"><i class="fas fa-check-circle"></i></div>
+                        <h3 class="fw-bold" id="completed-internships">0</h3>
+                        <p class="text-muted mb-0">Stages Terminés</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Charts -->
+                <div class="col-lg-8">
+                    <div class="card h-100" data-aos="zoom-in">
+                        <div class="card-header">Inscriptions (6 derniers mois)</div>
+                        <div class="card-body">
+                            <canvas id="registrationsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card h-100" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card-header">Répartition des Rôles</div>
+                        <div class="card-body d-flex align-items-center justify-content-center">
+                            <canvas id="rolesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Users -->
+                <div class="col-12">
+                    <div class="card" data-aos="fade-up">
+                        <div class="card-header">Derniers Utilisateurs Inscrits</div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Email</th>
+                                            <th>Rôle</th>
+                                            <th>Date d'inscription</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body">
+                                        <!-- Data will be populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 StageApp. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="theme-toggle" class="btn btn-secondary" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Theme switcher logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                root.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                root.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        };
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) applyTheme(currentTheme);
+        themeToggle.addEventListener('click', () => {
+            let theme = root.getAttribute('data-theme');
+            if (theme === 'dark') {
+                localStorage.removeItem('theme');
+                applyTheme('light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        // Dashboard logic
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const token = localStorage.getItem('auth_token');
+                if (!token) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                const userName = localStorage.getItem('user_name');
+                if(userName) {
+                    document.getElementById('admin-name-nav').textContent = userName;
+                }
+
+                // Mock data for admin - replace with API call
+                const response = await Promise.resolve({ 
+                    data: {
+                        admin: {
+                            name: "Admin User",
+                        },
+                        stats: {
+                            totalUsers: 258,
+                            totalCompanies: 42,
+                            activeOffers: 78,
+                            completedInternships: 134
+                        },
+                        registrations: {
+                            labels: ['Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre'],
+                            data: [30, 45, 60, 50, 70, 85]
+                        },
+                        roles: {
+                            students: 180,
+                            companies: 42,
+                            supervisors: 35,
+                            admins: 1
+                        },
+                        recentUsers: [
+                            { name: 'Léa Martin', email: 'lea.martin@example.com', role: 'Étudiant', date: '2025-10-03' },
+                            { name: 'Innovatech', email: 'contact@innovatech.com', role: 'Entreprise', date: '2025-10-02' },
+                            { name: 'Prof. Dubois', email: 'p.dubois@univ.com', role: 'Encadrant', date: '2025-10-02' },
+                            { name: 'Marc Petit', email: 'marc.petit@example.com', role: 'Étudiant', date: '2025-10-01' },
+                        ]
+                    }
+                });
+                
+                const dashboardData = response.data;
+
+                // Populate data
+                document.getElementById('admin-name-nav').textContent = dashboardData.admin.name;
+                localStorage.setItem('user_name', dashboardData.admin.name);
+                document.getElementById('total-users').textContent = dashboardData.stats.totalUsers;
+                document.getElementById('total-companies').textContent = dashboardData.stats.totalCompanies;
+                document.getElementById('active-offers').textContent = dashboardData.stats.activeOffers;
+                document.getElementById('completed-internships').textContent = dashboardData.stats.completedInternships;
+
+                // Populate users table
+                const usersTableBody = document.getElementById('users-table-body');
+                if (dashboardData.recentUsers && dashboardData.recentUsers.length > 0) {
+                    usersTableBody.innerHTML = dashboardData.recentUsers.map(user => {
+                        let roleBadge = '';
+                        switch(user.role) {
+                            case 'Étudiant': roleBadge = 'bg-primary bg-opacity-25 text-primary'; break;
+                            case 'Entreprise': roleBadge = 'bg-success bg-opacity-25 text-success'; break;
+                            case 'Encadrant': roleBadge = 'bg-info bg-opacity-25 text-info'; break;
+                            default: roleBadge = 'bg-secondary bg-opacity-25 text-secondary';
+                        }
+                        return `
+                            <tr>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td><span class="badge ${roleBadge}">${user.role}</span></td>
+                                <td>${new Date(user.date).toLocaleDateString()}</td>
+                                <td><a href="#" class="btn btn-sm btn-outline-primary">Gérer</a></td>
+                            </tr>
+                        `;
+                    }).join('');
+                } else {
+                    usersTableBody.innerHTML = '<tr><td colspan="5" class="text-center">Aucun utilisateur récent.</td></tr>';
+                }
+
+                // Charts
+                const chartColors = {
+                    primary: getComputedStyle(root).getPropertyValue('--primary-color').trim(),
+                    student: '#3b82f6',
+                    company: '#10b981',
+                    supervisor: '#0ea5e9',
+                    admin: '#64748b',
+                    grid: 'rgba(128, 128, 128, 0.1)'
+                };
+
+                // Registrations Chart (Line)
+                const registrationsCtx = document.getElementById('registrationsChart').getContext('2d');
+                new Chart(registrationsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: dashboardData.registrations.labels,
+                        datasets: [{
+                            label: 'Nouvelles Inscriptions',
+                            data: dashboardData.registrations.data,
+                            backgroundColor: chartColors.primary.replace(')', ', 0.2)'),
+                            borderColor: chartColors.primary,
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: chartColors.grid },
+                                ticks: { color: getComputedStyle(root).getPropertyValue('--text-color').trim() }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: getComputedStyle(root).getPropertyValue('--text-color').trim() }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+
+                // Roles Chart (Doughnut)
+                const rolesCtx = document.getElementById('rolesChart').getContext('2d');
+                new Chart(rolesCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Étudiants', 'Entreprises', 'Encadrants', 'Admins'],
+                        datasets: [{
+                            data: [
+                                dashboardData.roles.students, 
+                                dashboardData.roles.companies, 
+                                dashboardData.roles.supervisors, 
+                                dashboardData.roles.admins
+                            ],
+                            backgroundColor: [chartColors.student, chartColors.company, chartColors.supervisor, chartColors.admin],
+                            borderColor: getComputedStyle(root).getPropertyValue('--card-bg').trim(),
+                            borderWidth: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: getComputedStyle(root).getPropertyValue('--text-color').trim()
+                                }
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                if (error.response?.status === 401 || error.response?.status === 403) {
+                    localStorage.removeItem('auth_token');
+                    localStorage.removeItem('user_name');
+                    window.location.href = 'login.html';
+                }
+            }
+        });
+
+        // Logout logic
+        document.getElementById('logout-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_name');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
