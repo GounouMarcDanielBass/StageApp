@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Support\Facades\Log;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
@@ -59,6 +60,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->role && $this->role->name === 'admin';
     }
 
+        
     public function isEtudiant()
     {
         return $this->role && $this->role->name === 'etudiant';
@@ -74,6 +76,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->role && $this->role->name === 'encadrant';
     }
 
+    public function hasRole($role)
+    {
+        return $this->role && $this->role->name === $role;
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -81,7 +88,17 @@ class User extends Authenticatable implements JWTSubject
 
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class);
+        return $this->hasMany(Application::class, 'student_id');
+    }
+
+    public function candidatures(): HasMany
+    {
+        return $this->hasMany(Candidature::class, 'user_id');
+    }
+
+    public function stages()
+    {
+        return $this->hasMany(Stage::class);
     }
 
     public function documents(): HasMany
@@ -89,9 +106,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Document::class);
     }
 
-    public function offers(): HasMany
+    public function offers()
     {
-        return $this->hasMany(Offer::class, 'company_id');
+        return $this->hasManyThrough(Offer::class, Entreprise::class, 'user_id', 'entreprise_id');
     }
 
     public function notifications()
