@@ -82,10 +82,7 @@ class TestDataSeeder extends Seeder
                 'title' => 'Stage en développement web',
                 'description' => 'Stage de 6 mois en développement web',
                 'requirements' => 'Connaissance en PHP, JavaScript',
-                'type' => 'Temps plein',
-                'duration' => 6,
-                'start_date' => '2024-01-01',
-                'end_date' => '2024-06-30',
+                'duration' => '6 mois',
                 'entreprise_id' => 1
             ]
         ];

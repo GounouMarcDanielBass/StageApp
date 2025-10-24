@@ -21,3 +21,5 @@
 
 </body>
 </html>
+    <!-- Custom Cursor Script -->
+    <script src="{{ asset('js/cursor.js') }}"></script>

@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Offer extends Model
 {
+    protected $table = 'offres';
+
     protected $fillable = [
-        'company_id',
+        'entreprise_id',
         'title',
         'description',
         'requirements',
@@ -18,9 +20,9 @@ class Offer extends Model
         'status',
     ];
 
-    public function company(): BelongsTo
+    public function entreprise(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'company_id');
+        return $this->belongsTo(Entreprise::class);
     }
 
     public function applications(): HasMany

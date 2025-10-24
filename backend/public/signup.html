@@ -118,7 +118,7 @@
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
+
         .text-primary {
             color: var(--primary-color) !important;
         }
@@ -126,7 +126,7 @@
         .text-muted {
             color: var(--secondary-color) !important;
         }
-        
+
         .signup-section {
             flex-grow: 1;
             display: flex;
@@ -196,7 +196,7 @@
         footer {
             background-color: var(--card-bg);
         }
-        
+
         .specific-fields {
             transition: all 0.5s ease-in-out;
             max-height: 0;
@@ -288,7 +288,7 @@
                                     <label for="email" class="form-label">Adresse Email</label>
                                     <input type="email" class="form-control" id="email" placeholder="votre.email@example.com" required>
                                 </div>
-                                
+
                                 <!-- Champs spécifiques -->
                                 <div id="specific-fields-container">
                                     <div id="etudiant-fields" class="specific-fields">
@@ -332,7 +332,7 @@
                                     <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
                                     <input type="password" class="form-control" id="password_confirmation" placeholder="••••••••" required>
                                 </div>
-                                
+
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-primary btn-lg">
                                         <i class="fas fa-user-plus me-2"></i>S'inscrire
@@ -412,7 +412,7 @@
         roleSelect.addEventListener('change', function() {
             // Hide all specific fields
             Object.values(fields).forEach(field => field.classList.remove('show'));
-            
+
             // Show the selected one
             const selectedRole = this.value;
             if (fields[selectedRole]) {
@@ -424,7 +424,7 @@
             e.preventDefault();
             const button = this.querySelector('button[type="submit"]');
             const originalText = button.innerHTML;
-            
+
             button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Inscription...`;
             button.disabled = true;
 
@@ -467,8 +467,20 @@
                     alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
                     window.location.href = 'login.html';
                 } else {
-                    const errors = Object.values(data.errors || {}).flat().join('\n');
-                    alert(`Erreur d'inscription:\n${errors || data.message}`);
+                    let errorMessage = "Une erreur inattendue est survenue.";
+                    if (data) {
+                        if (data.errors) {
+                            // Handle Laravel validation errors
+                            errorMessage = Object.values(data.errors).flat().join('\n');
+                        } else if (data.message) {
+                            // Handle other JSON error messages
+                            errorMessage = data.message;
+                        } else if (typeof data === 'string') {
+                            // Handle plain text error responses
+                            errorMessage = data;
+                        }
+                    }
+                    alert(`Erreur d'inscription:\n${errorMessage}`);
                 }
             } catch (error) {
                 console.error('Signup error:', error);

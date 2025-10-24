@@ -12,13 +12,13 @@ class Stage extends Model
         'start_date',
         'end_date',
         'status',
-        'offre_id',
+        'offer_id',
         'user_id',
     ];
 
-    public function offre()
+    public function offer()
     {
-        return $this->belongsTo(Offre::class);
+        return $this->belongsTo(Offer::class);
     }
 
     public function user()

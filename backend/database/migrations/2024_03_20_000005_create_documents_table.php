@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('mime_type'); // e.g., 'application/pdf', 'image/jpeg'
             $table->unsignedBigInteger('size'); // File size in bytes
             $table->string('status')->default('pending'); // e.g., 'pending', 'validated', 'rejected'
-            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
-            $table->foreignId('offer_id')->nullable()->constrained('offers')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('etudiants')->onDelete('cascade');
+            $table->foreignId('offer_id')->nullable()->constrained('offres')->onDelete('cascade');
             $table->timestamps();
         });
     }

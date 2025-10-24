@@ -20,8 +20,8 @@ class Entreprise extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function offres()
+    public function offers()
     {
-        return $this->hasMany(Offre::class);
+        return $this->hasMany(Offer::class);
     }
 }

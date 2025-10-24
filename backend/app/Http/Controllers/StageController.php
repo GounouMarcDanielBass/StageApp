@@ -6,6 +6,7 @@ use App\Models\Stage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Services\NotificationService;
 
 class StageController extends Controller
 {
@@ -18,13 +19,13 @@ class StageController extends Controller
     {
         $user = Auth::user();
         if ($user->role->name === 'admin') {
-            $stages = Stage::with(['user', 'offre.entreprise', 'documents'])->get();
+            $stages = Stage::with(['user', 'offer.entreprise', 'documents'])->get();
         } elseif ($user->role->name === 'entreprise') {
-            $stages = Stage::whereHas('offre.entreprise', function ($query) use ($user) {
+            $stages = Stage::whereHas('offer.entreprise', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->with(['user', 'offre.entreprise', 'documents'])->get();
+            })->with(['user', 'offer.entreprise', 'documents'])->get();
         } else {
-            $stages = $user->stages()->with(['offre.entreprise', 'documents'])->get();
+            $stages = $user->stages()->with(['offer.entreprise', 'documents'])->get();
         }
 
         return response()->json($stages);
@@ -37,7 +38,7 @@ class StageController extends Controller
         $validator = Validator::make($request->all(), [
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'offre_id' => 'required|integer|exists:offres,id',
+            'offer_id' => 'required|integer|exists:offers,id',
             'user_id' => 'required|integer|exists:users,id',
         ]);
 
@@ -53,10 +54,10 @@ class StageController extends Controller
     public function show(Stage $stage)
     {
         $this->authorize('view', $stage);
-        return response()->json($stage->load(['user', 'offre.entreprise', 'documents', 'evaluations']));
+        return response()->json($stage->load(['user', 'offer.entreprise', 'documents', 'evaluations']));
     }
 
-    public function update(Request $request, Stage $stage)
+    public function update(Request $request, Stage $stage, NotificationService $notificationService)
     {
         $this->authorize('update', $stage);
 
@@ -70,7 +71,13 @@ class StageController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
+        $oldStatus = $stage->status;
         $stage->update($request->all());
+
+        // Send notification if status changed
+        if ($oldStatus !== $request->status) {
+            $notificationService->sendStageProgressEmail($stage->user, $stage, "Status updated to: {$request->status}");
+        }
 
         return response()->json($stage);
     }

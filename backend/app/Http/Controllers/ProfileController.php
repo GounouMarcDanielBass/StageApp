@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Etudiant;
 use App\Models\Entreprise;
 use App\Models\Encadrant;
 
+use Illuminate\Support\Facades\Log;
 class ProfileController extends Controller
 {
     public function __construct()
@@ -24,6 +26,8 @@ class ProfileController extends Controller
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
+
+        Log::info('ProfileController show: Checking if user isEtudiant method exists: ' . (method_exists($user, 'isEtudiant') ? 'Yes' : 'No'));
 
         $profileData = [
             'id' => $user->id,
@@ -113,5 +117,40 @@ class ProfileController extends Controller
         }
 
         return response()->json(['message' => 'Profile updated successfully', 'user' => $user->load('role')]);
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        DB::beginTransaction();
+        try {
+            // Delete related data
+            if ($user->etudiant) {
+                $user->etudiant->delete();
+            }
+            if ($user->entreprise) {
+                $user->entreprise->delete();
+            }
+            if ($user->encadrant) {
+                $user->encadrant->delete();
+            }
+
+            // Delete notifications
+            $user->notifications()->delete();
+
+            // Delete user
+            $user->delete();
+
+            DB::commit();
+            return response()->json(['message' => 'Account deleted successfully']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => 'Error deleting account'], 500);
+        }
     }
 }

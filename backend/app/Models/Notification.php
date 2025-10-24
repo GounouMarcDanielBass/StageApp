@@ -11,12 +11,20 @@ class Notification extends Model
 
     protected $fillable = [
         'user_id',
+        'type',
         'message',
         'read',
+        'related_id',
+        'related_type',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function related()
+    {
+        return $this->morphTo();
     }
 }

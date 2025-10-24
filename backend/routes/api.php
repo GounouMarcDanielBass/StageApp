@@ -19,6 +19,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,14 +43,10 @@ Route::group([
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('register/etudiant', [AuthController::class, 'registerEtudiant']);
-    Route::post('register/entreprise', [AuthController::class, 'registerEntreprise']);
-    Route::post('register/encadrant', [AuthController::class, 'registerEncadrant']);
-    Route::post('register/admin', [AuthController::class, 'registerAdmin']);
+    Route::post('register/{role}', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+    Route::get('me', [AuthController::class, 'me']);
 
     // 2FA Routes
     Route::post('2fa/generate', [AuthController::class, 'generate2faSecret']);
@@ -59,7 +56,7 @@ Route::group([
 });
 
 // Routes protégées par l'authentification
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:api')->group(function () {
     // Routes communes
     Route::get('/user', [AuthController::class, 'user']);
 
@@ -94,21 +91,21 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // Public-like resources but authenticated
-    Route::apiResource('offres', OffreController::class)->only(['index', 'show']);
+    Route::apiResource('offers', OffreController::class)->only(['index', 'show']);
     Route::apiResource('stages', StageController::class)->only(['index', 'show']);
 
     // Role-specific resources
     Route::middleware(['role:entreprise'])->group(function () {
-        Route::apiResource('offres', OffreController::class)->except(['index', 'show']);
+        Route::apiResource('offers', OffreController::class)->except(['index', 'show']);
         Route::apiResource('stages', StageController::class)->except(['index', 'show']);
     });
 
     Route::middleware(['role:etudiant'])->group(function () {
-        Route::apiResource('candidatures', CandidatureController::class);
+        Route::apiResource('applications', CandidatureController::class);
     });
 
     Route::middleware(['role:entreprise'])->group(function () {
-        Route::apiResource('candidatures', CandidatureController::class)->except(['index']);
+        Route::apiResource('applications', CandidatureController::class)->except(['index']);
     });
 
     Route::middleware(['role:admin'])->group(function () {
@@ -198,6 +195,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+        Route::get('/admin/stats', [DashboardController::class, 'admin']);
+    });
+
+    Route::middleware('role:entreprise')->group(function () {
+        Route::get('/company/stats', [DashboardController::class, 'companyStats']);
+    });
+
+    Route::middleware('role:etudiant')->group(function () {
+        Route::get('/student/stats', [DashboardController::class, 'studentStats']);
     });
 
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -210,4 +216,10 @@ Route::post('contact', [ContactController::class, 'store']);
 Route::middleware('auth:api')->prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'show']);
     Route::put('/', [ProfileController::class, 'update']);
+    Route::delete('/', [ProfileController::class, 'deleteAccount']);
+});
+
+// Notification Routes
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('notifications', NotificationController::class)->only(['index', 'update', 'destroy']);
 });

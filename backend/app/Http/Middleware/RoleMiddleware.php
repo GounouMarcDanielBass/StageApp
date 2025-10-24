@@ -16,16 +16,20 @@ class RoleMiddleware
      * @param  string  $role
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $role): mixed
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (! $user = Auth::user()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthorized.'], 401);
         }
 
-        if ($user->role->name !== $role) {
-            return response()->json(['error' => 'Unauthorized.'], 403);
+        $user = Auth::user();
+
+        foreach ($roles as $role) {
+            if ($user->hasRole($role)) {
+                return $next($request);
+            }
         }
 
-        return $next($request);
+        return response()->json(['error' => 'Unauthorized.'], 403);
     }
 }

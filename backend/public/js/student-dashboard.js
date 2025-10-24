@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.pathname.endsWith('dashboard.html')) {
+    if (window.location.pathname.endsWith('student-dashboard.html')) {
         const token = localStorage.getItem('auth_token');
         if (!token) {
             window.location.href = 'login.html';
@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         fetchStudentData(token);
+        fetchNotifications(token);
     }
 });
 
@@ -34,6 +35,27 @@ async function fetchStudentData(token) {
 
     } catch (error) {
         console.error('Error fetching student data:', error);
+    }
+}
+
+async function fetchNotifications(token) {
+    try {
+        const response = await fetch('/api/notifications', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch notifications');
+        }
+
+        const notifications = await response.json();
+        updateNotifications(notifications);
+
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
     }
 }
 
@@ -83,22 +105,41 @@ function updateDocuments(documents) {
     }
 }
 
-function confirmDelete(docId) {
-    if (confirm('Are you sure you want to delete this document?')) {
-        // Implement delete logic here, e.g., fetch API call
-        console.log('Deleting document:', docId);
+function updateNotifications(notifications) {
+    const notificationsList = document.getElementById('notifications-list');
+    if (notificationsList) {
+        notificationsList.innerHTML = '';
+        notifications.forEach(notif => {
+            const item = `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${notif.message}
+                    <span>
+                        <small class="text-muted">${notif.created_at}</small>
+                        ${!notif.read ? '<span class="badge bg-primary">New</span>' : ''}
+                    </span>
+                </li>
+            `;
+            notificationsList.innerHTML += item;
+        });
     }
 }
 
 function getStatusBadge(status) {
     switch (status) {
-        case 'Accepté':
+        case 'accepted':
             return 'bg-success';
-        case 'En attente':
+        case 'pending':
             return 'bg-warning text-dark';
-        case 'Refusé':
+        case 'rejected':
             return 'bg-danger';
         default:
             return 'bg-secondary';
+    }
+}
+
+function confirmDelete(docId) {
+    if (confirm('Are you sure you want to delete this document?')) {
+        // Implement delete logic
+        console.log('Deleting document:', docId);
     }
 }

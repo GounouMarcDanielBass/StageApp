@@ -16,11 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('requirements');
-            $table->string('type');
-            $table->integer('duration');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('status')->default('active');
+            $table->string('duration');
+            $table->string('location');
+            $table->enum('status', ['pending', 'active', 'closed'])->default('pending');
             $table->foreignId('entreprise_id')->constrained('entreprises');
             $table->timestamps();
         });

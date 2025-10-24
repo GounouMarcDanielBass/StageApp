@@ -11,8 +11,11 @@ return new class extends Migration
         Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('company_name');
-            $table->string('siret')->unique();
+            $table->string('name');
+            $table->text('description');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

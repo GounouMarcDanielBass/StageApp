@@ -119,7 +119,7 @@
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
+
         .text-primary {
             color: var(--primary-color) !important;
         }
@@ -432,13 +432,27 @@
                         <a class="nav-link" href="contact.html">Contact</a>
                     </li>
                 </ul>
-                <div class="d-flex" data-aos="fade-left">
+                <div id="guest-nav" class="d-flex" data-aos="fade-left">
                     <a href="login.html" class="btn btn-outline-primary me-3 px-4">
                         <i class="fas fa-sign-in-alt me-2"></i>Se connecter
                     </a>
                     <a href="signup.html" class="btn btn-primary px-4">
                         <i class="fas fa-user-plus me-2"></i>S'inscrire
                     </a>
+                </div>
+                <!-- User Nav -->
+                <div id="user-nav" class="d-none" data-aos="fade-left">
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                            <strong id="user-name"></strong>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-button">Sign out</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -678,6 +692,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-counter"></script>
+    <script src="js/auth.js"></script>
     <script>
         // Initialize AOS (Animate On Scroll)
         AOS.init({
@@ -825,90 +840,6 @@
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-        });
-    </script>
-</body>
-</html>
-
-        // Fetch dynamic content
-        document.addEventListener('DOMContentLoaded', function() {
-            const baseUrl = 'http://127.0.0.1:8000/api';
-
-            // Fetch Latest Offers
-            fetch(`${baseUrl}/latest-offers`)
-                .then(response => response.json())
-                .then(data => {
-                    const offresList = document.getElementById('offres-list');
-                    offresList.innerHTML = ''; // Clear static content
-                    data.forEach(offer => {
-                        const offerCard = `
-                            <div class="col-md-4 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">${offer.title}</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">${offer.company_name || 'Entreprise'}</h6>
-                                        <p class="card-text">${offer.description.substring(0, 100)}...</p>
-                                        <a href="/offres/${offer.id}" class="btn btn-primary mt-auto">Voir l'offre</a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        offresList.innerHTML += offerCard;
-                    });
-                })
-                .catch(error => console.error('Error fetching offers:', error));
-
-            // Fetch Stats
-            fetch(`${baseUrl}/stats`)
-                .then(response => response.json())
-                .then(data => {
-                    const statsList = document.getElementById('stats-list');
-                    statsList.innerHTML = `
-                        <div class="col-md-4">
-                            <div class="stat-card">
-                                <div class="icon"><i class="fas fa-building"></i></div>
-                                <h3>+${data.entreprises}</h3>
-                                <p>Entreprises partenaires</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="stat-card">
-                                <div class="icon"><i class="fas fa-users"></i></div>
-                                <h3>+${data.etudiants}</h3>
-                                <p>Étudiants inscrits</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="stat-card">
-                                <div class="icon"><i class="fas fa-file-signature"></i></div>
-                                <h3>+${data.stages}</h3>
-                                <p>Stages pourvus</p>
-                            </div>
-                        </div>
-                    `;
-                })
-                .catch(error => console.error('Error fetching stats:', error));
-
-            // Fetch Testimonials
-            fetch(`${baseUrl}/testimonials`)
-                .then(response => response.json())
-                .then(data => {
-                    const testimonialsList = document.getElementById('testimonials-list');
-                    testimonialsList.innerHTML = ''; // Clear static content
-                    data.forEach(testimonial => {
-                        const testimonialCard = `
-                            <div class="col-md-4 mb-4">
-                                <div class="testimonial-card">
-                                    <img src="${testimonial.image}" alt="Témoignage de ${testimonial.name}" class="mb-3">
-                                    <p class="fst-italic">"${testimonial.quote}"</p>
-                                    <h5 class="mt-2">- ${testimonial.name}</h5>
-                                </div>
-                            </div>
-                        `;
-                        testimonialsList.innerHTML += testimonialCard;
-                    });
-                })
-                .catch(error => console.error('Error fetching testimonials:', error));
         });
     </script>
 </body>

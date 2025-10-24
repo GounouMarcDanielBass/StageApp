@@ -18,7 +18,7 @@ class HomeController extends Controller
             return [
                 'total_offers' => Offre::where('status', 'active')->count(),
                 'total_companies' => Entreprise::count(),
-                'total_students' => User::where('role', 'etudiant')->count(),
+                'total_students' => User::where('role_id', 3)->count(),
                 'total_internships' => Stage::where('status', 'completed')->count()
             ];
         });
@@ -32,11 +32,11 @@ class HomeController extends Controller
             ->map(function ($offre) {
                 return [
                     'id' => $offre->id,
-                    'title' => $offre->titre,
-                    'company' => $offre->entreprise->nom,
-                    'location' => $offre->lieu,
+                    'title' => $offre->title,
+                    'company' => $offre->entreprise->name,
+                    'location' => $offre->location,
                     'type' => $offre->type,
-                    'duration' => $offre->duree,
+                    'duration' => $offre->duration,
                     'created_at' => $offre->created_at->diffForHumans(),
                     'logo' => $offre->entreprise->logo ?? 'images/company-default.png'
                 ];
@@ -54,7 +54,7 @@ class HomeController extends Controller
         // Récupérer les entreprises partenaires
         $partners = Cache::remember('partners', 3600, function () {
             return Entreprise::where('is_partner', true)
-                ->select('id', 'nom', 'logo')
+                ->select('id', 'name', 'logo')
                 ->take(8)
                 ->get();
         });

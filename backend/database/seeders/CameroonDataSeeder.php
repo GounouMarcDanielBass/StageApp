@@ -28,80 +28,92 @@ class CameroonDataSeeder extends Seeder
         $roleEncadrant = Role::firstOrCreate(['name' => 'encadrant']);
 
         // Create Admin User
-        $admin = User::create([
-            'name' => 'Admin IUC',
+        $admin = User::updateOrCreate([
             'email' => 'admin@iuc.cm',
+        ], [
+            'name' => 'Admin IUC',
             'password' => Hash::make('password'),
             'role_id' => $roleAdmin->id,
         ]);
 
         // Create Student Users
-        $etudiant1 = User::create([
-            'name' => 'Yannick Noah',
+        $etudiant1 = User::updateOrCreate([
             'email' => 'yannick.noah@iuc.cm',
+        ], [
+            'name' => 'Yannick Noah',
             'password' => Hash::make('password'),
             'role_id' => $roleEtudiant->id,
         ]);
-        Etudiant::create([
+        Etudiant::updateOrCreate([
             'user_id' => $etudiant1->id,
+        ], [
             'student_id' => 'IUC2024001',
             'formation' => 'Génie Logiciel',
         ]);
 
-        $etudiant2 = User::create([
-            'name' => 'Brenda Biya',
+        $etudiant2 = User::updateOrCreate([
             'email' => 'brenda.biya@iuc.cm',
+        ], [
+            'name' => 'Brenda Biya',
             'password' => Hash::make('password'),
             'role_id' => $roleEtudiant->id,
         ]);
-        Etudiant::create([
+        Etudiant::updateOrCreate([
             'user_id' => $etudiant2->id,
+        ], [
             'student_id' => 'IUC2024002',
             'formation' => 'Réseaux et Télécommunications',
         ]);
 
         // Create Company Users
-        $entreprise1 = User::create([
-            'name' => 'MTN Cameroon',
+        $entreprise1 = User::updateOrCreate([
             'email' => 'hr@mtn.cm',
+        ], [
+            'name' => 'MTN Cameroon',
             'password' => Hash::make('password'),
             'role_id' => $roleEntreprise->id,
         ]);
-        Entreprise::create([
+        Entreprise::updateOrCreate([
             'user_id' => $entreprise1->id,
+        ], [
             'company_name' => 'MTN Cameroon',
-            'siret' => 'MTN-CM-12345',
+            'siret' => '123456789',
         ]);
 
-        $entreprise2 = User::create([
-            'name' => 'Orange Cameroun',
+        $entrepriseUser2 = User::updateOrCreate([
             'email' => 'recrutement@orange.cm',
+        ], [
+            'name' => 'Orange Cameroun',
             'password' => Hash::make('password'),
             'role_id' => $roleEntreprise->id,
         ]);
-        Entreprise::create([
-            'user_id' => $entreprise2->id,
+        $entreprise2 = Entreprise::updateOrCreate([
+            'user_id' => $entrepriseUser2->id,
+        ], [
             'company_name' => 'Orange Cameroun',
-            'siret' => 'ORANGE-CM-67890',
+            'siret' => '987654321',
         ]);
 
         // Create Encadrant User
-        $encadrant = User::create([
-            'name' => 'Professeur Ngando',
+        $encadrant = User::updateOrCreate([
             'email' => 'prof.ngando@iuc.cm',
+        ], [
+            'name' => 'Professeur Ngando',
             'password' => Hash::make('password'),
             'role_id' => $roleEncadrant->id,
         ]);
-        Encadrant::create([
+        Encadrant::updateOrCreate([
             'user_id' => $encadrant->id,
+        ], [
             'department' => 'Département Informatique',
             'speciality' => 'Intelligence Artificielle',
         ]);
 
         // Create Internship Offers
-        Offer::create([
-            'company_id' => $entreprise1->id,
+        Offer::updateOrCreate([
+            'entreprise_id' => $entreprise2->id,
             'title' => 'Stage en Développement Web',
+        ], [
             'description' => 'Nous recherchons un stagiaire passionné par le développement web pour rejoindre notre équipe.',
             'requirements' => 'PHP, Laravel, Vue.js',
             'location' => 'Douala',
@@ -109,9 +121,10 @@ class CameroonDataSeeder extends Seeder
             'status' => 'active',
         ]);
 
-        Offer::create([
-            'company_id' => $entreprise2->id,
+        Offer::updateOrCreate([
+            'entreprise_id' => $entreprise2->id,
             'title' => 'Stage en Réseaux et Sécurité',
+        ], [
             'description' => 'Participez à la gestion et à la sécurisation de notre infrastructure réseau.',
             'requirements' => 'Cisco, Firewall, VPN',
             'location' => 'Yaoundé',
