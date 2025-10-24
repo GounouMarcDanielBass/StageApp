@@ -20,7 +20,7 @@ class StageFactory extends Factory
             'start_date' => fake()->date(),
             'end_date' => fake()->date(),
             'status' => 'ongoing',
-            'offre_id' => \App\Models\Offre::factory(),
+            'offer_id' => \App\Models\Offre::factory(),
             'user_id' => \App\Models\User::factory(),
         ];
     }

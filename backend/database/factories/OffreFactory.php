@@ -26,6 +26,7 @@ class OffreFactory extends Factory
             'end_date' => fake()->date(),
             'status' => 'active',
             'entreprise_id' => \App\Models\Entreprise::factory(),
+            'location' => fake()->city(),
         ];
     }
 }

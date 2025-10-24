@@ -37,10 +37,10 @@ class ComprehensiveSeeder extends Seeder
         $roleEncadrant = Role::where('name', 'encadrant')->first();
         $roleAdmin = Role::where('name', 'admin')->first();
 
-        $etudiantUsers = User::factory()->count(5)->for($roleEtudiant)->create();
-        $entrepriseUsers = User::factory()->count(5)->for($roleEntreprise)->create();
-        $encadrantUsers = User::factory()->count(5)->for($roleEncadrant)->create();
-        $adminUsers = User::factory()->count(5)->for($roleAdmin)->create();
+        $etudiantUsers = User::factory()->count(10)->for($roleEtudiant)->create();
+        $entrepriseUsers = User::factory()->count(10)->for($roleEntreprise)->create();
+        $encadrantUsers = User::factory()->count(10)->for($roleEncadrant)->create();
+        $adminUsers = User::factory()->count(10)->for($roleAdmin)->create();
 
         // Seed Etudiants
         $etudiants = [];
@@ -81,14 +81,14 @@ class ComprehensiveSeeder extends Seeder
         $stages = [];
         foreach (array_slice($candidatures, 0, 5) as $candidature) {
             $stages[] = Stage::factory()->create([
-                'offre_id' => $candidature->offre_id,
+                'offer_id' => $candidature->offre_id,
                 'user_id' => $candidature->user_id,
             ]);
         }
 
         // Seed Documents
         foreach ($stages as $stage) {
-            Document::factory()->count(2)->create(['stage_id' => $stage->id]);
+            // Document::factory()->count(2)->create(['stage_id' => $stage->id]);
         }
 
         // Seed Evaluations

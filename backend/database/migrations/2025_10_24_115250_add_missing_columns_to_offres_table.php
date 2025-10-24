@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('offres', function (Blueprint $table) {
-            $table->foreignId('company_id')->constrained('entreprises')->onDelete('cascade');
-            $table->dropForeign(['entreprise_id']);
-            $table->dropColumn('entreprise_id');
+            $table->string('type')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
         });
     }
 
@@ -25,9 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('offres', function (Blueprint $table) {
-            $table->foreignId('company_id')->constrained('users')->onDelete('cascade');
-            $table->dropForeign(['entreprise_id']);
-            $table->dropColumn('entreprise_id');
+            //
         });
     }
 };
