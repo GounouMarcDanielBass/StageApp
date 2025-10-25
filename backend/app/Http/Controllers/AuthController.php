@@ -264,6 +264,11 @@ class AuthController extends Controller
         return response()->json(JWTAuth::user());
     }
 
+    public function user()
+    {
+        return response()->json(JWTAuth::user());
+    }
+
     protected function respondWithToken($token)
     {
         return response()->json([

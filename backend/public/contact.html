@@ -1,439 +1,399 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contactez-Nous - StageApp</title>
-    <link href="https://cdn.jsdelivr.net/n                <div id="guest-nav" class="d-flex" data-aos="fade-left">
-                    <a href="login.html" class="btn btn-outline-primary me-3 px-4">
-                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                    </a>
-                    <a href="signup.html" class="btn btn-primary px-4">
-                        <i class="fas fa-user-plus me-2"></i>S'inscrire
-                    </a>
-                </div>
-                <!-- User Nav -->
-                <div id="user-nav" class="d-none" data-aos="fade-left">
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                            <strong id="user-name"></strong>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Contactez-Nous - StageApp</title>
+	    <meta name="description" content="Contactez-nous pour vos questions sur les stages" />
+	    <meta name="keywords" content="Contact, Stage, Cameroun" />
+	    <meta name="author" content="StageApp" />
+	    <!-- favicon -->
+        <link href="images/favicon.ico" rel="shortcut icon">
+		<!-- Bootstrap core CSS -->
+	    <link href="../frontend 2/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+        <link href="../frontend 2/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+	    <!-- Custom  Css -->
+	    <link href="../frontend 2/css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
+	</head>
+
+	<body>
+        <!-- Navbar STart -->
+        <header id="topnav" class="defaultscroll sticky">
+            <div class="container">
+                <a class="logo" href="index.html">
+                    <span class="logo-light-mode">
+                        <img src="../frontend 2/images/logo-dark.png" class="l-dark" alt="">
+                        <img src="../frontend 2/images/logo-white.png" class="l-light" alt="">
+                    </span>
+                    <img src="../frontend 2/images/logo-white.png" class="logo-dark-mode" alt="">
+                </a>
+
+                <div class="menu-extras">
+                    <div class="menu-item">
+                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logout-button">Sign out</a></li>
-                        </ul>
                     </div>
-                </div>trap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #6366f1;
-            --background-color: #f8fafc;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-            --card-shadow: rgba(0, 0, 0, 0.05);
-            --gradient-start: #2563eb;
-            --gradient-end: #6366f1;
-        }
+                </div>
 
-        [data-theme="dark"] {
-            --primary-color: #60a5fa;
-            --secondary-color: #818cf8;
-            --background-color: #0f172a;
-            --text-color: #e2e8f0;
-            --card-bg: #1e293b;
-            --card-shadow: rgba(0, 0, 0, 0.2);
-            --gradient-start: #1e40af;
-            --gradient-end: #3730a3;
-        }
-
-        body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.9);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(30, 41, 59, 0.9);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        [data-theme="dark"] .nav-link {
-            color: var(--text-color) !important;
-        }
-
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            color: var(--card-bg);
-        }
-
-        [data-theme="dark"] .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        [data-theme="dark"] .btn-outline-primary:hover {
-            color: #fff;
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .text-primary {
-            color: var(--primary-color) !important;
-        }
-
-        .text-muted {
-            color: var(--secondary-color) !important;
-        }
-
-        .hero-section {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            padding: 80px 0;
-        }
-
-        .contact-card {
-            background-color: var(--card-bg);
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px var(--card-shadow);
-            transition: all 0.3s ease;
-        }
-        .contact-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .form-control {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            border: 1px solid var(--primary-color);
-        }
-
-        .form-control:focus {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
-        }
-
-        .map-container {
-            border-radius: 15px;
-            overflow: hidden;
-            height: 100%;
-            min-height: 400px;
-        }
-
-        .map-iframe {
-            border: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .theme-switcher {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-
-        .theme-switcher button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border: none;
-            box-shadow: 0 4px 20px var(--card-shadow);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-switcher button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px var(--card-shadow);
-        }
-
-        .theme-switcher i {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        footer {
-            background-color: var(--card-bg);
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html" data-aos="fade-right">
-                <i class="fas fa-graduation-cap me-2"></i>StageApp
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Accueil</a>
+                <ul class="buy-button list-inline mb-0">
+                    <li class="list-inline-item ps-1 mb-0">
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="search" class="icons"></i>
+                            </button>
+                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded border-0 mt-3 p-0" style="width: 240px;">
+                                <div class="search-bar">
+                                    <div id="itemSearch" class="menu-search mb-0">
+                                        <form role="search" method="get" id="searchItemform" class="searchform">
+                                            <input type="text" class="form-control rounded border" name="s" id="searchItem" placeholder="Rechercher...">
+                                            <input type="submit" id="searchItemsubmit" value="Rechercher">
+                                            <i data-feather="search" class="search-icon fea icon-sm"></i>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="offres-stage.html">Offres de Stage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">À propos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="faq.html">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="contact.html">Contact</a>
+
+                    <li class="list-inline-item ps-1 mb-0">
+                        <div class="dropdown dropdown-primary">
+                            <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="images/team/01.jpg" class="img-fluid rounded-pill" alt="">
+                            </button>
+                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded shadow border-0 mt-3">
+                                <a href="profile.html" class="dropdown-item fw-medium fs-6"><i data-feather="user" class="fea icon-sm me-2 align-middle"></i>Profil</a>
+                                <a href="profile.html" class="dropdown-item fw-medium fs-6"><i data-feather="settings" class="fea icon-sm me-2 align-middle"></i>Paramètres</a>
+                                <div class="dropdown-divider border-top"></div>
+                                <a href="login.html" class="dropdown-item fw-medium fs-6"><i data-feather="log-out" class="fea icon-sm me-2 align-middle"></i>Déconnexion</a>
+                            </div>
+                        </div>
                     </li>
                 </ul>
-                <div class="d-flex">
-                    <a href="login.html" class="btn btn-outline-primary me-3 px-4">
-                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                    </a>
-                    <a href="signup.html" class="btn btn-primary px-4">
-                        <i class="fas fa-user-plus me-2"></i>S'inscrire
-                    </a>
+        
+                <div id="navigation">
+                    <!-- Navigation Menu-->   
+                    <ul class="navigation-menu nav-right nav-light">
+                        <li class="has-submenu parent-menu-item">
+                            <a href="javascript:void(0)">Accueil</a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="index.html" class="sub-menu-item">Héros Un</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Stages </a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="offres-stage.html" class="sub-menu-item">Offres de Stage</a></li>
+                        
+                                <li class="has-submenu parent-menu-item">
+                                    <a href="javascript:void(0)"> Grille de Stages </a><span class="submenu-arrow"></span>
+                                    <ul class="submenu">
+                                        <li><a href="offres-stage.html" class="sub-menu-item">Grille Un</a></li>
+                                    </ul>  
+                                </li>
+
+                                <li><a href="offres-stage.html" class="sub-menu-item">Détail du Stage</a></li>
+                            </ul>  
+                        </li>
+                
+                        <li><a href="about.html" class="sub-menu-item">À propos</a></li>
+                
+                        <li><a href="faq.html" class="sub-menu-item">FAQ</a></li>
+                
+                        <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
+                    </ul><!--end navigation menu-->
+                </div><!--end navigation-->
+            </div>
+        </header>
+        <!-- Navbar End -->
+
+        <!-- Hero Start -->
+        <section class="bg-half-170 d-table w-100" style="background: url('images/hero/bg.jpg');">
+            <div class="bg-overlay bg-gradient-overlay"></div>
+            <div class="container">
+                <div class="row mt-5 justify-content-center">
+                    <div class="col-12">
+                        <div class="title-heading text-center">
+                            <p class="text-white-50 para-desc mx-auto mb-0">Contactez-nous !</p>
+                            <h5 class="heading fw-semibold mb-0 sub-heading text-white title-dark">Contact</h5>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="position-middle-bottom">
+                    <nav aria-label="breadcrumb" class="d-block">
+                        <ul class="breadcrumb breadcrumb-muted mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="index.html">StageApp</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                        </ul>
+                    </nav>
                 </div>
+            </div><!--end container-->
+        </section><!--end section-->
+        <div class="position-relative">
+            <div class="shape overflow-hidden text-white">
+                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+                </svg>
             </div>
         </div>
-    </nav>
+        <!-- Hero End -->
 
-    <!-- Hero Section -->
-    <section class="hero-section text-white text-center">
-        <div class="container" data-aos="fade-up">
-            <h1 class="display-4 fw-bold">Contactez-Nous</h1>
-            <p class="lead my-4">Nous sommes là pour vous aider. Une question, une suggestion ? N'hésitez pas.</p>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row g-4 g-lg-5">
-                <!-- Contact Info -->
-                <div class="col-lg-4">
-                    <div class="contact-card p-4 mb-4" data-aos="fade-right">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
-                            <div>
-                                <h5 class="fw-bold">Adresse</h5>
-                                <p class="mb-0 text-muted">Rue de la Joie, Bonapriso<br>Douala, Cameroun</p>
-                            </div>
-                        </div>
+        <!-- Contact Section -->
+        <section class="section pb-0">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <img src="../frontend 2/images/svg/contact.svg" class="img-fluid" alt="">
                     </div>
-                    <div class="contact-card p-4 mb-4" data-aos="fade-right" data-aos-delay="100">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-envelope fa-2x text-primary me-4"></i>
-                            <div>
-                                <h5 class="fw-bold">Email</h5>
-                                <p class="mb-0 text-muted">contact@stageapp.com</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact-card p-4" data-aos="fade-right" data-aos-delay="200">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-phone fa-2x text-primary me-4"></i>
-                            <div>
-                                <h5 class="fw-bold">Téléphone</h5>
-                                <p class="mb-0 text-muted">(+237) 6XX XX XX XX</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Form -->
-                <div class="col-lg-8">
-                    <div class="contact-card p-4 p-lg-5" data-aos="fade-left">
-                        <h3 class="fw-bold mb-4">Envoyez-nous un message</h3>
-                        <form id="contactForm">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label">Nom complet</label>
-                                    <input type="text" class="form-control" id="name" required>
+                    <div class="col-md-6">
+                        <div class="p-4 rounded shadow ms-lg-5">
+                            <h4>Contactez-nous !</h4>
+                            <form class="mt-4" id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Votre Nom <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" placeholder="Nom :">
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Votre Email <span class="text-danger">*</span></label>
+                                            <input name="email" id="email" type="email" class="form-control" placeholder="Email :">
+                                        </div> 
+                                    </div><!--end col-->
+    
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Sujet</label>
+                                            <input name="subject" id="subject" class="form-control" placeholder="Sujet :">
+                                        </div>
+                                    </div><!--end col-->
+    
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Message <span class="text-danger">*</span></label>
+                                            <textarea name="message" id="message" rows="4" class="form-control" placeholder="Message :"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Adresse Email</label>
-                                    <input type="email" class="form-control" id="email" required>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary">Envoyer le Message</button>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </form>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- Contact Info Section -->
+        <section class="section">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="position-relative features text-center mx-lg-4 px-md-1">
+                            <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                <i data-feather="phone" class="fea icon-ex-md"></i>
+                            </div>
+    
+                            <div class="mt-4">
+                                <h5 class="mb-3">Téléphone</h5>
+                                <p class="text-muted">Contactez-nous pour plus d'informations sur nos services.</p>
+                                <a href="tel:+2376XXXXXXX" class="text-primary">(+237) 6XX XX XX XX</a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-md-4">
+                        <div class="position-relative features text-center mx-lg-4 px-md-1">
+                            <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                <i data-feather="mail" class="fea icon-ex-md"></i>
+                            </div>
+    
+                            <div class="mt-4">
+                                <h5 class="mb-3">Email</h5>
+                                <p class="text-muted">Envoyez-nous un email pour toute question.</p>
+                                <a href="mailto:contact@stageapp.com" class="text-primary">contact@stageapp.com</a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-md-4">
+                        <div class="position-relative features text-center mx-lg-4 px-md-1">
+                            <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                <i data-feather="map-pin" class="fea icon-ex-md"></i>
+                            </div>
+    
+                            <div class="mt-4">
+                                <h5 class="mb-3">Adresse</h5>
+                                <p class="text-muted">Rue de la Joie, Bonapriso<br>Douala, Cameroun</p>
+                                <a href="" class="text-primary">Voir sur Google Maps</a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- Map Section -->
+        <section class="section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 p-0">
+                        <div class="card map border-0">
+                            <div class="card-body p-0">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.825749835244!2d9.69175831476013!3d4.04682099705308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610d7c6a7a3b3b%3A0x7c3c3b4a0b0b0b0b!2sBonapriso%2C%20Douala%2C%20Cameroun!5e0!3m2!1sfr!2s!4v1620000000000!5m2!1sfr!2s" style="border:0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- Footer Start -->
+        <footer class="bg-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="py-5">
+                            <div class="row align-items-center">
+                                <div class="col-sm-3">
+                                    <div class="text-center text-sm-start">
+                                        <a href=""><img src="../frontend 2/images/logo-light.png" alt=""></a>
+                                    </div>
                                 </div>
+        
+                                <div class="col-sm-9 mt-4 mt-sm-0">
+                                    <ul class="list-unstyled footer-list terms-service text-center text-sm-end mb-0">
+                                        <li class="list-inline-item my-2"><a href="index.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Accueil</a></li>
+                                        <li class="list-inline-item my-2"><a href="#" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Comment ça marche</a></li>
+                                        <li class="list-inline-item my-2"><a href="#" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Créer un stage</a></li>
+                                        <li class="list-inline-item my-2"><a href="about.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> À propos de nous</a></li>
+                                        <li class="list-inline-item my-2"><a href="#" class="text-foot fs-6 fw-medium"><i class="mdi mdi-circle-small"></i> Plans</a></li>
+                                    </ul>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="py-4 footer-bar">
+                <div class="container text-center">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="text-sm-start">
+                                <p class="mb-0 fw-medium">© <script>document.write(new Date().getFullYear())</script> StageApp. Design avec <i class="mdi mdi-heart text-danger"></i> par <a href="#" target="_blank" class="text-reset">StageApp</a>.</p>
                             </div>
-                            <div class="mb-3">
-                                <label for="subject" class="form-label">Sujet</label>
-                                <input type="text" class="form-control" id="subject" required>
-                            </div>
-                            <div class="mb-4">
-                                <label for="message" class="form-label">Votre Message</label>
-                                <textarea class="form-control" id="message" rows="6" required></textarea>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">Envoyer</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                        </div>
+
+                        <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <ul class="list-unstyled social-icon foot-social-icon text-sm-end mb-0">
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="shopping-cart" class="fea icon-sm align-middle" title="Acheter Maintenant"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="dribbble" class="fea icon-sm align-middle" title="dribbble"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="linkedin" class="fea icon-sm align-middle" title="Linkedin"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="facebook" class="fea icon-sm align-middle" title="facebook"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm align-middle" title="instagram"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm align-middle" title="twitter"></i></a></li>
+                            </ul><!--end icon-->
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </div>
+        </footer><!--end footer-->
+        <!-- Footer End -->
+
+        <!-- Back to top -->
+        <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5"><i data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
+        <!-- Back to top -->
+
+        <!-- Style switcher -->
+        <div id="style-switcher" class="bg-light border p-3 pt-2 pb-2" onclick="toggleSwitcher()">
+            <div>
+                <h6 class="title text-center mb-0">Option de Thème</h6>
+                <ul class="text-center list-unstyled mb-0">
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary rtl-version t-rtl-light mt-2" onclick="setTheme('style-rtl')">RTL</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary ltr-version t-ltr-light mt-2" onclick="setTheme('style')">LTR</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-rtl-version t-rtl-dark mt-2" onclick="setTheme('style-dark-rtl')">RTL</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-ltr-version t-ltr-dark mt-2" onclick="setTheme('style-dark')">LTR</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark dark-version t-dark mt-2" onclick="setTheme('style-dark')">Sombre</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark light-version t-light mt-2" onclick="setTheme('style')">Clair</a></li>
+                </ul>
+
+                <h6 class="title text-center pt-3 mb-0">Télécharger</h6>
+                <ul class="text-center list-unstyled mb-0">
+                    <li><a href="#" target="_blank" class="btn btn-sm btn-block btn-warning mt-2 w-100">Télécharger</a></li>
+                </ul>
+            </div>
+            <div class="bottom p-0">
+                <a href="javascript: void(0);" class="settings bg-white shadow d-block"><i class="mdi mdi-cog ms-1 mdi-24px position-absolute mdi-spin text-primary"></i></a>
             </div>
         </div>
-    </section>
+        <!-- end Style switcher -->
+        
+        <!-- JAVASCRIPTS -->
+	    <script src="../frontend 2/js/bootstrap.bundle.min.js"></script>
+        <script src="../frontend 2/js/feather.min.js"></script>
+	    <!-- Custom -->
+	    <script src="../frontend 2/js/plugins.init.js"></script>
+	    <script src="../frontend 2/js/app.js"></script>
 
-    <!-- Map Section -->
-    <section class="py-5">
-        <div class="container" data-aos="fade-up">
-            <div class="map-container shadow-lg">
-                <iframe class="map-iframe" title="Carte de nos bureaux" aria-label="Carte de nos bureaux" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.825749835244!2d9.69175831476013!3d4.04682099705308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610d7c6a7a3b3b%3A0x7c3c3b4a0b0b0b0b!2sBonapriso%2C%20Douala%2C%20Cameroun!5e0!3m2!1sfr!2s!4v1620000000000!5m2!1sfr!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-    </section>
+        <!-- Preserve contact form JS -->
+        <script src="js/auth.js"></script>
+        <script>
+            // Contact form submission
+            document.getElementById('contactForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const button = this.querySelector('button[type="submit"]');
+                const originalText = button.innerHTML;
 
-    <!-- Footer -->
-    <footer class="py-4 mt-auto">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 StageApp. Tous droits réservés.</p>
-        </div>
-    </footer>
+                button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi en cours...`;
+                button.disabled = true;
 
-    <!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <button id="theme-toggle" class="btn btn-secondary" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
-    </div>
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value
+                };
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true
-        });
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
 
-        // Theme switcher logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const root = document.documentElement;
-        const applyTheme = (theme) => {
-            if (theme === 'dark') {
-                root.setAttribute('data-theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                root.removeAttribute('data-theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        };
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) applyTheme(currentTheme);
-        themeToggle.addEventListener('click', () => {
-            let theme = root.getAttribute('data-theme');
-            if (theme === 'dark') {
-                localStorage.removeItem('theme');
-                applyTheme('light');
-            } else {
-                localStorage.setItem('theme', 'dark');
-                applyTheme('dark');
-            }
-        });
+                    const data = await response.json();
 
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const button = this.querySelector('button[type="submit"]');
-            const originalText = button.innerHTML;
-
-            button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi en cours...`;
-            button.disabled = true;
-
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
-
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    alert('Message envoyé avec succès !');
-                    this.reset();
-                } else {
-                    alert(data.message || 'Erreur lors de l\'envoi du message.');
+                    if (response.ok) {
+                        alert('Message envoyé avec succès !');
+                        this.reset();
+                    } else {
+                        alert(data.message || 'Erreur lors de l\'envoi du message.');
+                    }
+                } catch (error) {
+                    console.error('Contact form error:', error);
+                    alert('Une erreur est survenue. Veuillez réessayer.');
+                } finally {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
                 }
-            } catch (error) {
-                console.error('Contact form error:', error);
-                alert('Une erreur est survenue. Veuillez réessayer.');
-            } finally {
-                button.innerHTML = originalText;
-                button.disabled = false;
-            }
-        });
-    </script>
-</body>
+            });
+        </script>
+    </body>
 </html>

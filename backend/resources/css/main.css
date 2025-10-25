@@ -1,12 +1,11 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import 'themes.css';
-@import 'animations.css';
+@import "tailwindcss";
+@import './themes.css';
+@import './animations.css';
 
 /* Additional global styles can be added here */
 body {
-    @apply bg-background text-text;
+    background-color: var(--bg, #f8f9fc);
+    color: var(--text, #5a5c69);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 /* Custom Cursor Styles */

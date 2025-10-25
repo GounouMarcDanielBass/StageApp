@@ -1,16 +1,259 @@
-/* Light Theme */
+/* Professional Theme System with Smooth Transitions */
+
+/* CSS Custom Properties for Theme Variables */
 :root {
-  --background-color: #ffffff;
-  --text-color: #1a202c;
+  /* Light Theme Colors */
+  --background-primary: #ffffff;
+  --background-secondary: #f8f9fc;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #f1f5f9;
+  --border-dark: #e2e8f0;
+  --shadow-color: rgba(30, 41, 59, 0.15);
+  --overlay-bg: rgba(30, 41, 59, 0.65);
+
+  /* Theme Transition */
+  --theme-transition: all 0.3s ease;
 }
 
-/* Dark Theme */
+/* Dark Theme Colors */
 .dark {
-  --background-color: #1a202c;
-  --text-color: #ffffff;
+  --background-primary: #161c2d;
+  --background-secondary: #1f2d3d;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #9bacc4;
+  --border-color: #495057;
+  --border-dark: #6b7280;
+  --shadow-color: rgba(255, 255, 255, 0.15);
+  --overlay-bg: rgba(22, 28, 45, 0.7);
 }
 
+/* Smooth Theme Transitions */
+* {
+  transition: background-color var(--theme-transition),
+              color var(--theme-transition),
+              border-color var(--theme-transition),
+              box-shadow var(--theme-transition);
+}
+
+/* Body and HTML Theme Styles */
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--background-primary) !important;
+  color: var(--text-primary) !important;
+  transition: var(--theme-transition);
+}
+
+.dark body {
+  background-color: var(--background-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Card Components */
+.card {
+  background-color: var(--background-primary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: var(--theme-transition);
+}
+
+.dark .card {
+  background-color: var(--background-primary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Form Controls */
+.form-control {
+  background-color: var(--background-primary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: var(--theme-transition);
+}
+
+.form-control:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+.dark .form-control {
+  background-color: var(--background-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark .form-control:focus {
+  background-color: var(--background-secondary) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+  background-color: var(--background-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 10px 25px var(--shadow-color) !important;
+  transition: var(--theme-transition);
+}
+
+.dark .dropdown-menu {
+  background-color: var(--background-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dropdown-item {
+  color: var(--text-primary) !important;
+  transition: var(--theme-transition);
+}
+
+.dropdown-item:hover {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  color: #3b82f6 !important;
+}
+
+.dark .dropdown-item {
+  color: var(--text-primary) !important;
+}
+
+.dark .dropdown-item:hover {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: #3b82f6 !important;
+}
+
+/* Navigation Styles */
+.navbar, .navbar-default, #topnav {
+  background-color: var(--background-primary) !important;
+  border-color: var(--border-color) !important;
+  transition: var(--theme-transition);
+}
+
+.dark .navbar, .dark .navbar-default, .dark #topnav {
+  background-color: var(--background-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.nav-link, .navigation-menu > li > a {
+  color: var(--text-primary) !important;
+  transition: var(--theme-transition);
+}
+
+.nav-link:hover, .navigation-menu > li > a:hover {
+  color: #3b82f6 !important;
+}
+
+.dark .nav-link, .dark .navigation-menu > li > a {
+  color: var(--text-primary) !important;
+}
+
+.dark .nav-link:hover, .dark .navigation-menu > li > a:hover {
+  color: #3b82f6 !important;
+}
+
+/* Buttons */
+.btn {
+  transition: var(--theme-transition);
+}
+
+.btn-outline-primary {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.dark .btn-outline-primary {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+.dark .btn-outline-primary:hover {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+/* Theme Switcher Specific Styles */
+.theme-switcher-btn {
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.theme-switcher-btn:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.theme-switcher-btn:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark .theme-switcher-btn {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  color: #3b82f6 !important;
+}
+
+.dark .theme-switcher-btn:hover {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+.theme-icon {
+  transition: all 0.3s ease !important;
+}
+
+/* Theme Icons Animation */
+.theme-switcher-btn svg {
+  display: inline-block !important;
+  transition: transform 0.3s ease !important;
+}
+
+.theme-switcher-btn:active .theme-icon {
+  transform: scale(0.9) !important;
+}
+
+/* Loading and Transition States */
+.theme-loading {
+  opacity: 0.7 !important;
+  pointer-events: none !important;
+}
+
+/* Accessibility Improvements */
+.theme-switcher-btn {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.theme-switcher-btn:focus-visible {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+
+  .theme-switcher-btn:hover {
+    transform: none !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .theme-switcher-btn {
+    border-width: 2px !important;
+  }
+
+  .dark .theme-switcher-btn {
+    border-color: #ffffff !important;
+  }
 }

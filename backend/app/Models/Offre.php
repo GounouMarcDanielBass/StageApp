@@ -18,12 +18,12 @@ class Offre extends Model
         'start_date',
         'end_date',
         'status',
-        'entreprise_id',
+        'company_id',
     ];
 
     public function entreprise()
     {
-        return $this->belongsTo(Entreprise::class);
+        return $this->belongsTo(Entreprise::class, 'company_id');
     }
 
     public function candidatures()

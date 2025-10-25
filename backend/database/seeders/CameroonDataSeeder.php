@@ -10,7 +10,7 @@ use App\Models\Role;
 use App\Models\Entreprise;
 use App\Models\Etudiant;
 use App\Models\Encadrant;
-use App\Models\Offer;
+use App\Models\Offre;
 
 class CameroonDataSeeder extends Seeder
 {
@@ -110,8 +110,8 @@ class CameroonDataSeeder extends Seeder
         ]);
 
         // Create Internship Offers
-        Offer::updateOrCreate([
-            'entreprise_id' => $entreprise2->id,
+        Offre::updateOrCreate([
+            'company_id' => $entreprise2->id,
             'title' => 'Stage en Développement Web',
         ], [
             'description' => 'Nous recherchons un stagiaire passionné par le développement web pour rejoindre notre équipe.',
@@ -121,8 +121,8 @@ class CameroonDataSeeder extends Seeder
             'status' => 'active',
         ]);
 
-        Offer::updateOrCreate([
-            'entreprise_id' => $entreprise2->id,
+        Offre::updateOrCreate([
+            'company_id' => $entreprise2->id,
             'title' => 'Stage en Réseaux et Sécurité',
         ], [
             'description' => 'Participez à la gestion et à la sécurisation de notre infrastructure réseau.',

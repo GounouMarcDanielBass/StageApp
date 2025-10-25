@@ -12,11 +12,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('entreprises', function (Blueprint $table) {
-            // Drop existing columns that don't match the model
-            $table->dropColumn(['name', 'description', 'address', 'phone', 'email']);
+            // Drop columns only if they exist
+            $columnsToDrop = [];
+            if (Schema::hasColumn('entreprises', 'email')) {
+                $columnsToDrop[] = 'email';
+            }
+            if (Schema::hasColumn('entreprises', 'name')) {
+                $columnsToDrop[] = 'name';
+            }
+            if (Schema::hasColumn('entreprises', 'description')) {
+                $columnsToDrop[] = 'description';
+            }
+            if (Schema::hasColumn('entreprises', 'address')) {
+                $columnsToDrop[] = 'address';
+            }
+            if (Schema::hasColumn('entreprises', 'phone')) {
+                $columnsToDrop[] = 'phone';
+            }
+
+            if (!empty($columnsToDrop)) {
+                $table->dropColumn($columnsToDrop);
+            }
+
             // Add correct columns
-            $table->string('company_name');
-            $table->string('siret')->unique();
+            if (!Schema::hasColumn('entreprises', 'company_name')) {
+                $table->string('company_name');
+            }
+            if (!Schema::hasColumn('entreprises', 'siret')) {
+                $table->string('siret')->unique();
+            }
         });
     }
 

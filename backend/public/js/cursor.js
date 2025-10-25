@@ -1,5 +1,10 @@
-// Attendre que le DOM soit chargé
+// Attendre que le DOM soit chargé et vérifier les préférences d'accessibilité
 document.addEventListener('DOMContentLoaded', function() {
+    // Vérifier si l'utilisateur préfère les animations réduites
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        return; // Ne pas initialiser les animations de curseur
+    }
     // Créer l'élément du curseur personnalisé
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';

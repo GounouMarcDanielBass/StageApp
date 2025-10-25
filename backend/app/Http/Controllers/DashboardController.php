@@ -9,15 +9,38 @@ use App\Models\Stage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
     public function admin()
     {
-        $userRegistrations = User::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
-            ->groupBy('date')
-            ->orderBy('date', 'asc')
-            ->get();
+        Log::info('DashboardController::admin: Starting admin dashboard');
+
+        try {
+            $userRegistrations = User::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+                ->groupBy('date')
+                ->orderBy('date', 'asc')
+                ->get();
+            Log::info('DashboardController::admin: User registrations query successful');
+
+            $userRoles = User::join('roles', 'users.role_id', '=', 'roles.id')
+                ->select('roles.name', DB::raw('count(*) as count'))
+                ->groupBy('roles.name')
+                ->get();
+            Log::info('DashboardController::admin: User roles query successful');
+
+            // Add similar logs for other queries...
+
+            return response()->json([
+                'userRegistrations' => $userRegistrations,
+                'userRoles' => $userRoles,
+                // ... rest
+            ]);
+        } catch (\Exception $e) {
+            Log::error('DashboardController::admin: Error: ' . $e->getMessage() . ' Trace: ' . $e->getTraceAsString());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
 
         $userRoles = User::join('roles', 'users.role_id', '=', 'roles.id')
             ->select('roles.name', DB::raw('count(*) as count'))

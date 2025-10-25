@@ -1,170 +1,286 @@
-// Attendre que le DOM soit chargé
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialiser AOS (Animate On Scroll)
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: false,
-        offset: 50
-    });
+/* Template Name: Jobnova - Job Board & Job Portal Bootstrap 5 Template
+   Author: Shreethemes
+   Email: support@shreethemes.in
+   Website: https://shreethemes.in
+   Version: 1.1.0
+   Created: January 2022
+   File Description: Main JS file of the template
+*/
 
 
+/*********************************/
+/*         INDEX                 */
+/*================================
+ *     01.  Loader               *
+ *     02.  Toggle Menus         *
+ *     03.  Active Menu          *
+ *     04.  Clickable Menu       *
+ *     05.  Back to top          *
+ *     06.  Feather icon         *
+ *     06.  DD Menu              *
+ *     06.  Active Sidebar Menu  *
+ *     07.  Contact us           *
+ ================================*/
 
+
+window.addEventListener('load',   fn , false )
+
+//  window.onload = function loader() {
+function fn() {
     // Preloader
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        window.addEventListener('load', () => {
-            preloader.classList.add('fade-out');
-            setTimeout(() => {
-                preloader.remove();
-            }, 500);
-        });
-    };
+    if(document.getElementById('preloader')){
+        setTimeout(() => {
+            document.getElementById('preloader').style.visibility = 'hidden';
+            document.getElementById('preloader').style.opacity = '0';
+        }, 350);
+    }
+    // Menus
+    activateMenu();
+}
 
-    // Sticky Navbar
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-sticky');
-            } else {
-                navbar.classList.remove('nav-sticky');
-            }
-        });
+//Menu
+// Toggle menu
+function toggleMenu() {
+    document.getElementById('isToggle').classList.toggle('open');
+    var isOpen = document.getElementById('navigation')
+    if (isOpen.style.display === "block") {
+        isOpen.style.display = "none";
+    } else {
+        isOpen.style.display = "block";
+    }
+};
+
+//Menu Active
+function getClosest(elem, selector) {
+
+    // Element.matches() polyfill
+    if (!Element.prototype.matches) {
+        Element.prototype.matches =
+            Element.prototype.matchesSelector ||
+            Element.prototype.mozMatchesSelector ||
+            Element.prototype.msMatchesSelector ||
+            Element.prototype.oMatchesSelector ||
+            Element.prototype.webkitMatchesSelector ||
+            function (s) {
+                var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+                    i = matches.length;
+                while (--i >= 0 && matches.item(i) !== this) { }
+                return i > -1;
+            };
     }
 
-    // Counter Animation
-    const counterElements = document.querySelectorAll('.counter-value');
-    const animationDuration = 2000;
-    let animated = false;
+    // Get the closest matching element
+    for (; elem && elem !== document; elem = elem.parentNode) {
+        if (elem.matches(selector)) return elem;
+    }
+    return null;
 
-    function animateCounter(element) {
-        const target = parseInt(element.getAttribute('data-target'));
-        const increment = target / (animationDuration / 16);
-        let current = 0;
+};
 
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                element.textContent = Math.ceil(current).toLocaleString();
-                requestAnimationFrame(updateCounter);
+function activateMenu() {
+    var menuItems = document.getElementsByClassName("sub-menu-item");
+    if (menuItems) {
+
+        var matchingMenuItem = null;
+        for (var idx = 0; idx < menuItems.length; idx++) {
+            if (menuItems[idx].href === window.location.href) {
+                matchingMenuItem = menuItems[idx];
+            }
+        }
+
+        if (matchingMenuItem) {
+            matchingMenuItem.classList.add('active');
+         
+         
+            var immediateParent = getClosest(matchingMenuItem, 'li');
+      
+            if (immediateParent) {
+                immediateParent.classList.add('active');
+            }
+            
+            var parent = getClosest(immediateParent, '.child-menu-item');
+            if(parent){
+                parent.classList.add('active');
+            }
+
+            var parent = getClosest(parent || immediateParent , '.parent-menu-item');
+        
+            if (parent) {
+                parent.classList.add('active');
+
+                var parentMenuitem = parent.querySelector('.menu-item');
+                if (parentMenuitem) {
+                    parentMenuitem.classList.add('active');
+                }
+
+                var parentOfParent = getClosest(parent, '.parent-parent-menu-item');
+                if (parentOfParent) {
+                    parentOfParent.classList.add('active');
+                }
             } else {
-                element.textContent = target.toLocaleString();
+                var parentOfParent = getClosest(matchingMenuItem, '.parent-parent-menu-item');
+                if (parentOfParent) {
+                    parentOfParent.classList.add('active');
+                }
+            }
+        }
+    }
+}
+
+
+// Clickable Menu
+if(document.getElementById("navigation")){
+    var elements = document.getElementById("navigation").getElementsByTagName("a");
+    for(var i = 0, len = elements.length; i < len; i++) {
+        elements[i].onclick = function (elem) {
+            if(elem.target.getAttribute("href") === "javascript:void(0)") {
+                var submenu = elem.target.nextElementSibling.nextElementSibling;
+                submenu.classList.toggle('open');
+            }
+        }
+    }
+}
+
+// Menu sticky
+function windowScroll() {
+    const navbar = document.getElementById("topnav");
+    if(navbar!=null){
+        if (
+            document.body.scrollTop >= 50 ||
+            document.documentElement.scrollTop >= 50
+        ) {
+            navbar.classList.add("nav-sticky");
+        } else {
+            navbar.classList.remove("nav-sticky");
+        }
+    }
+}
+
+window.addEventListener('scroll', (ev) => {
+    ev.preventDefault();
+    windowScroll();
+})
+
+// back-to-top
+var mybutton = document.getElementById("back-to-top");
+window.onscroll = function () {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    if(mybutton!=null){
+        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+}
+
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+
+//ACtive Sidebar
+(function () {
+    var current = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);;
+    if (current === "") return;
+    var menuItems = document.querySelectorAll('.sidebar-nav a');
+    for (var i = 0, len = menuItems.length; i < len; i++) {
+        if (menuItems[i].getAttribute("href").indexOf(current) !== -1) {
+            menuItems[i].parentElement.className += " active";
+        }
+    }
+})();
+
+//Feather icon
+feather.replace();
+
+// dd-menu
+var ddmenu = document.getElementsByClassName("dd-menu");
+for(var i = 0, len = ddmenu.length; i < len; i++) {
+    ddmenu[i].onclick = function (elem) {
+        elem.stopPropagation();
+    }
+}
+
+//Tooltip
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+});
+
+//small menu
+try {
+    var spy = new Gumshoe('#navmenu-nav a');
+}catch(err) {
+    
+}
+  
+
+
+/*************************/
+/*      Contact Js       */
+/*************************/
+
+try {
+    function validateForm() {
+        var name = document.forms["myForm"]["name"].value;
+        var email = document.forms["myForm"]["email"].value;
+        var subject = document.forms["myForm"]["subject"].value;
+        var comments = document.forms["myForm"]["comments"].value;
+        document.getElementById("error-msg").style.opacity = 0;
+        document.getElementById('error-msg').innerHTML = "";
+        if (name == "" || name == null) {
+            document.getElementById('error-msg').innerHTML = "<div class='alert alert-warning error_message'>*Please enter a Name*</div>";
+            fadeIn();
+            return false;
+        }
+        if (email == "" || email == null) {
+            document.getElementById('error-msg').innerHTML = "<div class='alert alert-warning error_message'>*Please enter a Email*</div>";
+            fadeIn();
+            return false;
+        }
+        if (subject == "" || subject == null) {
+            document.getElementById('error-msg').innerHTML = "<div class='alert alert-warning error_message'>*Please enter a Subject*</div>";
+            fadeIn();
+            return false;
+        }
+        if (comments == "" || comments == null) {
+            document.getElementById('error-msg').innerHTML = "<div class='alert alert-warning error_message'>*Please enter a Comments*</div>";
+            fadeIn();
+            return false;
+        }
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("simple-msg").innerHTML = this.responseText;
+                document.forms["myForm"]["name"].value = "";
+                document.forms["myForm"]["email"].value = "";
+                document.forms["myForm"]["subject"].value = "";
+                document.forms["myForm"]["comments"].value = "";
             }
         };
-
-        updateCounter();
+        xhttp.open("POST", "php/contact.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("name=" + name + "&email=" + email + "&subject=" + subject + "&comments=" + comments);
+        return false;
     }
 
-    function checkCounters() {
-        if (!animated) {
-            counterElements.forEach(counter => {
-                const rect = counter.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    animateCounter(counter);
-                    animated = true;
-                }
-            });
-        }
-    }
-
-    window.addEventListener('scroll', checkCounters);
-    checkCounters();
-
-    // Theme Switcher
-    const themeSwitcher = document.querySelector('.t-light-dark');
-    if (themeSwitcher) {
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            themeSwitcher.innerHTML = savedTheme === 'dark' ? 
-                '<span><i class="mdi mdi-brightness-5"></i></span>' : 
-                '<span><i class="mdi mdi-brightness-6"></i></span>';
-        }
-
-        themeSwitcher.addEventListener('click', function() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            themeSwitcher.innerHTML = newTheme === 'dark' ? 
-                '<span><i class="mdi mdi-brightness-5"></i></span>' : 
-                '<span><i class="mdi mdi-brightness-6"></i></span>';
-            themeSwitcher.classList.add('animate-bounceIn');
-            
-            setTimeout(() => {
-                themeSwitcher.classList.remove('animate-bounceIn');
-            }, 1000);
-        });
-    }
-
-    // Back to Top Button
-    const backToTop = document.querySelector('.back-to-top');
-    if (backToTop) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
-                backToTop.style.display = 'block';
-                setTimeout(() => {
-                    backToTop.style.opacity = '1';
-                }, 10);
+    function fadeIn() {
+        var fade = document.getElementById("error-msg");
+        var opacity = 0;
+        var intervalID = setInterval(function () {
+            if (opacity < 1) {
+                opacity = opacity + 0.5
+                fade.style.opacity = opacity;
             } else {
-                backToTop.style.opacity = '0';
-                setTimeout(() => {
-                    backToTop.style.display = 'none';
-                }, 300);
+                clearInterval(intervalID);
             }
-        });
-
-        backToTop.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+        }, 200);
     }
-
-    // Mobile Menu Toggle
-    const menuToggle = document.querySelector('.navbar-toggler');
-    const navbarCollapse = document.querySelector('.navbar-collapse');
+} catch (error) {
     
-    if (menuToggle && navbarCollapse) {
-        menuToggle.addEventListener('click', function() {
-            navbarCollapse.classList.toggle('show');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!menuToggle.contains(e.target) && !navbarCollapse.contains(e.target)) {
-                navbarCollapse.classList.remove('show');
-            }
-        });
-    }
-
-    // Scroll Animation
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    
-    function checkScroll() {
-        animatedElements.forEach(element => {
-            const rect = element.getBoundingClientRect();
-            const triggerPoint = window.innerHeight * 0.8;
-
-            if (rect.top < triggerPoint) {
-                element.classList.add('animate-slideInUp');
-                element.style.opacity = '1';
-            }
-        });
-    }
-
-    window.addEventListener('scroll', checkScroll);
-    checkScroll();
-
-    // Initialize Feather Icons
-    if (typeof feather !== 'undefined') {
-        feather.replace();
-    }
-});
+}

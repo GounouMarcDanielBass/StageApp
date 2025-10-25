@@ -1,530 +1,544 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Gestion de Stage</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #6366f1;
-            --background-color: #f8fafc;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-            --card-shadow: rgba(0, 0, 0, 0.1);
-            --gradient-start: #2563eb;
-            --gradient-end: #6366f1;
-            --overlay-color: rgba(0, 0, 0, 0.7);
-            --hero-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Accueil - Gestion de Stage</title>
+	    <meta name="description" content="Trouvez le stage de vos rêves au Cameroun" />
+	    <meta name="keywords" content="Stage, Emploi, Cameroun, Étudiants" />
+	    <meta name="author" content="StageApp" />
+	    <!-- favicon -->
+        <link href="images/favicon.ico" rel="shortcut icon">
+		<!-- Bootstrap core CSS -->
+	    <link href="../frontend 2/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+        <link href="../frontend 2/css/tiny-slider.css" rel="stylesheet" type="text/css" />
+        <link href="../frontend 2/css/tobii.min.css" rel="stylesheet" type="text/css" />
+        <link href="../frontend 2/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+	    <!-- Custom  Css -->
+	    <link href="../frontend 2/css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
+	</head>
 
-        [data-theme="dark"] {
-            --primary-color: #60a5fa;
-            --secondary-color: #818cf8;
-            --background-color: #0f172a;
-            --text-color: #e2e8f0;
-            --card-bg: #1e293b;
-            --card-shadow: rgba(0, 0, 0, 0.3);
-            --gradient-start: #1e40af;
-            --gradient-end: #3730a3;
-            --overlay-color: rgba(0, 0, 0, 0.8);
-        }
-
-        body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-            overflow-x: hidden;
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(30, 41, 59, 0.9);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        [data-theme="dark"] .nav-link {
-            color: var(--text-color) !important;
-        }
-
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            color: var(--card-bg);
-        }
-
-        [data-theme="dark"] .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        [data-theme="dark"] .btn-outline-primary:hover {
-            color: #fff;
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .text-primary {
-            color: var(--primary-color) !important;
-        }
-
-        .text-muted {
-            color: var(--secondary-color) !important;
-        }
-
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
-            background-size: cover;
-            animation: zoomInOut 20s infinite alternate;
-            z-index: -2;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--overlay-color);
-            z-index: -1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            color: white;
-            text-shadow: var(--hero-text-shadow);
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, #fff, #f0f0f0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: none;
-        }
-
-        @keyframes zoomInOut {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.1);
-            }
-        }
-
-        .section {
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            z-index: -1;
-            background: radial-gradient(circle, var(--gradient-start) 0%, transparent 70%);
-            opacity: 0.1;
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .card {
-            border: none;
-            background: var(--card-bg);
-            box-shadow: 0 8px 32px var(--card-shadow);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 12px 40px var(--card-shadow);
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 40px 20px;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255, 255, 255, 0.1) 10px,
-                rgba(255, 255, 255, 0.1) 20px
-            );
-            top: -25%;
-            left: -25%;
-            animation: movePattern 20s linear infinite;
-        }
-
-        @keyframes movePattern {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .stat-card .icon {
-            font-size: 4rem;
-            color: white;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .stat-card h3 {
-            color: white;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-card p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-card {
-            text-align: center;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonial-card img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 4px solid var(--primary-color);
-            box-shadow: 0 0 20px var(--card-shadow);
-            transition: transform 0.3s ease;
-        }
-
-        .testimonial-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .testimonial-card p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-color);
-            margin: 20px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 8rem;
-            color: var(--primary-color);
-            opacity: 0.1;
-            font-family: Georgia, serif;
-            line-height: 1;
-        }
-
-        .theme-switcher {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-
-        .theme-switcher button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border: none;
-            box-shadow: 0 4px 20px var(--card-shadow);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-switcher button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px var(--card-shadow);
-        }
-
-        .theme-switcher i {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animated {
-            animation-duration: 1s;
-            animation-fill-mode: both;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#" data-aos="fade-right">
-                <i class="fas fa-graduation-cap me-2"></i>StageApp
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item" data-aos="fade-down" data-aos-delay="100">
-                        <a class="nav-link active" href="index.html">Accueil</a>
-                    </li>
-                    <li class="nav-item" data-aos="fade-down" data-aos-delay="200">
-                        <a class="nav-link" href="offres-stage.html">Offres de Stage</a>
-                    </li>
-                    <li class="nav-item" data-aos="fade-down" data-aos-delay="300">
-                        <a class="nav-link" href="about.html">À propos</a>
-                    </li>
-                    <li class="nav-item" data-aos="fade-down" data-aos-delay="400">
-                        <a class="nav-link" href="faq.html">FAQ</a>
-                    </li>
-                    <li class="nav-item" data-aos="fade-down" data-aos-delay="500">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                </ul>
-                <div id="guest-nav" class="d-flex" data-aos="fade-left">
-                    <a href="login.html" class="btn btn-outline-primary me-3 px-4">
-                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                    </a>
-                    <a href="signup.html" class="btn btn-primary px-4">
-                        <i class="fas fa-user-plus me-2"></i>S'inscrire
-                    </a>
-                </div>
-                <!-- User Nav -->
-                <div id="user-nav" class="d-none" data-aos="fade-left">
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                            <strong id="user-name"></strong>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logout-button">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content container">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="mb-4" data-aos="zoom-in">Trouvez le stage de vos rêves au Cameroun</h1>
-                    <p class="lead mb-5" data-aos="fade-up" data-aos-delay="200">
-                        La plateforme N°1 au Cameroun qui connecte les talents de demain avec les entreprises d'aujourd'hui.
-                        Découvrez des opportunités uniques à Douala, Yaoundé, et partout dans le pays.
-                    </p>
-                    <div data-aos="fade-up" data-aos-delay="400">
-                        <a href="offres-stage.html" class="btn btn-primary btn-lg px-5 py-3 me-3">
-                            <i class="fas fa-search me-2"></i>Explorer les offres
-                        </a>
-                        <a href="about.html" class="btn btn-outline-light btn-lg px-5 py-3">
-                            <i class="fas fa-info-circle me-2"></i>En savoir plus
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <!-- Offres de Stage Section -->
-        <section id="offres" class="section">
+	<body>
+        <!-- Navbar STart -->
+        <header id="topnav" class="defaultscroll sticky">
             <div class="container">
-                <div class="text-center mb-5" data-aos="fade-up">
-                    <h2 class="display-4 fw-bold mb-3">Dernières Offres de Stage</h2>
-                    <p class="lead text-muted">Découvrez les opportunités qui façonneront votre carrière</p>
+                <a class="logo" href="index.html">
+                    <span class="logo-light-mode">
+                        <img src="../frontend 2/images/logo-dark.png" class="l-dark" alt="">
+                        <img src="../frontend 2/images/logo-white.png" class="l-light" alt="">
+                    </span>
+                    <img src="../frontend 2/images/logo-white.png" class="logo-dark-mode" alt="">
+                </a>
+
+                <div class="menu-extras">
+                    <div class="menu-item">
+                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div id="offres-list" class="row g-4">
-                    <!-- Les offres seront chargées dynamiquement via JS -->
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card h-100">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0">
-                                        <img src="https://logo.clearbit.com/google.com" alt="Company Logo" class="rounded" width="50" height="50">
-                                    </div>
-                                    <div class="ms-3">
-                                        <h5 class="card-title mb-0">Développeur Web</h5>
-                                        <h6 class="card-subtitle text-muted">Tech Corp</h6>
+
+                <ul class="buy-button list-inline mb-0">
+                    <li class="list-inline-item ps-1 mb-0">
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="search" class="icons"></i>
+                            </button>
+                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded border-0 mt-3 p-0" style="width: 240px;">
+                                <div class="search-bar">
+                                    <div id="itemSearch" class="menu-search mb-0">
+                                        <form role="search" method="get" id="searchItemform" class="searchform">
+                                            <input type="text" class="form-control rounded border" name="s" id="searchItem" placeholder="Rechercher...">
+                                            <input type="submit" id="searchItemsubmit" value="Rechercher">
+                                            <i data-feather="search" class="search-icon fea icon-sm"></i>
+                                        </form>
                                     </div>
                                 </div>
-                                <p class="card-text">Super stage en développement web avec des technologies modernes.</p>
-                                <div class="mt-auto">
-                                    <div class="mb-3">
-                                        <span class="badge bg-primary me-2">React</span>
-                                        <span class="badge bg-secondary me-2">Node.js</span>
-                                        <span class="badge bg-info">Cloud</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-inline-item ps-1 mb-0">
+                        <div class="dropdown dropdown-primary">
+                            <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="images/team/01.jpg" class="img-fluid rounded-pill" alt="">
+                            </button>
+                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded shadow border-0 mt-3">
+                                <a href="profile.html" class="dropdown-item fw-medium fs-6"><i data-feather="user" class="fea icon-sm me-2 align-middle"></i>Profil</a>
+                                <a href="profile.html" class="dropdown-item fw-medium fs-6"><i data-feather="settings" class="fea icon-sm me-2 align-middle"></i>Paramètres</a>
+                                <div class="dropdown-divider border-top"></div>
+                                <a href="login.html" class="dropdown-item fw-medium fs-6"><i data-feather="log-out" class="fea icon-sm me-2 align-middle"></i>Déconnexion</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+        
+                <div id="navigation">
+                    <!-- Navigation Menu-->   
+                    <ul class="navigation-menu nav-right nav-light">
+                        <li class="has-submenu parent-menu-item">
+                            <a href="javascript:void(0)">Accueil</a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="index.html" class="sub-menu-item">Héros Un</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Stages </a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="offres-stage.html" class="sub-menu-item">Offres de Stage</a></li>
+                        
+                                <li class="has-submenu parent-menu-item">
+                                    <a href="javascript:void(0)"> Grille de Stages </a><span class="submenu-arrow"></span>
+                                    <ul class="submenu">
+                                        <li><a href="offres-stage.html" class="sub-menu-item">Grille Un</a></li>
+                                    </ul>  
+                                </li>
+
+                                <li><a href="offres-stage.html" class="sub-menu-item">Détail du Stage</a></li>
+                            </ul>  
+                        </li>
+                
+                        <li><a href="about.html" class="sub-menu-item">À propos</a></li>
+                
+                        <li><a href="faq.html" class="sub-menu-item">FAQ</a></li>
+                
+                        <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
+                    </ul><!--end navigation menu-->
+                </div><!--end navigation-->
+            </div>
+        </header>
+        <!-- Navbar End -->
+
+        <!-- Hero Start -->
+        <section class="bg-half-170 d-table w-100 bg-primary" style="background: url('images/bg2.png') center;">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="title-heading">
+                            <h1 class="heading text-white fw-bold">Trouvez le stage <br> de vos rêves <br> au Cameroun.</h1>
+                            <p class="para-desc text-white-50 mb-0">Découvrez des opportunités uniques à Douala, Yaoundé, et partout dans le pays. La plateforme N°1 au Cameroun qui connecte les talents de demain avec les entreprises d'aujourd'hui.</p>
+
+                            <div class="text-center subscribe-form mt-4">
+                                <form style="max-width: 800px;">
+                                    <div class="mb-0">
+                                        <div class="position-relative">
+                                            <i data-feather="search" class="fea icon-20 position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                                            <input type="text" id="help" name="name" class="shadow rounded-pill bg-white ps-5" required="" placeholder="Rechercher des stages et entreprises ...">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-pills">Rechercher</button>
                                     </div>
-                                    <a href="#" class="btn btn-primary w-100">
-                                        <i class="fas fa-external-link-alt me-2"></i>Voir l'offre
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-md-6">
+                        <div class="position-relative ms-lg-5">
+                            <img src="../frontend 2/images/hero1.png" class="img-fluid p-5" alt="">
+
+                            <div class="spinner">
+                                <div class="position-absolute top-0 start-0 mt-lg-5 mt-4 ms-lg-5 ms-4">
+                                    <img src="../frontend 2/images/company/circle-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                                <div class="position-absolute top-0 start-50 translate-middle-x">
+                                    <img src="../frontend 2/images/company/facebook-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                                <div class="position-absolute top-0 end-0 mt-lg-5 mt-4 me-lg-5 me-4">
+                                    <img src="../frontend 2/images/company/google-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                                <div class="position-absolute top-50 start-0 translate-middle-y">
+                                    <img src="../frontend 2/images/company/lenovo-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                                <div class="position-absolute top-50 end-0 translate-middle-y">
+                                    <img src="../frontend 2/images/company/android.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                                <div class="position-absolute bottom-0 start-0 mb-lg-5 mb-4 ms-lg-5 ms-4">
+                                    <img src="../frontend 2/images/company/linkedin.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                                <div class="position-absolute bottom-0 start-50 translate-middle-x">
+                                    <img src="../frontend 2/images/company/skype.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                                <div class="position-absolute bottom-0 end-0 mb-lg-5 mb-4 me-lg-5 me-4">
+                                    <img src="../frontend 2/images/company/snapchat.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+        <!-- Hero End -->
+
+        <!-- About Section -->
+        <section class="section">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-6 col-md-6 mb-5">
+                        <div class="about-left">
+                            <div class="position-relative shadow rounded img-one">
+                                <img src="../frontend 2/images/about/ab01.jpg" class="img-fluid rounded" alt="work-image">
+                            </div>
+
+                            <div class="img-two shadow rounded p-2 bg-white">
+                                <img src="../frontend 2/images/about/ab02.jpg" class="img-fluid rounded" alt="work-image">
+
+                                <div class="position-absolute top-0 start-50 translate-middle">
+                                    <a href="#!" data-type="youtube" data-id="yba7hPeTSjk" class="avatar avatar-md-md rounded-pill shadow card d-flex justify-content-center align-items-center lightbox">
+                                        <i class="mdi mdi-play mdi-24px text-primary"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="section-title ms-lg-5">
+                            <h4 class="title mb-3">Millions de stages. <br> Trouvez celui qui vous convient.</h4>
+                            <p class="text-muted para-desc mb-0">Recherchez toutes les positions ouvertes sur le web. Obtenez votre propre estimation de salaire personnalisée. Lisez des avis sur plus de 30000+ entreprises dans le monde.</p>
+                        
+                            <ul class="list-unstyled text-muted mb-0 mt-3">
+                                <li class="mb-1"><span class="text-primary h5 me-2"><i class="mdi mdi-check-circle-outline align-middle"></i></span>Solutions de Marketing Digital pour Demain</li>
+                                <li class="mb-1"><span class="text-primary h5 me-2"><i class="mdi mdi-check-circle-outline align-middle"></i></span>Notre Agence de Marketing Talentueuse & Expérimentée</li>
+                                <li class="mb-1"><span class="text-primary h5 me-2"><i class="mdi mdi-check-circle-outline align-middle"></i></span>Créez votre propre peau pour correspondre à votre marque</li>
+                            </ul>
+
+                            <div class="mt-4">
+                                <a href="about.html" class="btn btn-primary">À propos <i class="mdi mdi-arrow-right align-middle"></i></a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- Popular Categories Section -->
+        <section class="section">
+            <div class="container">
+                <div class="row justify-content-center mb-4 pb-2">
+                    <div class="col-12">
+                        <div class="section-title text-center">
+                            <h4 class="title mb-3">Catégories Populaires</h4>
+                            <p class="text-muted para-desc mx-auto mb-0">Recherchez toutes les positions ouvertes sur le web. Obtenez votre propre estimation de salaire personnalisée. Lisez des avis sur plus de 30000+ entreprises dans le monde.</p>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <div class="tiny-five-item">
+                            <div class="tiny-slide">
+                                <div class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
+                                    <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                        <i data-feather="airplay" class="fea icon-ex-md"></i>
+                                    </div>
+             
+                                    <div class="mt-4">
+                                        <a href="" class="title h5 text-dark">Développement <br> d'Affaires</a>
+                                        <p class="text-muted mb-0 mt-3">74 Stages</p>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+        
+                            <div class="tiny-slide">
+                                <div class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
+                                    <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                        <i data-feather="award" class="fea icon-ex-md"></i>
+                                    </div>
+             
+                                    <div class="mt-4">
+                                        <a href="" class="title h5 text-dark">Marketing & <br> Communication</a>
+                                        <p class="text-muted mb-0 mt-3">20 Stages</p>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+        
+                            <div class="tiny-slide">
+                                <div class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
+                                    <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                        <i data-feather="at-sign" class="fea icon-ex-md"></i>
+                                    </div>
+             
+                                    <div class="mt-4">
+                                        <a href="" class="title h5 text-dark">Gestion de <br> Projet</a>
+                                        <p class="text-muted mb-0 mt-3">35 Stages</p>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+        
+                            <div class="tiny-slide">
+                                <div class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
+                                    <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                        <i data-feather="codesandbox" class="fea icon-ex-md"></i>
+                                    </div>
+             
+                                    <div class="mt-4">
+                                        <a href="" class="title h5 text-dark">Service <br> Client</a>
+                                        <p class="text-muted mb-0 mt-3">46 Stages</p>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+        
+                            <div class="tiny-slide">
+                                <div class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
+                                    <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                        <i data-feather="chrome" class="fea icon-ex-md"></i>
+                                    </div>
+             
+                                    <div class="mt-4">
+                                        <a href="" class="title h5 text-dark">Ingénierie <br> Logicielle</a>
+                                        <p class="text-muted mb-0 mt-3">60 Stages</p>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+        
+                            <div class="tiny-slide">
+                                <div class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
+                                    <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                        <i data-feather="copy" class="fea icon-ex-md"></i>
+                                    </div>
+             
+                                    <div class="mt-4">
+                                        <a href="" class="title h5 text-dark">Ressources <br> Humaines</a>
+                                        <p class="text-muted mb-0 mt-3">74 Stages</p>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+        
+                            <div class="tiny-slide">
+                                <div class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
+                                    <div class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
+                                        <i data-feather="cpu" class="fea icon-ex-md"></i>
+                                    </div>
+             
+                                    <div class="mt-4">
+                                        <a href="" class="title h5 text-dark">IT & <br> Réseautage</a>
+                                        <p class="text-muted mb-0 mt-3">20 Stages</p>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                        </div>
                     </div>
                 </div>
-                <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
-                    <a href="offres-stage.html" class="btn btn-outline-primary btn-lg px-5">
-                        <i class="fas fa-th-list me-2"></i>Voir toutes les offres
-                    </a>
-                </div>
-            </div>
-        </section>
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- Explore Jobs Section -->
+        <section class="section">
+            <div class="container">
+                <div class="row align-items-end mb-4 pb-2">
+                    <div class="col-lg-6 col-md-9">
+                        <div class="section-title text-md-start text-center">
+                            <h4 class="title mb-3">Explorer les Stages</h4>
+                            <p class="text-muted para-desc mb-0">Recherchez toutes les positions ouvertes sur le web. Obtenez votre propre estimation de salaire personnalisée. Lisez des avis sur plus de 30000+ entreprises dans le monde.</p>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-6 col-md-3 d-none d-md-block">
+                        <div class="text-md-end">
+                            <a href="offres-stage.html" class="btn btn-link primary text-muted">Voir Plus de Stages <i class="mdi mdi-arrow-right"></i></a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div id="offres-list" class="row g-4 mt-0">
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="job-post rounded shadow p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="../frontend 2/images/company/facebook-logo.png" class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+    
+                                    <div class="ms-3">
+                                        <a href="#" class="h5 company text-dark">Facebook</a>
+                                        <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock" class="fea icon-sm me-1"></i> 2 jours ago</span>
+                                    </div>
+                                </div>
+
+                                <span class="badge bg-soft-primary">Temps Plein</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="#" class="text-dark title h5">Développeur Web</a>
+
+                                <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin" class="fea icon-sm me-1"></i>Australie</span>
+
+                                <div class="progress-box mt-3">
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    </div>
+
+                                    <span class="text-dark">20 appliqués sur <span class="text-muted">40 postes vacants</span></span>
+                                </div>
+                            </div>
+                        </div><!--end job post-->
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="job-post rounded shadow p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="../frontend 2/images/company/google-logo.png" class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+    
+                                    <div class="ms-3">
+                                        <a href="#" class="h5 company text-dark">Google</a>
+                                        <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock" class="fea icon-sm me-1"></i> 2 jours ago</span>
+                                    </div>
+                                </div>
+
+                                <span class="badge bg-soft-primary">Temps Partiel</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="#" class="text-dark title h5">Directeur Marketing</a>
+
+                                <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin" class="fea icon-sm me-1"></i>Australie</span>
+
+                                <div class="progress-box mt-3">
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    </div>
+
+                                    <span class="text-dark">20 appliqués sur <span class="text-muted">40 postes vacants</span></span>
+                                </div>
+                            </div>
+                        </div><!--end job post-->
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="job-post rounded shadow p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="../frontend 2/images/company/android.png" class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+    
+                                    <div class="ms-3">
+                                        <a href="#" class="h5 company text-dark">Android</a>
+                                        <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock" class="fea icon-sm me-1"></i> 2 jours ago</span>
+                                    </div>
+                                </div>
+
+                                <span class="badge bg-soft-primary">Remote</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="#" class="text-dark title h5">Développeur d'Application</a>
+
+                                <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin" class="fea icon-sm me-1"></i>Australie</span>
+
+                                <div class="progress-box mt-3">
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    </div>
+
+                                    <span class="text-dark">20 appliqués sur <span class="text-muted">40 postes vacants</span></span>
+                                </div>
+                            </div>
+                        </div><!--end job post-->
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="job-post rounded shadow p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="../frontend 2/images/company/lenovo-logo.png" class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+    
+                                    <div class="ms-3">
+                                        <a href="#" class="h5 company text-dark">Lenovo</a>
+                                        <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock" class="fea icon-sm me-1"></i> 2 jours ago</span>
+                                    </div>
+                                </div>
+
+                                <span class="badge bg-soft-primary">WFH</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="#" class="text-dark title h5">Designer Produit Senior</a>
+
+                                <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin" class="fea icon-sm me-1"></i>Australie</span>
+
+                                <div class="progress-box mt-3">
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    </div>
+
+                                    <span class="text-dark">20 appliqués sur <span class="text-muted">40 postes vacants</span></span>
+                                </div>
+                            </div>
+                        </div><!--end job post-->
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="job-post rounded shadow p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="../frontend 2/images/company/spotify.png" class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+    
+                                    <div class="ms-3">
+                                        <a href="#" class="h5 company text-dark">Spotify</a>
+                                        <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock" class="fea icon-sm me-1"></i> 2 jours ago</span>
+                                    </div>
+                                </div>
+
+                                <span class="badge bg-soft-primary">Temps Plein</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="#" class="text-dark title h5">Développeur C++</a>
+
+                                <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin" class="fea icon-sm me-1"></i>Australie</span>
+
+                                <div class="progress-box mt-3">
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    </div>
+
+                                    <span class="text-dark">20 appliqués sur <span class="text-muted">40 postes vacants</span></span>
+                                </div>
+                            </div>
+                        </div><!--end job post-->
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="job-post rounded shadow p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="../frontend 2/images/company/linkedin.png" class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+    
+                                    <div class="ms-3">
+                                        <a href="#" class="h5 company text-dark">Linkedin</a>
+                                        <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock" class="fea icon-sm me-1"></i> 2 jours ago</span>
+                                    </div>
+                                </div>
+
+                                <span class="badge bg-soft-primary">Remote</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="#" class="text-dark title h5">Développeur PHP</a>
+
+                                <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin" class="fea icon-sm me-1"></i>Australie</span>
+
+                                <div class="progress-box mt-3">
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    </div>
+
+                                    <span class="text-dark">20 appliqués sur <span class="text-muted">40 postes vacants</span></span>
+                                </div>
+                            </div>
+                        </div><!--end job post-->
+                    </div><!--end col-->
+
+                    <div class="col-12 d-md-none d-block">
+                        <div class="text-center">
+                            <a href="offres-stage.html" class="btn btn-link primary text-muted">Voir Plus de Stages <i class="mdi mdi-arrow-right"></i></a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
 
         <!-- Statistiques Section -->
         <section id="stats" class="section">
@@ -534,313 +548,466 @@
                     <p class="lead text-muted">Des résultats qui parlent d'eux-mêmes</p>
                 </div>
                 <div id="stats-list" class="row g-4">
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="stat-card">
-                            <div class="icon"><i class="fas fa-building"></i></div>
-                            <h3 class="counter">+100</h3>
-                            <p>Entreprises partenaires au Cameroun</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="stat-card">
-                            <div class="icon"><i class="fas fa-users"></i></div>
-                            <h3 class="counter">+500</h3>
-                            <p>Étudiants de l'IUC inscrits</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="stat-card">
-                            <div class="icon"><i class="fas fa-file-signature"></i></div>
-                            <h3 class="counter">+300</h3>
-                            <p>Stages pourvus chaque année</p>
-                        </div>
-                    </div>
+                    <!-- Les statistiques seront chargées dynamiquement via JS -->
                 </div>
             </div>
         </section>
 
-        <!-- Témoignages Section -->
-        <section id="testimonials" class="section">
+        <!-- Companies Section -->
+        <section class="section">
             <div class="container">
-                <div class="text-center mb-5" data-aos="fade-up">
-                    <h2 class="display-4 fw-bold mb-3">Ce qu'ils disent de nous</h2>
-                    <p class="lead text-muted">Découvrez l'expérience de nos utilisateurs</p>
-                </div>
-                <div class="row g-4" id="testimonials-list">
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="testimonial-card">
-                            <img src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98"
-                                 alt="Témoignage de Julie Martin" class="img-fluid">
-                            <p>"StageApp m'a permis de trouver un stage passionnant qui correspond parfaitement à mes aspirations professionnelles. Le processus était simple et efficace !"</p>
-                            <h5 class="mt-3">Julie Martin</h5>
-                            <p class="text-muted">Étudiante en Marketing Digital</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="testimonial-card">
-                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a"
-                                 alt="Témoignage de Marc Dubois" class="img-fluid">
-                            <p>"En tant qu'entreprise, nous avons trouvé la perle rare grâce à StageApp. La qualité des candidatures et l'interface intuitive font toute la différence."</p>
-                            <h5 class="mt-3">Marc Dubois</h5>
-                            <p class="text-muted">DRH, Tech Solutions</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="testimonial-card">
-                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956"
-                                 alt="Témoignage de Sarah Lambert" class="img-fluid">
-                            <p>"Une plateforme qui révolutionne la recherche de stages. L'accompagnement personnalisé et les outils mis à disposition sont exceptionnels."</p>
-                            <h5 class="mt-3">Sarah Lambert</h5>
-                            <p class="text-muted">Responsable pédagogique</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-6 col-md-6 mb-5  order-md-2 order-1">
+                        <div class="about-right">
+                            <div class="position-relative shadow rounded img-one">
+                                <img src="../frontend 2/images/about/ab03.jpg" class="img-fluid rounded" alt="work-image">
+                            </div>
 
-        <!-- Call to Action Section -->
-        <section class="section py-5" style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-8 text-center text-lg-start mb-4 mb-lg-0">
-                        <h2 class="text-white mb-3" data-aos="fade-right">Prêt à commencer votre aventure ?</h2>
-                        <p class="text-white-50 mb-0" data-aos="fade-right" data-aos-delay="100">
-                            Rejoignez notre communauté et découvrez des opportunités exceptionnelles.
-                        </p>
-                    </div>
-                    <div class="col-lg-4 text-center text-lg-end" data-aos="fade-left">
-                        <a href="signup.html" class="btn btn-light btn-lg px-5">
-                            <i class="fas fa-rocket me-2"></i>Démarrer maintenant
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+                            <div class="img-two shadow rounded p-2 bg-white">
+                                <img src="../frontend 2/images/about/ab04.jpg" class="img-fluid rounded" alt="work-image">
 
-    <!-- Footer -->
-    <footer class="py-5 mt-0">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                    <div class="mb-4">
-                        <h5 class="text-primary mb-3">StageApp</h5>
-                        <p class="text-muted">Votre partenaire de confiance pour trouver le stage idéal et développer votre carrière professionnelle.</p>
-                    </div>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-primary"><i class="fab fa-facebook-f fa-lg"></i></a>
-                        <a href="#" class="text-primary"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a href="#" class="text-primary"><i class="fab fa-linkedin-in fa-lg"></i></a>
-                        <a href="#" class="text-primary"><i class="fab fa-instagram fa-lg"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <h5 class="mb-3">Liens rapides</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="about.html" class="text-muted">À propos</a></li>
-                        <li class="mb-2"><a href="offres-stage.html" class="text-muted">Offres de stage</a></li>
-                        <li class="mb-2"><a href="contact.html" class="text-muted">Contact</a></li>
-                        <li class="mb-2"><a href="faq.html" class="text-muted">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <h5 class="mb-3">Ressources</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-muted">Guide du stagiaire</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted">Blog</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted">Témoignages</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted">Carrières</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <h5 class="mb-3">Newsletter</h5>
-                    <p class="text-muted mb-3">Restez informé des dernières opportunités de stage</p>
-                    <form class="mb-3">
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Votre email" aria-label="Votre email">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <hr class="my-5">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <p class="mb-0">&copy; 2025 StageApp. Tous droits réservés.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a href="#" class="text-muted">Conditions d'utilisation</a></li>
-                        <li class="list-inline-item">·</li>
-                        <li class="list-inline-item"><a href="#" class="text-muted">Politique de confidentialité</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <button id="theme-toggle" class="btn btn-secondary" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-counter"></script>
-    <script src="js/auth.js"></script>
-    <script>
-        // Initialize AOS (Animate On Scroll)
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out-cubic',
-            once: true
-        });
-
-        // Theme switcher logic with smooth transitions
-        const themeToggle = document.getElementById('theme-toggle');
-        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-        const root = document.documentElement;
-
-        const applyTheme = (theme) => {
-            if (theme === 'dark') {
-                root.setAttribute('data-theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                root.removeAttribute('data-theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        };
-
-        if (currentTheme) {
-            applyTheme(currentTheme);
-        }
-
-        themeToggle.addEventListener('click', () => {
-            let theme = root.getAttribute('data-theme');
-            if (theme === 'dark') {
-                root.removeAttribute('data-theme');
-                localStorage.removeItem('theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            } else {
-                root.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-        });
-
-        // Counter animation
-        document.querySelectorAll('.counter').forEach(counter => {
-            const target = +counter.innerText.replace('+', '');
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    counter.innerText = '+' + Math.floor(current);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.innerText = '+' + target;
-                }
-            };
-
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    if (entries[0].isIntersecting) {
-                        updateCounter();
-                        observer.unobserve(counter);
-                    }
-                },
-                { threshold: 0.5 }
-            );
-
-            observer.observe(counter);
-        });
-
-        // Fetch and display dynamic content
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                const baseUrl = 'http://127.0.0.1:8000/api';
-
-                // Fetch Latest Offers
-                const offersResponse = await fetch(`${baseUrl}/latest-offers`);
-                const offers = await offersResponse.json();
-                const offresList = document.getElementById('offres-list');
-                offresList.innerHTML = offers.map(offer => `
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card h-100">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0">
-                                        <img src="https://logo.clearbit.com/${offer.company_domain || 'default.com'}"
-                             alt="${offer.company_name}" class="rounded" width="50" height="50"
-                             onerror="this.src='https://via.placeholder.com/50?text=${offer.company_name?.charAt(0) || 'E'}'">
-                                    </div>
-                                    <div class="ms-3">
-                                        <h5 class="card-title mb-0">${offer.title}</h5>
-                                        <h6 class="card-subtitle text-muted">${offer.company_name}</h6>
-                                    </div>
-                                </div>
-                                <p class="card-text">${offer.description.substring(0, 100)}...</p>
-                                <div class="mt-auto">
-                                    <div class="mb-3">
-                                        ${offer.tags?.map(tag =>
-                                            `<span class="badge bg-primary me-2">${tag}</span>`
-                                        ).join('') || ''}
-                                    </div>
-                                    <a href="/offres/${offer.id}" class="btn btn-primary w-100">
-                                        <i class="fas fa-external-link-alt me-2"></i>Voir l'offre
+                                <div class="position-absolute top-0 start-50 translate-middle">
+                                    <a href="#!" data-type="youtube" data-id="yba7hPeTSjk" class="avatar avatar-md-md rounded-pill shadow card d-flex justify-content-center align-items-center lightbox">
+                                        <i class="mdi mdi-play mdi-24px text-primary"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `).join('');
+                    </div><!--end col-->
 
-                // Fetch Stats
-                const statsResponse = await fetch(`${baseUrl}/stats`);
-                const stats = await statsResponse.json();
-                const statsList = document.getElementById('stats-list');
-                const statsData = [
-                    { icon: 'building', value: stats.entreprises, label: 'Entreprises partenaires' },
-                    { icon: 'users', value: stats.etudiants, label: 'Étudiants inscrits' },
-                    { icon: 'file-signature', value: stats.stages, label: 'Stages pourvus' }
-                ];
-                statsList.innerHTML = statsData.map((stat, index) => `
-                    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="${100 * (index + 1)}">
-                        <div class="stat-card">
-                            <div class="icon"><i class="fas fa-${stat.icon}"></i></div>
-                            <h3 class="counter">+${stat.value}</h3>
-                            <p>${stat.label}</p>
+                    <div class="col-lg-6 col-md-6 mt-4 pt-2 mt-sm-0 pt-sm-0 order-md-1 order-2">
+                        <div class="section-title mb-4 me-lg-5">
+                            <h4 class="title mb-3">Trouvez les Meilleures Entreprises.</h4>
+                            <p class="text-muted para-desc mb-0">Recherchez toutes les positions ouvertes sur le web. Obtenez votre propre estimation de salaire personnalisée. Lisez des avis sur plus de 30000+ entreprises dans le monde.</p>
                         </div>
-                    </div>
-                `).join('');
 
-                // Fetch Testimonials
-                const testimonialsResponse = await fetch(`${baseUrl}/testimonials`);
-                const testimonials = await testimonialsResponse.json();
-                const testimonialsList = document.getElementById('testimonials-list');
-                testimonialsList.innerHTML = testimonials.map((testimonial, index) => `
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="${100 * (index + 1)}">
-                        <div class="testimonial-card">
-                            <img src="${testimonial.image}" alt="Témoignage de ${testimonial.name}" class="img-fluid">
-                            <p>${testimonial.quote}</p>
-                            <h5 class="mt-3">${testimonial.name}</h5>
-                            <p class="text-muted">${testimonial.title || 'Utilisateur StageApp'}</p>
+                        <div id="offres-list" class="row g-4 mt-0">
+                            <div class="col-md-6">
+                                <div class="employer-card rounded shadow p-2 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../frontend 2/images/company/google-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+        
+                                        <div class="content ms-3">
+                                            <a href="#" class="h5 title text-dark">Google</a>
+                                            <span class="text-muted d-flex align-items-center small mt-1">10 postes vacants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="employer-card rounded shadow p-2 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../frontend 2/images/company/facebook-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+        
+                                        <div class="content ms-3">
+                                            <a href="#" class="h5 title text-dark">Facebook</a>
+                                            <span class="text-muted d-flex align-items-center small mt-1">10 postes vacants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="employer-card rounded shadow p-2 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../frontend 2/images/company/android.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+        
+                                        <div class="content ms-3">
+                                            <a href="#" class="h5 title text-dark">Android</a>
+                                            <span class="text-muted d-flex align-items-center small mt-1">10 postes vacants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="employer-card rounded shadow p-2 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../frontend 2/images/company/circle-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+        
+                                        <div class="content ms-3">
+                                            <a href="#" class="h5 title text-dark">Circle CI</a>
+                                            <span class="text-muted d-flex align-items-center small mt-1">10 postes vacants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="employer-card rounded shadow p-2 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../frontend 2/images/company/lenovo-logo.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+        
+                                        <div class="content ms-3">
+                                            <a href="#" class="h5 title text-dark">Lenovo</a>
+                                            <span class="text-muted d-flex align-items-center small mt-1">10 postes vacants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="employer-card rounded shadow p-2 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../frontend 2/images/company/linkedin.png" class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+        
+                                        <div class="content ms-3">
+                                            <a href="#" class="h5 title text-dark">Linkedin</a>
+                                            <span class="text-muted d-flex align-items-center small mt-1">10 postes vacants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
 
-            } catch (error) {
-                console.error('Error fetching data:', error);
+                        <div class="mt-4">
+                            <a href="#" class="btn btn-link primary text-muted">Voir Plus d'Entreprises <i class="mdi mdi-arrow-right align-middle"></i></a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- Testimonials Section -->
+        <section class="section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <div class="section-title text-center mb-4 pb-2">
+                            <h4 class="title mb-3">Témoignages</h4>
+                            <p class="text-muted para-desc mb-0 mx-auto">Recherchez toutes les positions ouvertes sur le web. Obtenez votre propre estimation de salaire personnalisée. Lisez des avis sur plus de 30000+ entreprises dans le monde.</p>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div id="offres-list" class="row g-4 mt-0">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card blog blog-primary shadow rounded overflow-hidden border-0">
+                            <div class="card-img blog-image position-relative overflow-hidden rounded-0">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="../frontend 2/images/blog/01.jpg" class="img-fluid" alt="">
+                                    <div class="card-overlay"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-body blog-content position-relative p-0">
+                                <div class="blog-tag px-4">
+                                    <a href="" class="badge bg-primary rounded-pill">Arts</a>
+                                </div>
+                                <div class="p-4">
+                                    <ul class="list-unstyled text-muted small mb-2">
+                                        <li class="d-inline-flex align-items-center me-2"><i data-feather="calendar" class="fea icon-ex-sm me-1 text-dark"></i>31 Octobre 2023</li>
+                                        <li class="d-inline-flex align-items-center"><i data-feather="clock" class="fea icon-ex-sm me-1 text-dark"></i>5 min lecture</li>
+                                    </ul>
+
+                                    <a href="#" class="title fw-semibold fs-5 text-dark">11 Conseils pour vous aider à obtenir de nouveaux clients par téléphone</a>
+                                    
+                                    <ul class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
+                                        <li class="list-inline-item me-2"><a href="" class="btn btn-link primary text-dark">Lire Maintenant <i class="mdi mdi-arrow-right"></i></a></li>
+                                        <li class="list-inline-item"><span class="text-dark">Par</span> <a href="" class="text-muted link-title">Google</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card blog blog-primary shadow rounded overflow-hidden border-0">
+                            <div class="card-img blog-image position-relative overflow-hidden rounded-0">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="../frontend 2/images/blog/02.jpg" class="img-fluid" alt="">
+                                    <div class="card-overlay"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-body blog-content position-relative p-0">
+                                <div class="blog-tag px-4">
+                                    <a href="" class="badge bg-primary rounded-pill">Illustration</a>
+                                </div>
+                                <div class="p-4">
+                                    <ul class="list-unstyled text-muted small mb-2">
+                                        <li class="d-inline-flex align-items-center me-2"><i data-feather="calendar" class="fea icon-ex-sm me-1 text-dark"></i>31 Octobre 2023</li>
+                                        <li class="d-inline-flex align-items-center"><i data-feather="clock" class="fea icon-ex-sm me-1 text-dark"></i>5 min lecture</li>
+                                    </ul>
+
+                                    <a href="#" class="title fw-semibold fs-5 text-dark">DigitalOcean lance son premier centre de données canadien à Toronto</a>
+                                    
+                                    <ul class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
+                                        <li class="list-inline-item me-2"><a href="" class="btn btn-link primary text-dark">Lire Maintenant <i class="mdi mdi-arrow-right"></i></a></li>
+                                        <li class="list-inline-item"><span class="text-dark">Par</span> <a href="" class="text-muted link-title">Facebook</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card blog blog-primary shadow rounded overflow-hidden border-0">
+                            <div class="card-img blog-image position-relative overflow-hidden rounded-0">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="../frontend 2/images/blog/03.jpg" class="img-fluid" alt="">
+                                    <div class="card-overlay"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-body blog-content position-relative p-0">
+                                <div class="blog-tag px-4">
+                                    <a href="" class="badge bg-primary rounded-pill">Musique</a>
+                                </div>
+                                <div class="p-4">
+                                    <ul class="list-unstyled text-muted small mb-2">
+                                        <li class="d-inline-flex align-items-center me-2"><i data-feather="calendar" class="fea icon-ex-sm me-1 text-dark"></i>31 Octobre 2023</li>
+                                        <li class="d-inline-flex align-items-center"><i data-feather="clock" class="fea icon-ex-sm me-1 text-dark"></i>5 min lecture</li>
+                                    </ul>
+
+                                    <a href="#" class="title fw-semibold fs-5 text-dark">Utiliser des stands de bannière pour augmenter le trafic du salon</a>
+                                    
+                                    <ul class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
+                                        <li class="list-inline-item me-2"><a href="" class="btn btn-link primary text-dark">Lire Maintenant <i class="mdi mdi-arrow-right"></i></a></li>
+                                        <li class="list-inline-item"><span class="text-dark">Par</span> <a href="" class="text-muted link-title">Linkedin</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- Footer Start -->
+        <footer class="bg-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="py-5">
+                            <div class="row align-items-center">
+                                <div class="col-sm-3">
+                                    <div class="text-center text-sm-start">
+                                        <a href=""><img src="../frontend 2/images/logo-light.png" alt=""></a>
+                                    </div>
+                                </div>
+        
+                                <div class="col-sm-9 mt-4 mt-sm-0">
+                                    <ul class="list-unstyled footer-list terms-service text-center text-sm-end mb-0">
+                                        <li class="list-inline-item my-2"><a href="index.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Accueil</a></li>
+                                        <li class="list-inline-item my-2"><a href="#" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Comment ça marche</a></li>
+                                        <li class="list-inline-item my-2"><a href="#" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Créer un stage</a></li>
+                                        <li class="list-inline-item my-2"><a href="about.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> À propos de nous</a></li>
+                                        <li class="list-inline-item my-2"><a href="#" class="text-foot fs-6 fw-medium"><i class="mdi mdi-circle-small"></i> Plans</a></li>
+                                    </ul>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="py-4 footer-bar">
+                <div class="container text-center">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="text-sm-start">
+                                <p class="mb-0 fw-medium">© <script>document.write(new Date().getFullYear())</script> StageApp. Design avec <i class="mdi mdi-heart text-danger"></i> par <a href="#" target="_blank" class="text-reset">StageApp</a>.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <ul class="list-unstyled social-icon foot-social-icon text-sm-end mb-0">
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="shopping-cart" class="fea icon-sm align-middle" title="Acheter Maintenant"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="dribbble" class="fea icon-sm align-middle" title="dribbble"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="linkedin" class="fea icon-sm align-middle" title="Linkedin"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="facebook" class="fea icon-sm align-middle" title="facebook"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm align-middle" title="instagram"></i></a></li>
+                                <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm align-middle" title="twitter"></i></a></li>
+                            </ul><!--end icon-->
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </div>
+        </footer><!--end footer-->
+        <!-- Footer End -->
+
+        <!-- Back to top -->
+        <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5"><i data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
+        <!-- Back to top -->
+
+        <!-- Style switcher -->
+        <div id="style-switcher" class="bg-light border p-3 pt-2 pb-2" onclick="toggleSwitcher()">
+            <div>
+                <h6 class="title text-center mb-0">Option de Thème</h6>
+                <ul class="text-center list-unstyled mb-0">
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary rtl-version t-rtl-light mt-2" onclick="setTheme('style-rtl')">RTL</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary ltr-version t-ltr-light mt-2" onclick="setTheme('style')">LTR</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-rtl-version t-rtl-dark mt-2" onclick="setTheme('style-dark-rtl')">RTL</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-ltr-version t-ltr-dark mt-2" onclick="setTheme('style-dark')">LTR</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark dark-version t-dark mt-2" onclick="setTheme('style-dark')">Sombre</a></li>
+                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark light-version t-light mt-2" onclick="setTheme('style')">Clair</a></li>
+                </ul>
+
+                <h6 class="title text-center pt-3 mb-0">Télécharger</h6>
+                <ul class="text-center list-unstyled mb-0">
+                    <li><a href="#" target="_blank" class="btn btn-sm btn-block btn-warning mt-2 w-100">Télécharger</a></li>
+                </ul>
+            </div>
+            <div class="bottom p-0">
+                <a href="javascript: void(0);" class="settings bg-white shadow d-block"><i class="mdi mdi-cog ms-1 mdi-24px position-absolute mdi-spin text-primary"></i></a>
+            </div>
+        </div>
+        <!-- end Style switcher -->
+        
+        <!-- JAVASCRIPTS -->
+	    <script src="../frontend 2/js/bootstrap.bundle.min.js"></script>
+        <script src="../frontend 2/js/tiny-slider.js"></script>
+        <script src="../frontend 2/js/tobii.min.js"></script>
+        <script src="../frontend 2/js/feather.min.js"></script>
+	    <!-- Custom -->
+	    <script src="../frontend 2/js/plugins.init.js"></script>
+	    <script src="../frontend 2/js/app.js"></script>
+
+        <!-- Preserve dynamic content JS -->
+        <script src="js/auth.js"></script>
+        <script>
+            // Theme switcher logic with smooth transitions
+            const themeToggle = document.getElementById('theme-toggle');
+            const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+            const root = document.documentElement;
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    root.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    root.removeAttribute('data-theme');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            };
+
+            if (currentTheme) {
+                applyTheme(currentTheme);
             }
-        });
-    </script>
-</body>
+
+            themeToggle.addEventListener('click', () => {
+                let theme = root.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    root.removeAttribute('data-theme');
+                    localStorage.removeItem('theme');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    root.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            });
+
+            // Counter animation
+            document.querySelectorAll('.counter').forEach(counter => {
+                const target = +counter.innerText.replace('+', '');
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = '+' + Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = '+' + target;
+                    }
+                };
+
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        if (entries[0].isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(counter);
+                        }
+                    },
+                    { threshold: 0.5 }
+                );
+
+                observer.observe(counter);
+            });
+
+            // Fetch and display dynamic content
+            document.addEventListener('DOMContentLoaded', async function() {
+                try {
+                    const baseUrl = 'http://127.0.0.1:8000/api';
+
+                    // Fetch Latest Offers
+                    const offersResponse = await fetch(`${baseUrl}/latest-offers`);
+                    const offers = await offersResponse.json();
+                    const offresList = document.getElementById('offres-list');
+                    offresList.innerHTML = offers.map(offer => `
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card h-100">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://logo.clearbit.com/${offer.company_domain || 'default.com'}"
+                                 alt="${offer.company_name}" class="rounded" width="50" height="50"
+                                 onerror="this.src='images/company-default.svg'">
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5 class="card-title mb-0">${offer.title}</h5>
+                                            <h6 class="card-subtitle text-muted">${offer.company_name}</h6>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">${offer.description.substring(0, 100)}...</p>
+                                    <div class="mt-auto">
+                                        <div class="mb-3">
+                                            ${offer.tags?.map(tag =>
+                                                `<span class="badge bg-primary me-2">${tag}</span>`
+                                            ).join('') || ''}
+                                        </div>
+                                        <a href="/offres/${offer.id}" class="btn btn-primary w-100">
+                                            <i class="fas fa-external-link-alt me-2"></i>Voir l'offre
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    // Fetch Stats
+                    const statsResponse = await fetch(`${baseUrl}/stats`);
+                    const stats = await statsResponse.json();
+                    const statsList = document.getElementById('stats-list');
+                    const statsData = [
+                        { icon: 'building', value: stats.entreprises, label: 'Entreprises partenaires' },
+                        { icon: 'users', value: stats.etudiants, label: 'Étudiants inscrits' },
+                        { icon: 'file-signature', value: stats.stages, label: 'Stages pourvus' }
+                    ];
+                    statsList.innerHTML = statsData.map((stat, index) => `
+                        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="${100 * (index + 1)}">
+                            <div class="stat-card">
+                                <div class="icon"><i class="fas fa-${stat.icon}"></i></div>
+                                <h3 class="counter">+${stat.value}</h3>
+                                <p>${stat.label}</p>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    // Fetch Testimonials
+                    const testimonialsResponse = await fetch(`${baseUrl}/testimonials`);
+                    const testimonials = await testimonialsResponse.json();
+                    const testimonialsList = document.getElementById('testimonials-list');
+                    testimonialsList.innerHTML = testimonials.map((testimonial, index) => `
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="${100 * (index + 1)}">
+                            <div class="testimonial-card">
+                                <img src="images/team/${((index % 8) + 1)}.jpg" alt="Témoignage de ${testimonial.name}" class="img-fluid">
+                                <p>${testimonial.quote}</p>
+                                <h5 class="mt-3">${testimonial.name}</h5>
+                                <p class="text-muted">${testimonial.title || 'Utilisateur StageApp'}</p>
+                            </div>
+                        </div>
+                    `).join('');
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        </script>
+    </body>
 </html>

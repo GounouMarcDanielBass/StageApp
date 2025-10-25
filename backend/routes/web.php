@@ -19,6 +19,7 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', [ViewController::class, 'index'])->name('index');
 Route::get('/login', [ViewController::class, 'login'])->name('login');
+Route::get('/register', [ViewController::class, 'register'])->name('register');
 Route::get('/signup', [ViewController::class, 'signup'])->name('signup');
 Route::get('/admin-dashboard', [ViewController::class, 'adminDashboard'])->name('admin-dashboard');
 Route::get('/company-dashboard', [ViewController::class, 'companyDashboard'])->name('company-dashboard');
@@ -28,6 +29,15 @@ Route::get('/offres-stage', [ViewController::class, 'offresStage'])->name('offre
 Route::get('/about', [ViewController::class, 'about'])->name('about');
 Route::get('/contact', [ViewController::class, 'contact'])->name('contact');
 Route::get('/faq', [ViewController::class, 'faq'])->name('faq');
+Route::get('/services', [ViewController::class, 'services'])->name('services');
+Route::get('/blogs', [ViewController::class, 'blogs'])->name('blogs');
+Route::get('/blog-detail', [ViewController::class, 'blogDetail'])->name('blog.detail');
+Route::get('/helpcenter-overview', [ViewController::class, 'helpcenterOverview'])->name('helpcenter.overview');
+Route::get('/helpcenter-faqs', [ViewController::class, 'helpcenterFaqs'])->name('helpcenter.faqs');
+Route::get('/helpcenter-guides', [ViewController::class, 'helpcenterGuides'])->name('helpcenter.guides');
+Route::get('/helpcenter-support', [ViewController::class, 'helpcenterSupport'])->name('helpcenter.support');
+Route::get('/employers', [ViewController::class, 'employers'])->name('employers');
+Route::get('/candidates', [ViewController::class, 'candidates'])->name('candidates');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

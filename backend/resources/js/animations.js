@@ -1,16 +1,26 @@
-const animatedSections = document.querySelectorAll('.animate-on-scroll');
+// AOS is initialized in app.js, but we can add custom logic here
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-        }
+// Check for reduced motion preference
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReducedMotion) {
+    // Add AOS classes to elements that need scroll animations
+    const sections = document.querySelectorAll('section, .card, .feature, .testimonial, .blog-post');
+    sections.forEach((section, index) => {
+        section.setAttribute('data-aos', 'fade-up');
+        section.setAttribute('data-aos-delay', (index * 100).toString());
     });
-}, {
-    threshold: 0.1
-});
 
-animatedSections.forEach(section => {
-    observer.observe(section);
+    // Add hover effects and transitions
+    const interactiveElements = document.querySelectorAll('button, .btn, a, .card');
+    interactiveElements.forEach(element => {
+        element.classList.add('transition-all', 'duration-300', 'ease-in-out');
+    });
+}
+
+// Page loading animation
+document.addEventListener('DOMContentLoaded', () => {
+    if (!prefersReducedMotion) {
+        document.body.classList.add('animate-fade-in');
+    }
 });

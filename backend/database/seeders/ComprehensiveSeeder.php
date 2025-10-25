@@ -63,7 +63,7 @@ class ComprehensiveSeeder extends Seeder
         // Seed Offres
         $offres = [];
         foreach ($entreprises as $entreprise) {
-            $offres = array_merge($offres, Offre::factory()->count(2)->create(['entreprise_id' => $entreprise->id])->all());
+            $offres = array_merge($offres, Offre::factory()->count(2)->create(['company_id' => $entreprise->id])->all());
         }
 
         // Seed Candidatures

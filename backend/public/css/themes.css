@@ -160,7 +160,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Hover animations */
 .hover-scale {
-    transition: transform 0.2s;
+    transition: transform 0.3s ease-in-out;
 }
 
 .hover-scale:hover {
@@ -168,11 +168,51 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hover-lift {
-    transition: transform 0.2s;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .hover-lift:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hover-glow {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(var(--primary-rgb, 78, 115, 223), 0.3);
+}
+
+.hover-rotate {
+    transition: transform 0.3s ease-in-out;
+}
+
+.hover-rotate:hover {
+    transform: rotate(5deg);
+}
+
+.hover-bounce {
+    transition: transform 0.3s ease-in-out;
+}
+
+.hover-bounce:hover {
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -10px, 0);
+    }
+    70% {
+        transform: translate3d(0, -5px, 0);
+    }
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
 }
 
 /* Theme switcher styles */

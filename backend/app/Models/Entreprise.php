@@ -22,6 +22,6 @@ class Entreprise extends Model
 
     public function offers()
     {
-        return $this->hasMany(Offer::class);
+        return $this->hasMany(Offre::class, 'company_id');
     }
 }

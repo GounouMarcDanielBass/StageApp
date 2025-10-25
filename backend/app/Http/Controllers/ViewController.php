@@ -16,6 +16,11 @@ class ViewController extends Controller
         return view('login');
     }
 
+    public function register()
+    {
+        return view('register');
+    }
+
     public function signup()
     {
         return view('signup');
@@ -59,5 +64,50 @@ class ViewController extends Controller
     public function faq()
     {
         return view('faq');
+    }
+
+    public function services()
+    {
+        return view('services');
+    }
+
+    public function blogs()
+    {
+        return view('blogs');
+    }
+
+    public function blogDetail()
+    {
+        return view('blog-detail');
+    }
+
+    public function helpcenterOverview()
+    {
+        return view('helpcenter-overview');
+    }
+
+    public function helpcenterFaqs()
+    {
+        return view('helpcenter-faqs');
+    }
+
+    public function helpcenterGuides()
+    {
+        return view('helpcenter-guides');
+    }
+
+    public function helpcenterSupport()
+    {
+        return view('helpcenter-support');
+    }
+
+    public function employers()
+    {
+        return view('employers');
+    }
+
+    public function candidates()
+    {
+        return view('candidates');
     }
 }
