@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\HomeController;
@@ -17,18 +19,27 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', [ViewController::class, 'index'])->name('index');
-Route::get('/login', [ViewController::class, 'login'])->name('login');
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect('/dashboard');
+    } else {
+        Log::info('Route / accessed for index.html');
+        return response()->file(public_path('index.html'));
+    }
+})->name('index');
+Route::get('/login', function () { return response()->file(public_path('login.html')); })->name('login');
 Route::get('/register', [ViewController::class, 'register'])->name('register');
-Route::get('/signup', [ViewController::class, 'signup'])->name('signup');
-Route::get('/admin-dashboard', [ViewController::class, 'adminDashboard'])->name('admin-dashboard');
-Route::get('/company-dashboard', [ViewController::class, 'companyDashboard'])->name('company-dashboard');
-Route::get('/dashboard', [ViewController::class, 'dashboard'])->name('dashboard');
-Route::get('/encadrant-dashboard', [ViewController::class, 'encadrantDashboard'])->name('encadrant-dashboard');
-Route::get('/offres-stage', [ViewController::class, 'offresStage'])->name('offres-stage');
-Route::get('/about', [ViewController::class, 'about'])->name('about');
-Route::get('/contact', [ViewController::class, 'contact'])->name('contact');
-Route::get('/faq', [ViewController::class, 'faq'])->name('faq');
+Route::get('/signup', function () { return response()->file(public_path('signup.html')); })->name('signup');
+Route::get('/admin-dashboard', function () { return response()->file(public_path('admin-dashboard.html')); })->name('admin-dashboard');
+Route::get('/company-dashboard', function () { return response()->file(public_path('company-dashboard.html')); })->name('company-dashboard');
+Route::get('/dashboard', function () { return response()->file(public_path('dashboard.html')); })->name('dashboard');
+Route::get('/encadrant-dashboard', function () { return response()->file(public_path('encadrant-dashboard.html')); })->name('encadrant-dashboard');
+Route::get('/offres-stage', function () { return response()->file(public_path('offres-stage.html')); })->name('offres-stage');
+Route::get('/about', function () { return response()->file(public_path('about.html')); })->name('about');
+Route::get('/contact', function () { return response()->file(public_path('contact.html')); })->name('contact');
+Route::get('/faq', function () { return response()->file(public_path('faq.html')); })->name('faq');
+Route::get('/student-dashboard', function () { return response()->file(public_path('student-dashboard.html')); })->name('student-dashboard');
+Route::get('/entreprise-dashboard', function () { return response()->file(public_path('entreprise-dashboard.html')); })->name('entreprise-dashboard');
 Route::get('/services', [ViewController::class, 'services'])->name('services');
 Route::get('/blogs', [ViewController::class, 'blogs'])->name('blogs');
 Route::get('/blog-detail', [ViewController::class, 'blogDetail'])->name('blog.detail');
@@ -41,10 +52,10 @@ Route::get('/candidates', [ViewController::class, 'candidates'])->name('candidat
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard/student', function () { return view('student.dashboard'); })->name('dashboard.student');
+Route::get('/dashboard/student', function () { return response()->file(public_path('student-dashboard.html')); })->name('dashboard.student');
 Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
-Route::get('/dashboard/company', [DashboardController::class, 'company'])->name('dashboard.company');
-Route::get('/dashboard/teacher', [DashboardController::class, 'teacher'])->name('dashboard.teacher');
+Route::get('/dashboard/company', function () { return response()->file(public_path('entreprise/dashboard.html')); })->name('dashboard.company');
+Route::get('/dashboard/teacher', function () { return response()->file(public_path('etudiant/dashboard.html')); })->name('dashboard.teacher');
 
 // Routes authentifiées
 Route::middleware(['auth'])->group(function () {

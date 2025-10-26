@@ -1,337 +1,308 @@
-<!doctype html>
-<html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <title>Inscription - StageApp</title>
-	    <meta name="description" content="Inscrivez-vous à StageApp" />
-	    <meta name="keywords" content="Inscription, Stage, Cameroun" />
-	    <meta name="author" content="StageApp" />
-	    <!-- favicon -->
-        <link href="images/favicon.ico" rel="shortcut icon">
-		<!-- Bootstrap core CSS -->
-	    <link href="../frontend 2/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-        <link href="../frontend 2/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-	    <!-- Custom  Css -->
-	    <link href="../frontend 2/css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
-	</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Internship Management System</title>
+    <meta name="description" content="Join our internship management platform and start your journey today." />
+    <meta name="keywords" content="signup, internship, registration" />
+    <meta name="author" content="Internship System" />
 
-	<body>
-        <!-- Navbar STart -->
-        <header id="topnav" class="defaultscroll sticky">
-            <div class="container">
-                <a class="logo" href="index.html">
-                    <span class="logo-light-mode">
-                        <img src="../frontend 2/images/logo-dark.png" class="l-dark" alt="">
-                        <img src="../frontend 2/images/logo-white.png" class="l-light" alt="">
-                    </span>
-                    <img src="../frontend 2/images/logo-white.png" class="logo-dark-mode" alt="">
-                </a>
+    <!-- Favicon -->
+    <link href="images/favicon.ico" rel="shortcut icon">
 
-                <div class="menu-extras">
-                    <div class="menu-item">
-                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
-                            <div class="lines">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link href="css/materialdesignicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet" id="theme-opt">
+    <link href="css/animations.css" rel="stylesheet">
+
+    <!-- Themes CSS -->
+    <link href="css/themes.css" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section d-flex align-items-center justify-content-center min-vh-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
+        <!-- Animated Background Elements -->
+        <div class="hero-bg-element hero-bg-1"></div>
+        <div class="hero-bg-element hero-bg-2"></div>
+        <div class="hero-bg-element hero-bg-3"></div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <div class="signup-card bg-white bg-opacity-10 backdrop-blur-md rounded-3 shadow-lg p-5 animate-fade-in-up" style="border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <div class="text-center mb-4">
+                            <img src="images/logo-dark.png" alt="Logo" height="50" class="mb-3 animate-bounce-in">
+                            <h2 class="text-white fw-bold">Join Our Platform</h2>
+                            <p class="text-white-50">Create your account and start your internship journey</p>
+                        </div>
+
+                        <form id="signupForm" class="animate-slide-in">
+                            <!-- Role Selection -->
+                            <div class="mb-4">
+                                <label for="role" class="form-label text-white fw-semibold">I am a:</label>
+                                <select class="form-select bg-white bg-opacity-20 border-white border-opacity-30 text-white animate-scale-in" id="role" required aria-label="Select your role">
+                                    <option value="" disabled selected>Choose your role</option>
+                                    <option value="etudiant">Student</option>
+                                    <option value="entreprise">Company</option>
+                                    <option value="encadrant">Academic Supervisor</option>
+                                </select>
                             </div>
-                        </a>
+
+                            <!-- Name Fields -->
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-white fw-semibold">First Name</label>
+                                    <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light animate-fade-in" id="first_name" placeholder="Enter first name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-white fw-semibold">Last Name</label>
+                                    <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light animate-fade-in" id="last_name" placeholder="Enter last name" required>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-4">
+                                <label class="form-label text-white fw-semibold">Email</label>
+                                <input type="email" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light animate-fade-in" id="email" placeholder="Enter email" required>
+                            </div>
+
+                            <!-- Password Fields -->
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-white fw-semibold">Password</label>
+                                    <input type="password" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light animate-fade-in" id="password" placeholder="Enter password" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-white fw-semibold">Confirm Password</label>
+                                    <input type="password" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light animate-fade-in" id="password_confirmation" placeholder="Confirm password" required>
+                                </div>
+                            </div>
+
+                            <!-- Role-Specific Fields -->
+                            <div id="specific-fields-container" class="animate-slide-in">
+                                <!-- Student Fields -->
+                                <div id="etudiant-fields" class="specific-fields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label class="form-label text-white fw-semibold">Student ID</label>
+                                        <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light" id="student_id">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-white fw-semibold">Field of Study</label>
+                                        <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light" id="formation">
+                                    </div>
+                                </div>
+
+                                <!-- Company Fields -->
+                                <div id="entreprise-fields" class="specific-fields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label class="form-label text-white fw-semibold">Company Name</label>
+                                        <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light" id="company_name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-white fw-semibold">SIRET Number</label>
+                                        <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light" id="siret">
+                                    </div>
+                                </div>
+
+                                <!-- Supervisor Fields -->
+                                <div id="encadrant-fields" class="specific-fields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label class="form-label text-white fw-semibold">Department</label>
+                                        <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light" id="department">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-white fw-semibold">Specialty</label>
+                                        <input type="text" class="form-control bg-white bg-opacity-20 border-white border-opacity-30 text-white placeholder-light" id="speciality">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Terms -->
+                            <div class="form-check mb-4">
+                                <input class="form-check-input bg-white border-white" type="checkbox" id="terms" required>
+                                <label class="form-check-label text-white" for="terms">
+                                    I agree to the <a href="#" class="text-info">Terms and Conditions</a>
+                                </label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button class="btn btn-primary w-100 py-3 fw-bold animate-scale-in hover-scale" type="submit">
+                                <i class="mdi mdi-account-plus me-2"></i>Sign Up
+                            </button>
+
+                            <!-- Login Link -->
+                            <div class="text-center mt-4">
+                                <span class="text-white-50">Already have an account? </span>
+                                <a href="login.html" class="text-info fw-semibold text-decoration-none hover-glow">Login here</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                <ul class="buy-button list-inline mb-0">
-                    <li class="list-inline-item ps-1 mb-0">
-                        <div class="dropdown">
-                            <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i data-feather="search" class="icons"></i>
-                            </button>
-                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded border-0 mt-3 p-0" style="width: 240px;">
-                                <div class="search-bar">
-                                    <div id="itemSearch" class="menu-search mb-0">
-                                        <form role="search" method="get" id="searchItemform" class="searchform">
-                                            <input type="text" class="form-control rounded border" name="s" id="searchItem" placeholder="Rechercher...">
-                                            <input type="submit" id="searchItemsubmit" value="Rechercher">
-                                            <i data-feather="search" class="search-icon fea icon-sm"></i>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="list-inline-item ps-1 mb-0">
-                        <div class="dropdown dropdown-primary">
-                            <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="images/team/01.jpg" class="img-fluid rounded-pill" alt="">
-                            </button>
-                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded shadow border-0 mt-3">
-                                <a href="profile.html" class="dropdown-item fw-medium fs-6"><i data-feather="user" class="fea icon-sm me-2 align-middle"></i>Profil</a>
-                                <a href="profile.html" class="dropdown-item fw-medium fs-6"><i data-feather="settings" class="fea icon-sm me-2 align-middle"></i>Paramètres</a>
-                                <div class="dropdown-divider border-top"></div>
-                                <a href="login.html" class="dropdown-item fw-medium fs-6"><i data-feather="log-out" class="fea icon-sm me-2 align-middle"></i>Déconnexion</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-        
-                <div id="navigation">
-                    <!-- Navigation Menu-->   
-                    <ul class="navigation-menu nav-right nav-light">
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Accueil</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="index.html" class="sub-menu-item">Héros Un</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Stages </a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="offres-stage.html" class="sub-menu-item">Offres de Stage</a></li>
-                        
-                                <li class="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)"> Grille de Stages </a><span class="submenu-arrow"></span>
-                                    <ul class="submenu">
-                                        <li><a href="offres-stage.html" class="sub-menu-item">Grille Un</a></li>
-                                    </ul>  
-                                </li>
-
-                                <li><a href="offres-stage.html" class="sub-menu-item">Détail du Stage</a></li>
-                            </ul>  
-                        </li>
-                
-                        <li><a href="about.html" class="sub-menu-item">À propos</a></li>
-                
-                        <li><a href="faq.html" class="sub-menu-item">FAQ</a></li>
-                
-                        <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
-                    </ul><!--end navigation menu-->
-                </div><!--end navigation-->
-            </div>
-        </header>
-        <!-- Navbar End -->
-
-        <!-- Signup Hero -->
-        <section class="bg-home d-flex align-items-center" style="background: url('images/hero/bg3.jpg') center;">
-            <div class="bg-overlay bg-linear-gradient-2"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-5 col-12">
-                        <div class="p-4 bg-white rounded shadow-md mx-auto w-100" style="max-width: 400px;">
-                            <form id="signupForm">
-                                <a href="index.html"><img src="../frontend 2/images/logo-dark.png" class="mb-4 d-block mx-auto" alt=""></a>
-                                <h6 class="mb-3 text-uppercase fw-semibold">Créez votre compte</h6>
-                            
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">Vous êtes ?</label>
-                                    <select class="form-select" id="role" required>
-                                        <option value="" selected disabled>-- Choisir un rôle --</option>
-                                        <option value="etudiant">Étudiant</option>
-                                        <option value="entreprise">Entreprise</option>
-                                        <option value="encadrant">Encadrant Pédagogique</option>
-                                    </select>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label class="form-label fw-semibold">Prénom</label>
-                                        <input type="text" class="form-control" id="first_name" placeholder="Jean" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Nom</label>
-                                        <input type="text" class="form-control" id="last_name" placeholder="Dupont" required>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">Votre Email</label>
-                                    <input name="email" id="email" type="email" class="form-control" placeholder="example@website.com" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">Mot de passe</label>
-                                    <input type="password" class="form-control" id="password" placeholder="Mot de passe" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">Confirmer le mot de passe</label>
-                                    <input type="password" class="form-control" id="password_confirmation" placeholder="Confirmer le mot de passe" required>
-                                </div>
-
-                                <!-- Champs spécifiques -->
-                                <div id="specific-fields-container">
-                                    <div id="etudiant-fields" class="specific-fields" style="display: none;">
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Numéro étudiant</label>
-                                            <input type="text" class="form-control" id="student_id">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Formation</label>
-                                            <input type="text" class="form-control" id="formation">
-                                        </div>
-                                    </div>
-                                    <div id="entreprise-fields" class="specific-fields" style="display: none;">
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Nom de l'entreprise</label>
-                                            <input type="text" class="form-control" id="company_name">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Numéro SIRET</label>
-                                            <input type="text" class="form-control" id="siret">
-                                        </div>
-                                    </div>
-                                    <div id="encadrant-fields" class="specific-fields" style="display: none;">
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Département</label>
-                                            <input type="text" class="form-control" id="department">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Spécialité</label>
-                                            <input type="text" class="form-control" id="speciality">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                                    <label class="form-label form-check-label text-muted" for="flexCheckDefault">J'accepte les <a href="#" class="text-primary">Termes et Conditions</a></label>
-                                </div>
-                 
-                                <button class="btn btn-primary w-100" type="submit">S'inscrire</button>
-
-                                <div class="col-12 text-center mt-3">
-                                    <span><span class="text-muted small me-2">Vous avez déjà un compte ? </span> <a href="login.html" class="text-dark fw-semibold small">Se connecter</a></span>
-                                </div><!--end col-->
-                            </form>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </section><!--end section-->
-
-        <!-- Style switcher -->
-        <div id="style-switcher" class="bg-light border p-3 pt-2 pb-2" onclick="toggleSwitcher()">
-            <div>
-                <h6 class="title text-center mb-0">Option de Thème</h6>
-                <ul class="text-center list-unstyled mb-0">
-                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary rtl-version t-rtl-light mt-2" onclick="setTheme('style-rtl')">RTL</a></li>
-                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary ltr-version t-ltr-light mt-2" onclick="setTheme('style')">LTR</a></li>
-                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-rtl-version t-rtl-dark mt-2" onclick="setTheme('style-dark-rtl')">RTL</a></li>
-                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-primary dark-ltr-version t-ltr-dark mt-2" onclick="setTheme('style-dark')">LTR</a></li>
-                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark dark-version t-dark mt-2" onclick="setTheme('style-dark')">Sombre</a></li>
-                    <li class="d-grid"><a href="javascript:void(0)" class="btn btn-sm btn-block btn-dark light-version t-light mt-2" onclick="setTheme('style')">Clair</a></li>
-                </ul>
-
-                <h6 class="title text-center pt-3 mb-0">Télécharger</h6>
-                <ul class="text-center list-unstyled mb-0">
-                    <li><a href="#" target="_blank" class="btn btn-sm btn-block btn-warning mt-2 w-100">Télécharger</a></li>
-                </ul>
-            </div>
-            <div class="bottom p-0">
-                <a href="javascript: void(0);" class="settings bg-white shadow d-block"><i class="mdi mdi-cog ms-1 mdi-24px position-absolute mdi-spin text-primary"></i></a>
             </div>
         </div>
-        <!-- end Style switcher -->
-        
-        <!-- JAVASCRIPTS -->
-	    <script src="../frontend 2/js/bootstrap.bundle.min.js"></script>
-        <script src="../frontend 2/js/feather.min.js"></script>
-	    <!-- Custom -->
-	    <script src="../frontend 2/js/plugins.init.js"></script>
-	    <script src="../frontend 2/js/app.js"></script>
+    </section>
 
-        <!-- Preserve signup JS -->
-        <script src="js/auth.js"></script>
-        <script>
-            // Signup form logic
-            const roleSelect = document.getElementById('role');
-            const fields = {
-                etudiant: document.getElementById('etudiant-fields'),
-                entreprise: document.getElementById('entreprise-fields'),
-                encadrant: document.getElementById('encadrant-fields')
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/feather.min.js"></script>
+    <script src="js/plugins.init.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+
+    <!-- Custom Signup Script -->
+    <script>
+        // Role-specific field toggle
+        const roleSelect = document.getElementById('role');
+        const fields = {
+            etudiant: document.getElementById('etudiant-fields'),
+            entreprise: document.getElementById('entreprise-fields'),
+            encadrant: document.getElementById('encadrant-fields')
+        };
+
+        roleSelect.addEventListener('change', function() {
+            Object.values(fields).forEach(field => field.style.display = 'none');
+            const selectedRole = this.value;
+            if (fields[selectedRole]) {
+                fields[selectedRole].style.display = 'block';
+                fields[selectedRole].classList.add('animate-fade-in');
+            }
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+
+            button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Signing up...';
+            button.disabled = true;
+
+            const role = roleSelect.value;
+            const url = `http://127.0.0.1:8000/api/auth/register/${role}`;
+
+            const formData = {
+                first_name: document.getElementById('first_name').value,
+                last_name: document.getElementById('last_name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                password_confirmation: document.getElementById('password_confirmation').value,
             };
 
-            roleSelect.addEventListener('change', function() {
-                // Hide all specific fields
-                Object.values(fields).forEach(field => field.style.display = 'none');
+            if (role === 'etudiant') {
+                formData.student_id = document.getElementById('student_id').value;
+                formData.formation = document.getElementById('formation').value;
+            } else if (role === 'entreprise') {
+                formData.company_name = document.getElementById('company_name').value;
+                formData.siret = document.getElementById('siret').value;
+            } else if (role === 'encadrant') {
+                formData.department = document.getElementById('department').value;
+                formData.speciality = document.getElementById('speciality').value;
+            }
 
-                // Show the selected one
-                const selectedRole = this.value;
-                if (fields[selectedRole]) {
-                    fields[selectedRole].style.display = 'block';
-                }
-            });
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
 
-            document.getElementById('signupForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const button = this.querySelector('button[type="submit"]');
-                const originalText = button.innerHTML;
+                const data = await response.json();
 
-                button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Inscription...`;
-                button.disabled = true;
-
-                const role = roleSelect.value;
-                let url = `http://127.0.0.1:8000/api/auth/register/${role}`;
-
-                const formData = {
-                    first_name: document.getElementById('first_name').value,
-                    last_name: document.getElementById('last_name').value,
-                    email: document.getElementById('email').value,
-                    password: document.getElementById('password').value,
-                    password_confirmation: document.getElementById('password_confirmation').value,
-                };
-
-                // Add role-specific fields
-                if (role === 'etudiant') {
-                    formData.student_id = document.getElementById('student_id').value;
-                    formData.formation = document.getElementById('formation').value;
-                } else if (role === 'entreprise') {
-                    formData.company_name = document.getElementById('company_name').value;
-                    formData.siret = document.getElementById('siret').value;
-                } else if (role === 'encadrant') {
-                    formData.department = document.getElementById('department').value;
-                    formData.speciality = document.getElementById('speciality').value;
-                }
-
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-
-                    const data = await response.json();
-
-                    if (response.ok) {
-                        alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
-                        window.location.href = 'login.html';
-                    } else {
-                        let errorMessage = "Une erreur inattendue est survenue.";
-                        if (data) {
-                            if (data.errors) {
-                                // Handle Laravel validation errors
-                                errorMessage = Object.values(data.errors).flat().join('\n');
-                            } else if (data.message) {
-                                // Handle other JSON error messages
-                                errorMessage = data.message;
-                            } else if (typeof data === 'string') {
-                                // Handle plain text error responses
-                                errorMessage = data;
-                            }
-                        }
-                        alert(`Erreur d'inscription:\n${errorMessage}`);
+                if (response.ok) {
+                    alert('Registration successful! Please log in.');
+                    window.location.href = 'login.html';
+                } else {
+                    let errorMessage = "Registration failed.";
+                    if (data.errors) {
+                        errorMessage = Object.values(data.errors).flat().join('\n');
+                    } else if (data.message) {
+                        errorMessage = data.message;
                     }
-                } catch (error) {
-                    console.error('Signup error:', error);
-                    alert('Une erreur est survenue. Veuillez réessayer.');
-                } finally {
-                    button.innerHTML = originalText;
-                    button.disabled = false;
+                    alert(`Error: ${errorMessage}`);
                 }
-            });
-        </script>
-    </body>
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        });
+    </script>
+
+    <style>
+        .hero-section {
+            position: relative;
+        }
+
+        .hero-bg-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-bg-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .hero-bg-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .hero-bg-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 60%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .signup-card {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+</search>
+
+        .signup-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+        }
+    </style>
+</body>
 </html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications - Internship Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-theme="light" class="fade-in">
+    <!-- Header -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-building me-2"></i>
+                <span>Internship Hub</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="offres-entreprise.html"><i class="fas fa-briefcase me-1"></i> My Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="candidatures-entreprise.html"><i class="fas fa-users me-1"></i> Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="evaluation-stagiaire.html"><i class="fas fa-star me-1"></i> Evaluations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profil-entreprise.html"><i class="fas fa-building me-1"></i> Profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> Company
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profil-entreprise.html"><i class="fas fa-building me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="parametres-compte.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="theme-toggle" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container-fluid p-4">
+        <!-- Page Header -->
+        <div class="row mb-4 fade-in">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 mb-0">Applications</h1>
+                        <p class="text-muted">Manage applications received for your internship offers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row mb-4 slide-in">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Total Applications</h5>
+                                <h3 class="text-primary" id="total-apps">0</h3>
+                            </div>
+                            <i class="fas fa-users fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Pending</h5>
+                                <h3 class="text-warning" id="pending-apps">0</h3>
+                            </div>
+                            <i class="fas fa-clock fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Accepted</h5>
+                                <h3 class="text-success" id="accepted-apps">0</h3>
+                            </div>
+                            <i class="fas fa-check-circle fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Rejected</h5>
+                                <h3 class="text-danger" id="rejected-apps">0</h3>
+                            </div>
+                            <i class="fas fa-times-circle fa-2x text-danger"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applications Table -->
+        <div class="row slide-in">
+            <div class="col-12">
+                <div class="card hover-lift">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-users me-2"></i>Received Applications</h5>
+                        <div class="d-flex">
+                            <select class="form-select form-select-sm me-2" id="offer-filter">
+                                <option value="">All Offers</option>
+                                <!-- Offers will be loaded here -->
+                            </select>
+                            <select class="form-select form-select-sm me-2" id="status-filter">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <input type="text" class="form-control form-control-sm" id="search-input" placeholder="Search applications...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Offer</th>
+                                        <th>Email</th>
+                                        <th>Applied Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="applications-table">
+                                    <!-- Applications will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center mt-3" id="pagination">
+                            <!-- Pagination will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Internship Hub. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#privacy" class="text-light me-3">Privacy Policy</a>
+                    <a href="#terms" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Initialize theme and fetch data
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                fetchApplications(token);
+                fetchOffers(token);
+                fetchStats(token);
+            } else {
+                window.location.href = 'login.html';
+            }
+
+            // Filter functionality
+            document.getElementById('offer-filter').addEventListener('change', filterApplications);
+            document.getElementById('status-filter').addEventListener('change', filterApplications);
+            document.getElementById('search-input').addEventListener('input', filterApplications);
+        });
+
+        // Fetch applications
+        function fetchApplications(token) {
+            fetch('/api/applications', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderApplications(data);
+            })
+            .catch(error => {
+                console.error('Error fetching applications:', error);
+                document.getElementById('applications-table').innerHTML = '<tr><td colspan="6" class="text-center">Error loading applications</td></tr>';
+            });
+        }
+
+        // Fetch offers for filter
+        function fetchOffers(token) {
+            fetch('/api/offers', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                populateOfferFilter(data);
+            })
+            .catch(error => {
+                console.error('Error fetching offers:', error);
+            });
+        }
+
+        // Populate offer filter
+        function populateOfferFilter(offers) {
+            const select = document.getElementById('offer-filter');
+            offers.forEach(offer => {
+                const option = document.createElement('option');
+                option.value = offer.id;
+                option.textContent = offer.title;
+                select.appendChild(option);
+            });
+        }
+
+        // Render applications table
+        function renderApplications(applications) {
+            const table = document.getElementById('applications-table');
+            table.innerHTML = '';
+
+            if (applications.length === 0) {
+                table.innerHTML = '<tr><td colspan="6" class="text-center">No applications found</td></tr>';
+                return;
+            }
+
+            applications.forEach(app => {
+                const row = document.createElement('tr');
+                row.className = 'hover-scale';
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${app.student_avatar || 'images/company-default.svg'}" alt="Student" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                            ${app.student_name}
+                        </div>
+                    </td>
+                    <td>${app.offer_title}</td>
+                    <td>${app.student_email}</td>
+                    <td>${new Date(app.created_at).toLocaleDateString()}</td>
+                    <td><span class="badge bg-${getStatusColor(app.status)}">${app.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-2" onclick="viewApplication(${app.id})">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-sm btn-outline-success me-2" onclick="updateStatus(${app.id}, 'accepted')">
+                            Accept
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="updateStatus(${app.id}, 'rejected')">
+                            Reject
+                        </button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Get status color
+        function getStatusColor(status) {
+            switch (status) {
+                case 'accepted': return 'success';
+                case 'pending': return 'warning';
+                case 'rejected': return 'danger';
+                default: return 'secondary';
+            }
+        }
+
+        // View application
+        function viewApplication(id) {
+            window.location.href = `candidatures-entreprise.html#app-${id}`;
+        }
+
+        // Update application status
+        function updateStatus(id, status) {
+            if (confirm(`Are you sure you want to ${status} this application?`)) {
+                const token = localStorage.getItem('auth_token');
+                fetch(`/api/applications/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    fetchApplications(token); // Refresh applications
+                    fetchStats(token); // Refresh stats
+                    alert(`Application ${status}`);
+                })
+                .catch(error => {
+                    console.error('Error updating status:', error);
+                    alert('Error updating status');
+                });
+            }
+        }
+
+        // Filter applications
+        function filterApplications() {
+            const offerFilter = document.getElementById('offer-filter').value;
+            const statusFilter = document.getElementById('status-filter').value;
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#applications-table tr');
+
+            rows.forEach(row => {
+                const offer = row.cells[1].textContent.toLowerCase();
+                const student = row.cells[0].textContent.toLowerCase();
+                const email = row.cells[2].textContent.toLowerCase();
+                const status = row.cells[4].textContent.toLowerCase();
+
+                const matchesOffer = !offerFilter || offer.includes(offerFilter);
+                const matchesStatus = !statusFilter || status.includes(statusFilter);
+                const matchesSearch = !searchTerm || student.includes(searchTerm) || email.includes(searchTerm) || offer.includes(searchTerm);
+
+                row.style.display = (matchesOffer && matchesStatus && matchesSearch) ? '' : 'none';
+            });
+        }
+
+        // Fetch stats
+        function fetchStats(token) {
+            fetch('/api/applications/stats', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total-apps').textContent = data.total || 0;
+                document.getElementById('pending-apps').textContent = data.pending || 0;
+                document.getElementById('accepted-apps').textContent = data.accepted || 0;
+                document.getElementById('rejected-apps').textContent = data.rejected || 0;
+            })
+            .catch(error => {
+                console.error('Error fetching stats:', error);
+            });
+        }
+    </script>
+</body>
+</html>

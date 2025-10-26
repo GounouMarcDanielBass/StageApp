@@ -1,0 +1,195 @@
+<!-- Navbar Start -->
+<header id="topnav" class="defaultscroll sticky">
+    <div class="container">
+        <a class="logo" href="index.html">
+            <span class="logo-light-mode">
+                <img src="images/logo-dark.png" class="l-dark" alt="">
+                <img src="images/logo-white.png" class="l-light" alt="">
+            </span>
+            <img src="images/logo-white.png" class="logo-dark-mode" alt="">
+        </a>
+
+        <div class="menu-extras">
+            <div class="menu-item">
+                <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <ul class="buy-button list-inline mb-0">
+            <li class="list-inline-item ps-1 mb-0">
+                <div class="theme-switcher">
+                    <button type="button" class="theme-switcher-button" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon theme-switcher-icon"></i>
+                    </button>
+                </div>
+            </li>
+            <!-- Search Dropdown for public pages -->
+            <li class="list-inline-item ps-1 mb-0 d-none" id="search-dropdown">
+                <div class="dropdown">
+                    <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i data-feather="search" class="icons"></i>
+                    </button>
+                    <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded border-0 mt-3 p-0" style="width: 240px;">
+                        <div class="search-bar">
+                            <div id="itemSearch" class="menu-search mb-0">
+                                <form role="search" method="get" id="searchItemform" class="searchform">
+                                    <input type="text" class="form-control rounded border" name="s" id="searchItem" placeholder="Search...">
+                                    <input type="submit" id="searchItemsubmit" value="Search">
+                                    <i data-feather="search" class="search-icon fea icon-sm"></i>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- Auth Buttons for non-logged-in users -->
+            <li class="list-inline-item ps-1 mb-0 d-none" id="auth-buttons">
+                <div class="d-flex gap-2">
+                    <a href="login.html" class="btn btn-sm btn-outline-primary">Login</a>
+                    <a href="signup.html" class="btn btn-sm btn-primary">Sign Up</a>
+                </div>
+            </li>
+            <!-- User Dropdown for logged in users -->
+            <li class="list-inline-item ps-1 mb-0 d-none" id="user-dropdown">
+                <div class="dropdown dropdown-primary">
+                    <button type="button" class="dropdown-toggle btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="images/company-default.svg" class="img-fluid rounded-pill" alt="" id="profile-avatar">
+                    </button>
+                    <div class="dropdown-menu dd-menu dropdown-menu-end bg-white rounded shadow border-0 mt-3">
+                        <a href="profile.html" class="dropdown-item fw-medium fs-6"><i data-feather="user" class="fea icon-sm me-2 align-middle"></i>Profile</a>
+                        <a href="parametres-compte.html" class="dropdown-item fw-medium fs-6"><i data-feather="settings" class="fea icon-sm me-2 align-middle"></i>Settings</a>
+                        <div class="dropdown-divider border-top"></div>
+                        <a href="#" class="dropdown-item fw-medium fs-6" id="logout-link"><i data-feather="log-out" class="fea icon-sm me-2 align-middle"></i>Logout</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div id="navigation">
+            <ul class="navigation-menu nav-right nav-light">
+                <li><a href="index.html" class="sub-menu-item">Home</a></li>
+                <li class="has-submenu parent-menu-item">
+                    <a href="javascript:void(0)">Stages</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li><a href="offres-stage.html" class="sub-menu-item">Offres de Stage</a></li>
+                        <li><a href="offres-stage.html" class="sub-menu-item">Candidatures</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html" class="sub-menu-item">About</a></li>
+                <li><a href="faq.html" class="sub-menu-item">FAQ</a></li>
+                <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!-- Navbar End -->
+
+<script>
+// Dynamic authentication logic for navbar
+document.addEventListener('DOMContentLoaded', function() {
+    const token = localStorage.getItem('token');
+    const searchDropdown = document.getElementById('search-dropdown');
+    const authButtons = document.getElementById('auth-buttons');
+    const userDropdown = document.getElementById('user-dropdown');
+    const profileAvatar = document.getElementById('profile-avatar');
+    const logoutLink = document.getElementById('logout-link');
+
+    if (token) {
+        // User is logged in, fetch user data
+        fetch('/api/auth/me', {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Show user dropdown
+            userDropdown.classList.remove('d-none');
+            // Hide auth buttons and search
+            authButtons.classList.add('d-none');
+            searchDropdown.classList.add('d-none');
+
+            // Set profile avatar (assuming data.avatar or use default)
+            if (data.avatar) {
+                profileAvatar.src = data.avatar;
+            } else {
+                profileAvatar.src = 'images/company-default.svg'; // Default
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+            // If fetch fails, treat as not logged in
+            showAuthElements();
+        });
+
+        // Handle logout
+        if (logoutLink) {
+            logoutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch('/api/auth/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        localStorage.removeItem('token');
+                        location.reload(); // Reload to show auth buttons
+                    } else {
+                        console.error('Logout failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during logout:', error);
+                    localStorage.removeItem('token');
+                    location.reload();
+                });
+            });
+        }
+    } else {
+        // User not logged in
+        showAuthElements();
+    }
+
+    function showAuthElements() {
+        // Show auth buttons and search for public pages
+        authButtons.classList.remove('d-none');
+                // Show search only if not on dashboard/login/signup
+        const currentPath = window.location.pathname;
+        if (!currentPath.includes('dashboard') && !currentPath.includes('login') && !currentPath.includes('signup')) {
+            searchDropdown.classList.remove('d-none');
+        }
+        userDropdown.classList.add('d-none');
+    }
+
+    // Handle search form submission
+    const searchForm = document.getElementById('searchItemform');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = document.getElementById('searchItem').value.trim();
+            if (query) {
+                // Check authentication
+                const token = localStorage.getItem('token') || localStorage.getItem('auth_token');
+                if (token) {
+                    // Redirect to offres-stage.html with search term
+                    window.location.href = `offres-stage.html?search=${encodeURIComponent(query)}`;
+                } else {
+                    // Redirect to login with message
+                    window.location.href = `login.html?message=${encodeURIComponent('Veuillez vous connecter d\'abord')}`;
+                }
+            }
+        });
+    }
+});</search>
+</search_and_replace>
+</script>

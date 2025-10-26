@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ViewController extends Controller
 {
     public function index()
     {
+        Log::info('Index route accessed via ViewController');
         return view('welcome');
     }
 
@@ -53,6 +55,7 @@ class ViewController extends Controller
 
     public function about()
     {
+        Log::info('About route accessed via ViewController');
         return view('about');
     }
 

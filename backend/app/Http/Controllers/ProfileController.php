@@ -70,6 +70,7 @@ class ProfileController extends Controller
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'avatar' => 'nullable|string|max:500',
         ];
 
         if ($user->isEtudiant()) {
@@ -91,6 +92,9 @@ class ProfileController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        if ($request->has('avatar')) {
+            $user->avatar = $request->avatar;
+        }
         $user->save();
 
         if ($user->isEtudiant()) {

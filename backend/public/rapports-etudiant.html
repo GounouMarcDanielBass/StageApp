@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reports - Internship Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-theme="light" class="fade-in">
+    <!-- Header -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>
+                <span>Internship Hub</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="offres-stage.html"><i class="fas fa-briefcase me-1"></i> Opportunities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="candidatures-etudiant.html"><i class="fas fa-file-alt me-1"></i> My Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rapports-etudiant.html"><i class="fas fa-chart-bar me-1"></i> Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profil-etudiant.html"><i class="fas fa-user me-1"></i> Profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> Student
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profil-etudiant.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="parametres-compte.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="theme-toggle" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="d-flex">
+        <nav class="sidebar bg-card border-end collapse d-lg-block" id="sidebar">
+            <div class="list-group list-group-flush">
+                <a href="student-dashboard.html" class="list-group-item list-group-item-action py-3 hover-scale">
+                    <i class="fas fa-tachometer-alt me-3"></i>Dashboard
+                </a>
+                <a href="candidatures-etudiant.html" class="list-group-item list-group-item-action py-3 hover-scale">
+                    <i class="fas fa-file-alt me-3"></i>My Applications
+                </a>
+                <a href="documents-etudiant.html" class="list-group-item list-group-item-action py-3 hover-scale">
+                    <i class="fas fa-file me-3"></i>Documents
+                </a>
+                <a href="suivi-stage-etudiant.html" class="list-group-item list-group-item-action py-3 hover-scale">
+                    <i class="fas fa-chart-line me-3"></i>Internship Tracking
+                </a>
+                <a href="rapports-etudiant.html" class="list-group-item list-group-item-action py-3 hover-scale active">
+                    <i class="fas fa-chart-bar me-3"></i>Reports
+                </a>
+                <a href="profil-etudiant.html" class="list-group-item list-group-item-action py-3 hover-scale">
+                    <i class="fas fa-user me-3"></i>Profile
+                </a>
+                <a href="notifications.html" class="list-group-item list-group-item-action py-3 hover-scale">
+                    <i class="fas fa-bell me-3"></i>Notifications
+                </a>
+                <a href="messagerie.html" class="list-group-item list-group-item-action py-3 hover-scale">
+                    <i class="fas fa-envelope me-3"></i>Messages
+                </a>
+                <a href="login.html" class="list-group-item list-group-item-action py-3 hover-scale mt-auto">
+                    <i class="fas fa-sign-out-alt me-3"></i>Logout
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-grow-1">
+            <div class="container-fluid p-4">
+                <!-- Page Header -->
+                <div class="row mb-4 fade-in">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h1 class="h3 mb-0">My Reports</h1>
+                                <p class="text-muted">View and manage your submitted internship reports</p>
+                            </div>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitReportModal">
+                                <i class="fas fa-plus me-2"></i>Submit New Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4 slide-in">
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card hover-lift">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title text-muted">Total Reports</h5>
+                                        <h3 class="text-primary" id="total-reports">0</h3>
+                                    </div>
+                                    <i class="fas fa-file-alt fa-2x text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card hover-lift">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title text-muted">Approved</h5>
+                                        <h3 class="text-success" id="approved-reports">0</h3>
+                                    </div>
+                                    <i class="fas fa-check-circle fa-2x text-success"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card hover-lift">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title text-muted">Pending</h5>
+                                        <h3 class="text-warning" id="pending-reports">0</h3>
+                                    </div>
+                                    <i class="fas fa-clock fa-2x text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card hover-lift">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title text-muted">Rejected</h5>
+                                        <h3 class="text-danger" id="rejected-reports">0</h3>
+                                    </div>
+                                    <i class="fas fa-times-circle fa-2x text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Table -->
+                <div class="row slide-in">
+                    <div class="col-12">
+                        <div class="card hover-lift">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-table me-2"></i>Your Reports</h5>
+                                <div class="d-flex">
+                                    <select class="form-select form-select-sm me-2" id="status-filter">
+                                        <option value="">All Status</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="rejected">Rejected</option>
+                                    </select>
+                                    <select class="form-select form-select-sm me-2" id="type-filter">
+                                        <option value="">All Types</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="final">Final</option>
+                                    </select>
+                                    <input type="text" class="form-control form-control-sm" id="search-input" placeholder="Search reports...">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Type</th>
+                                                <th>Title</th>
+                                                <th>Status</th>
+                                                <th>Hours</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="reports-table">
+                                            <!-- Reports will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center mt-3" id="pagination">
+                                    <!-- Pagination will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Submit Report Modal -->
+    <div class="modal fade" id="submitReportModal" tabindex="-1" aria-labelledby="submitReportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitReportModalLabel">Submit Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="report-form">
+                        <div class="mb-3">
+                            <label for="report-type" class="form-label">Report Type</label>
+                            <select class="form-select" id="report-type" required>
+                                <option value="">Select type</option>
+                                <option value="weekly">Weekly Report</option>
+                                <option value="monthly">Monthly Report</option>
+                                <option value="final">Final Report</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="report-title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="report-title" placeholder="Report title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="report-content" class="form-label">Content</label>
+                            <textarea class="form-control" id="report-content" rows="5" placeholder="Describe your activities and progress..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="report-hours" class="form-label">Hours Worked</label>
+                            <input type="number" class="form-control" id="report-hours" min="0" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitReport()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Internship Hub. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#privacy" class="text-light me-3">Privacy Policy</a>
+                    <a href="#terms" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Initialize theme and fetch data
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                fetchReports(token);
+                fetchStats(token);
+            } else {
+                window.location.href = 'login.html';
+            }
+
+            // Filter functionality
+            document.getElementById('status-filter').addEventListener('change', filterReports);
+            document.getElementById('type-filter').addEventListener('change', filterReports);
+            document.getElementById('search-input').addEventListener('input', filterReports);
+        });
+
+        // Fetch reports
+        function fetchReports(token) {
+            fetch('/api/reports', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderReports(data);
+            })
+            .catch(error => {
+                console.error('Error fetching reports:', error);
+                document.getElementById('reports-table').innerHTML = '<tr><td colspan="6" class="text-center">Error loading reports</td></tr>';
+            });
+        }
+
+        // Render reports table
+        function renderReports(reports) {
+            const table = document.getElementById('reports-table');
+            table.innerHTML = '';
+
+            if (reports.length === 0) {
+                table.innerHTML = '<tr><td colspan="6" class="text-center">No reports found</td></tr>';
+                return;
+            }
+
+            reports.forEach(report => {
+                const row = document.createElement('tr');
+                row.className = 'hover-scale';
+                row.innerHTML = `
+                    <td>${new Date(report.created_at).toLocaleDateString()}</td>
+                    <td>${report.type}</td>
+                    <td>${report.title}</td>
+                    <td><span class="badge bg-${getStatusColor(report.status)}">${report.status}</span></td>
+                    <td>${report.hours || 0}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-2" onclick="viewReport(${report.id})">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="editReport(${report.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Get status color for badge
+        function getStatusColor(status) {
+            switch (status) {
+                case 'approved': return 'success';
+                case 'pending': return 'warning';
+                case 'rejected': return 'danger';
+                default: return 'secondary';
+            }
+        }
+
+        // View report details
+        function viewReport(id) {
+            window.location.href = `detail-rapport.html?id=${id}`;
+        }
+
+        // Edit report
+        function editReport(id) {
+            // Implement edit functionality
+            console.log('Edit report:', id);
+        }
+
+        // Filter reports
+        function filterReports() {
+            const statusFilter = document.getElementById('status-filter').value;
+            const typeFilter = document.getElementById('type-filter').value;
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#reports-table tr');
+
+            rows.forEach(row => {
+                const status = row.cells[3].textContent.toLowerCase();
+                const type = row.cells[1].textContent.toLowerCase();
+                const title = row.cells[2].textContent.toLowerCase();
+
+                const matchesStatus = !statusFilter || status.includes(statusFilter);
+                const matchesType = !typeFilter || type.includes(typeFilter);
+                const matchesSearch = !searchTerm || title.includes(searchTerm);
+
+                row.style.display = (matchesStatus && matchesType && matchesSearch) ? '' : 'none';
+            });
+        }
+
+        // Fetch stats
+        function fetchStats(token) {
+            fetch('/api/reports/stats', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total-reports').textContent = data.total || 0;
+                document.getElementById('approved-reports').textContent = data.approved || 0;
+                document.getElementById('pending-reports').textContent = data.pending || 0;
+                document.getElementById('rejected-reports').textContent = data.rejected || 0;
+            })
+            .catch(error => {
+                console.error('Error fetching stats:', error);
+            });
+        }
+
+        // Submit report
+        function submitReport() {
+            const token = localStorage.getItem('auth_token');
+            const type = document.getElementById('report-type').value;
+            const title = document.getElementById('report-title').value;
+            const content = document.getElementById('report-content').value;
+            const hours = document.getElementById('report-hours').value;
+
+            if (!type || !title || !content || !hours) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            fetch('/api/reports', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ type, title, content, hours })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('report-form').reset();
+                bootstrap.Modal.getInstance(document.getElementById('submitReportModal')).hide();
+                fetchReports(token); // Refresh reports
+                fetchStats(token); // Refresh stats
+            })
+            .catch(error => {
+                console.error('Error submitting report:', error);
+                alert('Error submitting report');
+            });
+        }
+    </script>
+</body>
+</html>

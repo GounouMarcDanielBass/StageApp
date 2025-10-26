@@ -1,240 +1,18 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offres de Stage - StageApp</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@                <div id="guest-nav" class="d-flex" data-aos="fade-left">
-                    <a href="login.html" class="btn btn-outline-primary me-3 px-4">
-                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                    </a>
-                    <a href="signup.html" class="btn btn-primary px-4">
-                        <i class="fas fa-user-plus me-2"></i>S'inscrire
-                    </a>
-                </div>
-                <!-- User Nav -->
-                <div id="user-nav" class="d-none" data-aos="fade-left">
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                            <strong id="user-name"></strong>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logout-button">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>st/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/themes.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #6366f1;
-            --background-color: #f8fafc;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-            --card-shadow: rgba(0, 0, 0, 0.05);
-            --gradient-start: #2563eb;
-            --gradient-end: #6366f1;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #60a5fa;
-            --secondary-color: #818cf8;
-            --background-color: #0f172a;
-            --text-color: #e2e8f0;
-            --card-bg: #1e293b;
-            --card-shadow: rgba(0, 0, 0, 0.2);
-            --gradient-start: #1e40af;
-            --gradient-end: #3730a3;
-        }
-
-        body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.9);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(30, 41, 59, 0.9);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        [data-theme="dark"] .nav-link {
-            color: var(--text-color) !important;
-        }
-
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            color: var(--card-bg);
-        }
-
-        [data-theme="dark"] .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        [data-theme="dark"] .btn-outline-primary:hover {
-            color: #fff;
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .text-primary {
-            color: var(--primary-color) !important;
-        }
-
-        .text-muted {
-            color: var(--secondary-color) !important;
-        }
-
-        .hero-section {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            padding: 80px 0;
-        }
-
-        .offer-card {
-            background-color: var(--card-bg);
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px var(--card-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .offer-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px var(--card-shadow);
-        }
-
-        .form-control, .form-select {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            border: 1px solid var(--primary-color);
-        }
-
-        .form-control:focus, .form-select:focus {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
-        }
-
-        .theme-switcher {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-
-        .theme-switcher button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border: none;
-            box-shadow: 0 4px 20px var(--card-shadow);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-switcher button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px var(--card-shadow);
-        }
-
-        .theme-switcher i {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        footer {
-            background-color: var(--card-bg);
-        }
-
-        .skeleton-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-        }
-        .skeleton {
-            background-color: var(--background-color);
-            border-radius: 4px;
-            animation: pulse 1.5s infinite ease-in-out;
-        }
-        .skeleton.title { width: 60%; height: 24px; margin-bottom: 10px; }
-        .skeleton.text { width: 80%; height: 16px; margin-bottom: 8px; }
-        .skeleton.tag { width: 25%; height: 20px; display: inline-block; margin-right: 10px; }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-
-        .filters-sidebar {
-            background-color: var(--card-bg);
-            box-shadow: 0 4px 20px var(--card-shadow);
-        }
-    </style>
 </head>
 <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
@@ -302,14 +80,12 @@
                             <label for="filter-domain" class="form-label">Domaine</label>
                             <select id="filter-domain" class="form-select">
                                 <option value="">Tous</option>
-                                <!-- Options will be populated by JS -->
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="filter-location" class="form-label">Localisation</label>
                             <select id="filter-location" class="form-select">
                                 <option value="">Toutes</option>
-                                <!-- Options will be populated by JS -->
                             </select>
                         </div>
                         <div class="mb-3">
@@ -326,19 +102,7 @@
                 <!-- Offers Grid -->
                 <div class="col-lg-9">
                     <div id="offers-grid" class="row g-4">
-                        <!-- Skeleton loaders -->
-                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
-                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
-                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
-                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 skeleton-wrapper">
-                            <div class="skeleton-card"><div class="skeleton title"></div><div class="skeleton text"></div><div class="skeleton text"></div><div class="skeleton tag"></div><div class="skeleton tag"></div></div>
-                        </div>
+                        <!-- Offers will be populated by JS -->
                     </div>
                     <div id="no-results" class="text-center d-none mt-5">
                         <i class="fas fa-search fa-3x text-muted mb-3"></i>
@@ -365,7 +129,144 @@
         </button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+                // Dynamic script for offers
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchOffers();
+            setupFilters();
+            setupSearch();
+
+            // Check for search query in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search');
+            if (searchQuery) {
+                const searchInput = document.getElementById('search-input');
+                if (searchInput) {
+                    searchInput.value = searchQuery;
+                    searchOffers();  // Apply the filter immediately
+                }
+            }
+        });</search>
+</search_and_replace>
+
+        let allOffers = [];
+        let filteredOffers = [];
+
+        function fetchOffers() {
+            fetch('/api/offers')
+                .then(response => response.json())
+                .then(data => {
+                    allOffers = data;
+                    filteredOffers = data;
+                    populateFilters(data);
+                    renderOffers(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching offers:', error);
+                    document.getElementById('offers-grid').innerHTML = '<p class="text-center">Erreur lors du chargement des offres.</p>';
+                });
+        }
+
+        function populateFilters(offers) {
+            const domains = [...new Set(offers.map(o => o.description.split(' ').slice(0,2).join(' ')))];
+            const locations = [...new Set(offers.map(o => o.location))];
+            
+            const domainSelect = document.getElementById('filter-domain');
+            domainSelect.innerHTML = '<option value="">Tous</option>';
+            domains.forEach(domain => {
+                const option = document.createElement('option');
+                option.value = domain;
+                option.textContent = domain;
+                domainSelect.appendChild(option);
+            });
+
+            const locationSelect = document.getElementById('filter-location');
+            locationSelect.innerHTML = '<option value="">Toutes</option>';
+            locations.forEach(location => {
+                const option = document.createElement('option');
+                option.value = location;
+                option.textContent = location;
+                locationSelect.appendChild(option);
+            });
+        }
+
+        function renderOffers(offers) {
+            const grid = document.getElementById('offers-grid');
+            grid.innerHTML = '';
+            if (offers.length === 0) {
+                document.getElementById('no-results').classList.remove('d-none');
+                return;
+            }
+            document.getElementById('no-results').classList.add('d-none');
+            offers.forEach(offer => {
+                const card = createOfferCard(offer);
+                grid.appendChild(card);
+            });
+        }
+
+        function createOfferCard(offer) {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4';
+            col.innerHTML = `
+                <div class="card offer-card h-100" data-aos="fade-up">
+                    <div class="card-body p-4">
+                        <span class="badge bg-primary mb-2">${offer.status}</span>
+                        <h5 class="card-title">${offer.title}</h5>
+                        <p class="company-name text-muted"><i class="fas fa-building me-2"></i>${offer.entreprise.name}</p>
+                        <p class="location text-muted"><i class="fas fa-map-marker-alt me-2"></i>${offer.location}</p>
+                        <p class="duration text-muted"><i class="fas fa-calendar-alt me-2"></i>${offer.duration} mois</p>
+                        <p class="description">${offer.description.substring(0,100)}...</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Publié récemment</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Voir détails</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return col;
+        }
+
+        function setupFilters() {
+            document.getElementById('filter-button').addEventListener('click', applyFilters);
+            document.getElementById('filter-duration').addEventListener('input', function() {
+                document.getElementById('duration-value').textContent = this.value;
+            });
+        }
+
+        function applyFilters() {
+            const domain = document.getElementById('filter-domain').value;
+            const location = document.getElementById('filter-location').value;
+            const duration = document.getElementById('filter-duration').value;
+
+            filteredOffers = allOffers.filter(offer => {
+                return (domain === '' || offer.description.includes(domain)) &&
+                       (location === '' || offer.location === location) &&
+                       offer.duration <= duration;
+            });
+            renderOffers(filteredOffers);
+        }
+
+        function setupSearch() {
+            document.getElementById('search-button').addEventListener('click', searchOffers);
+            document.getElementById('search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchOffers();
+            });
+        }
+
+        function searchOffers() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            filteredOffers = allOffers.filter(offer => 
+                offer.title.toLowerCase().includes(query) ||
+                offer.description.toLowerCase().includes(query) ||
+                offer.entreprise.name.toLowerCase().includes(query)
+            );
+            renderOffers(filteredOffers);
+        }
+    </script>
 </body>
 </html>

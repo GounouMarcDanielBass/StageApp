@@ -277,6 +277,4 @@ Des tableaux de bord personnalisés permettent à chaque type d'utilisateur de s
 38. 6.
     Page d'erreur 403 - accès refusé (403.html)
 
-
-
-    ajoute toutes les autres pages necessaires
+NB : ajoute toutes les autres pages necessaires manquantes non listees ci dessus

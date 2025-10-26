@@ -1,482 +1,504 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord Entreprise - StageApp</title>
+    <title>Company Dashboard - Internship Management System</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #6366f1;
-            --background-color: #f8fafc;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-            --card-shadow: rgba(0, 0, 0, 0.05);
-            --gradient-start: #2563eb;
-            --gradient-end: #6366f1;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #60a5fa;
-            --secondary-color: #818cf8;
-            --background-color: #0f172a;
-            --text-color: #e2e8f0;
-            --card-bg: #1e293b;
-            --card-shadow: rgba(0, 0, 0, 0.2);
-            --gradient-start: #1e40af;
-            --gradient-end: #3730a3;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 70px;
         }
 
         body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
 
-        .navbar {
-            background: rgba(255, 255, 255, 0.9);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(30, 41, 59, 0.9);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-        
-        [data-theme="dark"] .nav-link {
-            color: var(--text-color) !important;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
+        .sidebar {
+            position: fixed;
+            top: 0;
             left: 0;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--card);
+            border-right: 1px solid var(--border);
+            z-index: 1000;
             transition: width 0.3s ease;
+            overflow-y: auto;
         }
 
-        .nav-link:hover::after {
-            width: 100%;
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
         }
-        
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+
+        .sidebar .nav-link {
+            color: var(--text);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .sidebar.collapsed .nav-text {
+            display: none;
         }
 
         .main-content {
-            flex-grow: 1;
-            padding: 40px 0;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
         }
 
-        .card {
-            border: none;
-            background: var(--card-bg);
-            box-shadow: 0 8px 32px var(--card-shadow);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px var(--card-shadow);
+        .main-content.expanded {
+            margin-left: var(--sidebar-collapsed-width);
         }
 
-        .card-header {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border-bottom: none;
-            color: white;
-            font-weight: 600;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-        
-        .stat-card {
-            background-color: var(--card-bg);
+        .stats-card {
+            background: var(--card);
+            border-radius: 12px;
             padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 8px 32px var(--card-shadow);
-        }
-        
-        .stat-card .icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        .theme-switcher {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
+        .stats-card:hover {
+            transform: translateY(-5px);
         }
 
-        .theme-switcher button {
+        .stats-card .icon {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border: none;
-            box-shadow: 0 4px 20px var(--card-shadow);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
         }
 
-        .theme-switcher button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px var(--card-shadow);
+        .chart-container {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .theme-switcher i {
-            font-size: 1.5rem;
-            color: white;
+        .table-container {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        footer {
-            background-color: var(--card-bg);
-        }
-        
-        .table {
-            color: var(--text-color);
-        }
-        
-        .list-group-item {
-            background-color: var(--card-bg);
-            color: var(--text-color);
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html" data-aos="fade-right">
-                <i class="fas fa-graduation-cap me-2"></i>StageApp
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-bullhorn me-1"></i> Publier une offre
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-users me-1"></i> Candidats
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-building me-1"></i>
-                            <span id="company-name-nav"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Profil Entreprise</a></li>
-                            <li><a class="dropdown-item" href="#">Paramètres</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logout-button">Déconnexion</a></li>
-                        </ul>
-                    </li>
-                </ul>
+<body data-theme="light">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="p-3">
+            <div class="d-flex align-items-center mb-4">
+                <div class="bg-primary text-white rounded p-2 me-3">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h5 class="mb-0 nav-text">Company Panel</h5>
+                <button class="btn btn-sm ms-auto d-md-none" id="sidebarClose">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#overview">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        <span class="nav-text">Overview</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#offers">
+                        <i class="fas fa-briefcase me-2"></i>
+                        <span class="nav-text">Job Offers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#applications">
+                        <i class="fas fa-users me-2"></i>
+                        <span class="nav-text">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#candidates">
+                        <i class="fas fa-user-graduate me-2"></i>
+                        <span class="nav-text">Candidates</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#analytics">
+                        <i class="fas fa-chart-line me-2"></i>
+                        <span class="nav-text">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#settings">
+                        <i class="fas fa-cog me-2"></i>
+                        <span class="nav-text">Settings</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-down">
-                <h1 class="fw-bold">Tableau de Bord Entreprise</h1>
-                <a href="#" class="btn btn-primary">
-                    <i class="fas fa-plus-circle me-2"></i>Publier une nouvelle offre
-                </a>
+    <div class="main-content" id="mainContent">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="ms-auto d-flex align-items-center">
+                    <!-- Theme Switcher -->
+                    <div class="theme-switcher me-3">
+                        <button class="btn btn-outline-secondary" id="theme-toggle">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-secondary position-relative" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">New application received</a></li>
+                            <li><a class="dropdown-item" href="#">Interview scheduled</a></li>
+                            <li><a class="dropdown-item" href="#">Offer accepted</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-2"></i>
+                            TechCorp
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="container-fluid p-4">
+            <!-- Header -->
+            <div class="row mb-4">
+                <div class="col">
+                    <h1 class="h2 mb-2">Welcome back, TechCorp!</h1>
+                    <p class="text-muted">Here's what's happening with your internship program today.</p>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Create New Offer
+                    </button>
+                </div>
             </div>
 
             <!-- Stats Cards -->
-            <div class="row g-4 mb-4">
-                <div class="col-md-4" data-aos="fade-up">
-                    <div class="stat-card h-100">
-                        <div class="icon"><i class="fas fa-briefcase"></i></div>
-                        <h3 class="fw-bold" id="active-offers">0</h3>
-                        <p class="text-muted mb-0">Offres Actives</p>
+            <div class="row mb-4" id="overview">
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="icon bg-primary text-white">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="mb-1" id="active-offers">12</h3>
+                        <p class="text-muted mb-0">Active Job Offers</p>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-card h-100">
-                        <div class="icon"><i class="fas fa-users"></i></div>
-                        <h3 class="fw-bold" id="total-applications">0</h3>
-                        <p class="text-muted mb-0">Candidatures Reçues</p>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="icon bg-success text-white">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="mb-1" id="total-applications">45</h3>
+                        <p class="text-muted mb-0">Total Applications</p>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stat-card h-100">
-                        <div class="icon"><i class="fas fa-user-check"></i></div>
-                        <h3 class="fw-bold" id="interns-hired">0</h3>
-                        <p class="text-muted mb-0">Stagiaires Recrutés</p>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="icon bg-warning text-white">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3 class="mb-1" id="interns-hired">8</h3>
+                        <p class="text-muted mb-0">Interns Hired</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="icon bg-info text-white">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="mb-1" id="pending-reviews">15</h3>
+                        <p class="text-muted mb-0">Pending Reviews</p>
                     </div>
                 </div>
             </div>
 
-            <div class="row g-4">
-                <!-- Charts -->
-                <div class="col-lg-8">
-                    <div class="card h-100" data-aos="zoom-in">
-                        <div class="card-header">Candidatures par Offre</div>
-                        <div class="card-body">
-                            <canvas id="applicationsPerOfferChart"></canvas>
-                        </div>
+            <!-- Charts and Tables Row -->
+            <div class="row mb-4" id="analytics">
+                <div class="col-lg-8 mb-4">
+                    <div class="chart-container">
+                        <h5 class="mb-3">Applications Over Time</h5>
+                        <canvas id="applicationsChart"></canvas>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card h-100" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="card-header">Statut des Candidatures</div>
-                        <div class="card-body d-flex align-items-center justify-content-center">
-                            <canvas id="applicationStatusChart"></canvas>
-                        </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="chart-container">
+                        <h5 class="mb-3">Application Status</h5>
+                        <canvas id="statusChart"></canvas>
                     </div>
                 </div>
+            </div>
 
-                <!-- Recent Applications -->
-                <div class="col-12">
-                    <div class="card" data-aos="fade-up">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <span>Candidatures Récentes</span>
-                            <a href="#" class="btn btn-sm btn-light">Voir tout</a>
+            <!-- Recent Applications Table -->
+            <div class="row mb-4" id="applications">
+                <div class="col">
+                    <div class="table-container">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Recent Applications</h5>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th>Candidat</th>
-                                            <th>Offre</th>
-                                            <th>Date</th>
-                                            <th>Statut</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="recent-applications-table">
-                                        <!-- Data will be populated by JS -->
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Candidate</th>
+                                        <th>Position</th>
+                                        <th>Date Applied</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-secondary text-white rounded-circle me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                                    JD
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">John Doe</div>
+                                                    <small class="text-muted">john.doe@email.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Software Developer Intern</td>
+                                        <td>2023-10-20</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-2">View</button>
+                                            <button class="btn btn-sm btn-outline-success me-2">Accept</button>
+                                            <button class="btn btn-sm btn-outline-danger">Reject</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-secondary text-white rounded-circle me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                                    JS
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Jane Smith</div>
+                                                    <small class="text-muted">jane.smith@email.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Data Analyst Intern</td>
+                                        <td>2023-10-19</td>
+                                        <td><span class="badge bg-success">Accepted</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-2">View</button>
+                                            <button class="btn btn-sm btn-outline-secondary" disabled>Accepted</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-secondary text-white rounded-circle me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                                    MB
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Mike Brown</div>
+                                                    <small class="text-muted">mike.brown@email.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>UI/UX Design Intern</td>
+                                        <td>2023-10-18</td>
+                                        <td><span class="badge bg-danger">Rejected</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-2">View</button>
+                                            <button class="btn btn-sm btn-outline-secondary" disabled>Rejected</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Offers Management -->
+            <div class="row" id="offers">
+                <div class="col">
+                    <div class="table-container">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Active Job Offers</h5>
+                            <button class="btn btn-primary btn-sm">Create New Offer</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Position</th>
+                                        <th>Department</th>
+                                        <th>Applications</th>
+                                        <th>Deadline</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Software Developer Intern</td>
+                                        <td>Engineering</td>
+                                        <td>15</td>
+                                        <td>2023-11-15</td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
+                                            <button class="btn btn-sm btn-outline-danger">Close</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data Analyst Intern</td>
+                                        <td>Data Science</td>
+                                        <td>8</td>
+                                        <td>2023-11-10</td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
+                                            <button class="btn btn-sm btn-outline-danger">Close</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-4 mt-auto">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 StageApp. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <button id="theme-toggle" class="btn btn-secondary" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script src="js/theme.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true
+        // Sidebar toggle
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
         });
 
-        // Theme switcher logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const root = document.documentElement;
-        const applyTheme = (theme) => {
-            if (theme === 'dark') {
-                root.setAttribute('data-theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                root.removeAttribute('data-theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        };
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) applyTheme(currentTheme);
-        themeToggle.addEventListener('click', () => {
-            let theme = root.getAttribute('data-theme');
-            if (theme === 'dark') {
-                localStorage.removeItem('theme');
-                applyTheme('light');
-            } else {
-                localStorage.setItem('theme', 'dark');
-                applyTheme('dark');
+        // Mobile sidebar
+        document.getElementById('sidebarClose').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('show');
+        });
+
+        // Charts
+        const ctx1 = document.getElementById('applicationsChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Applications',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderColor: 'var(--primary)',
+                    backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
 
-        // Dashboard logic
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mock data - replace with API call
-            const companyData = {
-                name: "Tech Innovate",
-                stats: {
-                    activeOffers: 5,
-                    totalApplications: 87,
-                    internsHired: 3
-                },
-                applicationsPerOffer: {
-                    labels: ['Dev Full-Stack', 'Data Analyst', 'UI/UX', 'Marketing', 'Chef de Projet'],
-                    data: [25, 18, 15, 20, 9]
-                },
-                applicationStatus: {
-                    pending: 45,
-                    accepted: 12,
-                    rejected: 30
-                },
-                recentApplications: [
-                    { id: 1, candidate: 'Alice Martin', offer: 'Dev Full-Stack', date: '2025-09-29', status: 'En attente' },
-                    { id: 2, candidate: 'Bob Durand', offer: 'Data Analyst', date: '2025-09-28', status: 'Accepté' },
-                    { id: 3, candidate: 'Carla Simon', offer: 'Dev Full-Stack', date: '2025-09-28', status: 'Refusé' },
-                    { id: 4, candidate: 'David Petit', offer: 'UI/UX', date: '2025-09-27', status: 'En attente' },
-                ]
-            };
-
-            // Populate data
-            document.getElementById('company-name-nav').textContent = companyData.name;
-            document.getElementById('active-offers').textContent = companyData.stats.activeOffers;
-            document.getElementById('total-applications').textContent = companyData.stats.totalApplications;
-            document.getElementById('interns-hired').textContent = companyData.stats.internsHired;
-
-            // Populate recent applications table
-            const tableBody = document.getElementById('recent-applications-table');
-            if (companyData.recentApplications.length > 0) {
-                tableBody.innerHTML = companyData.recentApplications.map(app => {
-                    let badgeClass = '';
-                    switch (app.status) {
-                        case 'Accepté': badgeClass = 'bg-success'; break;
-                        case 'Refusé': badgeClass = 'bg-danger'; break;
-                        default: badgeClass = 'bg-warning text-dark';
-                    }
-                    return `
-                        <tr>
-                            <td>${app.candidate}</td>
-                            <td>${app.offer}</td>
-                            <td>${new Date(app.date).toLocaleDateString()}</td>
-                            <td><span class="badge ${badgeClass}">${app.status}</span></td>
-                            <td>
-                                <a href="#" class="btn btn-sm btn-outline-primary" title="Voir le profil"><i class="fas fa-eye"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-success" title="Accepter"><i class="fas fa-check"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-danger" title="Refuser"><i class="fas fa-times"></i></a>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
-            } else {
-                tableBody.innerHTML = '<tr><td colspan="5" class="text-center">Aucune candidature récente.</td></tr>';
+        const ctx2 = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pending', 'Accepted', 'Rejected'],
+                datasets: [{
+                    data: [15, 8, 7],
+                    backgroundColor: ['var(--warning)', 'var(--success)', 'var(--danger)']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
-
-            // Charts
-            const chartColors = {
-                primary: getComputedStyle(root).getPropertyValue('--primary-color').trim(),
-                success: '#198754',
-                warning: '#ffc107',
-                danger: '#dc3545',
-                grid: 'rgba(128, 128, 128, 0.1)'
-            };
-
-            // Applications per Offer Chart (Bar)
-            const appPerOfferCtx = document.getElementById('applicationsPerOfferChart').getContext('2d');
-            new Chart(appPerOfferCtx, {
-                type: 'bar',
-                data: {
-                    labels: companyData.applicationsPerOffer.labels,
-                    datasets: [{
-                        label: 'Candidatures',
-                        data: companyData.applicationsPerOffer.data,
-                        backgroundColor: chartColors.primary.replace(')', ', 0.7)'),
-                        borderColor: chartColors.primary,
-                        borderRadius: 5,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: chartColors.grid },
-                            ticks: { color: getComputedStyle(root).getPropertyValue('--text-color').trim() }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: getComputedStyle(root).getPropertyValue('--text-color').trim() }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-
-            // Application Status Chart (Doughnut)
-            const appStatusCtx = document.getElementById('applicationStatusChart').getContext('2d');
-            new Chart(appStatusCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['En attente', 'Acceptées', 'Refusées'],
-                    datasets: [{
-                        data: [companyData.applicationStatus.pending, companyData.applicationStatus.accepted, companyData.applicationStatus.rejected],
-                        backgroundColor: [chartColors.warning, chartColors.success, chartColors.danger],
-                        borderColor: getComputedStyle(root).getPropertyValue('--card-bg').trim(),
-                        borderWidth: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: getComputedStyle(root).getPropertyValue('--text-color').trim()
-                            }
-                        }
-                    }
-                }
-            });
         });
+
+        // Initialize theme
+        document.dispatchEvent(new Event('DOMContentLoaded'));
     </script>
 </body>
 </html>

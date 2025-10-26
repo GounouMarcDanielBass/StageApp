@@ -1,61 +1,199 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Internship Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive web-based platform for managing internships, connecting students, companies, supervisors, and administrators. Built with Laravel for the backend API and static HTML/CSS/JavaScript for the frontend.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### User Roles
+- **Administrators**: Manage users, validate companies, assign supervisors, view system statistics.
+- **Students (Étudiants)**: Apply for internships, track applications, upload documents, view evaluations.
+- **Companies (Entreprises)**: Post internship offers, manage applications, evaluate interns, track stages.
+- **Supervisors (Encadrants)**: Monitor student progress, validate reports, conduct evaluations.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Core Functionality
+- **Authentication & Security**: JWT-based authentication with Google 2FA support.
+- **Internship Offers**: Companies can create and manage internship listings.
+- **Applications**: Students can apply to offers and track their status.
+- **Stage Management**: Track internship progress, evaluations, and reports.
+- **Document Management**: Upload and manage documents for applications and reports.
+- **Evaluations**: Supervisors and companies can evaluate student performance.
+- **Notifications**: Real-time notifications for application status, messages, and updates.
+- **Dashboards**: Role-specific dashboards with statistics and activity feeds.
+- **Messaging**: Communication between users.
+- **Profile Management**: Update personal information and settings.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Requirements
 
-## Learning Laravel
+- PHP 8.2 or higher
+- Composer
+- Node.js and npm
+- MySQL or compatible database
+- Web server (Apache/Nginx) or Laravel's built-in server
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clone the Repository**
+   ```bash
+   git clone <repository-url>
+   cd gestion-stage-final/backend
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Install PHP Dependencies**
+   ```bash
+   composer install
+   ```
 
-## Laravel Sponsors
+3. **Install Node Dependencies**
+   ```bash
+   npm install
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Environment Configuration**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-### Premium Partners
+   Update `.env` file with your database credentials and other settings:
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=internship_db
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+   JWT_SECRET=your_jwt_secret
+   ```
+
+5. **Database Setup**
+   ```bash
+   php artisan migrate
+   php artisan db:seed  # Optional: Populate with sample data
+   ```
+
+6. **Build Assets**
+   ```bash
+   npm run build  # For production
+   # or
+   npm run dev    # For development
+   ```
+
+## Usage
+
+1. **Start the Development Server**
+   ```bash
+   composer run dev
+   ```
+   This runs the Laravel server, queue worker, and Vite dev server concurrently.
+
+2. **Access the Application**
+   - Frontend: Open `http://localhost:8000` in your browser
+   - API: Available at `http://localhost:8000/api`
+
+3. **Register Users**
+   - Visit the signup page and create accounts for different roles.
+   - Enable 2FA for enhanced security.
+
+4. **Role-Based Access**
+   - Login and access role-specific dashboards and features.
+
+## API Endpoints
+
+The API provides RESTful endpoints for all core functionalities. All authenticated routes require JWT token in the Authorization header.
+
+### Authentication
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register/{role}` - User registration
+- `POST /api/auth/logout` - User logout
+- `POST /api/auth/2fa/generate` - Generate 2FA secret
+- `POST /api/auth/2fa/verify` - Verify 2FA code
+
+### Students (Étudiants)
+- `GET /api/etudiant/dashboard` - Student dashboard data
+- `GET /api/etudiant/candidatures` - View applications
+- `POST /api/etudiant/candidatures` - Submit new application
+- `GET /api/etudiant/profile` - Get profile
+- `PUT /api/etudiant/profile` - Update profile
+
+### Companies (Entreprises)
+- `GET /api/entreprise/dashboard` - Company dashboard data
+- `GET /api/entreprise/offers` - Manage internship offers
+- `POST /api/entreprise/offers` - Create new offer
+- `GET /api/entreprise/applications` - View applications
+- `PUT /api/entreprise/applications/{id}/status` - Update application status
+
+### Supervisors (Encadrants)
+- `GET /api/encadrant/dashboard` - Supervisor dashboard data
+- `GET /api/encadrant/stages` - View assigned stages
+- `POST /api/encadrant/evaluations` - Create evaluation
+- `PUT /api/encadrant/evaluations/{id}` - Update evaluation
+
+### Administrators
+- `GET /api/admin/dashboard` - Admin dashboard data
+- `GET /api/admin/users` - Manage users
+- `GET /api/admin/entreprises` - Validate companies
+- `GET /api/admin/encadrants` - Manage supervisors
+
+### Public Endpoints
+- `GET /api/latest-offers` - Get latest internship offers
+- `GET /api/stats` - System statistics
+- `POST /api/contact` - Submit contact form
+
+For complete API documentation, refer to the generated Swagger/OpenAPI docs or individual controller files.
+
+## Project Structure
+
+```
+backend/
+├── app/
+│   ├── Http/Controllers/     # API and web controllers
+│   ├── Models/               # Eloquent models
+│   └── Services/             # Business logic services
+├── database/
+│   ├── migrations/           # Database migrations
+│   ├── seeders/              # Data seeders
+│   └── factories/            # Model factories for testing
+├── public/                   # Static assets and frontend files
+│   ├── css/                  # Stylesheets
+│   ├── js/                   # JavaScript files
+│   ├── images/               # Image assets
+│   └── index.html            # Frontend entry point
+├── resources/
+│   └── views/                # Blade templates (if any)
+├── routes/
+│   ├── api.php               # API routes
+│   └── web.php               # Web routes
+├── config/                   # Configuration files
+├── composer.json             # PHP dependencies
+└── package.json              # Node.js dependencies
+```
+
+## Documentation
+
+- **[API Documentation](API.md)**: Detailed API endpoints and usage examples
+- **[User Guide](USER_GUIDE.md)**: Comprehensive guide for end-users on how to use the system
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support, email support@yourcompany.com or create an issue in the repository.
+
+## Changelog
+
+### Version 1.0.0
+- Initial release with core internship management features
+- JWT authentication with 2FA
+- Role-based access control
+- Responsive frontend design

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intern Evaluations - Internship Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-theme="light" class="fade-in">
+    <!-- Header -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-building me-2"></i>
+                <span>Internship Hub</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="offres-entreprise.html"><i class="fas fa-briefcase me-1"></i> My Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="candidatures-entreprise.html"><i class="fas fa-users me-1"></i> Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="evaluation-stagiaire.html"><i class="fas fa-star me-1"></i> Evaluations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profil-entreprise.html"><i class="fas fa-building me-1"></i> Profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> Company
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profil-entreprise.html"><i class="fas fa-building me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="parametres-compte.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="theme-toggle" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container-fluid p-4">
+        <!-- Page Header -->
+        <div class="row mb-4 fade-in">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 mb-0">Intern Evaluations</h1>
+                        <p class="text-muted">Evaluate and provide feedback for your interns</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row mb-4 slide-in">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Total Interns</h5>
+                                <h3 class="text-primary" id="total-interns">0</h3>
+                            </div>
+                            <i class="fas fa-user-graduate fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Evaluated</h5>
+                                <h3 class="text-success" id="evaluated-interns">0</h3>
+                            </div>
+                            <i class="fas fa-check-circle fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Pending</h5>
+                                <h3 class="text-warning" id="pending-evaluations">0</h3>
+                            </div>
+                            <i class="fas fa-clock fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Avg Rating</h5>
+                                <h3 class="text-info" id="avg-rating">0.0</h3>
+                            </div>
+                            <i class="fas fa-star fa-2x text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interns List -->
+        <div class="row slide-in">
+            <div class="col-12">
+                <div class="card hover-lift">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-user-graduate me-2"></i>Your Interns</h5>
+                        <input type="text" class="form-control form-control-sm w-auto" id="search-input" placeholder="Search interns...">
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="interns-list">
+                            <!-- Interns will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Evaluations -->
+        <div class="row mt-4 slide-in">
+            <div class="col-12">
+                <div class="card hover-lift">
+                    <div class="card-header">
+                        <h5><i class="fas fa-star me-2"></i>Recent Evaluations</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Intern</th>
+                                        <th>Rating</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="evaluations-table">
+                                    <!-- Evaluations will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Evaluation Modal -->
+    <div class="modal fade" id="evaluationModal" tabindex="-1" aria-labelledby="evaluationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="evaluationModalLabel">Evaluate Intern</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="images/company-default.svg" alt="Intern" class="rounded-circle mb-2" style="width: 80px; height: 80px;" id="intern-avatar">
+                        <h6 id="intern-name">Intern Name</h6>
+                        <p class="text-muted" id="intern-position">Position</p>
+                    </div>
+                    <form id="evaluation-form">
+                        <div class="mb-3">
+                            <label class="form-label">Overall Rating</label>
+                            <div class="rating-input">
+                                <input type="radio" id="star5" name="rating" value="5" required>
+                                <label for="star5"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="evaluation-comments" class="form-label">Comments</label>
+                            <textarea class="form-control" id="evaluation-comments" rows="4" placeholder="Provide detailed feedback..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Skills Assessment</label>
+                            <div id="skills-assessment">
+                                <!-- Skills will be loaded here -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEvaluation()">Submit Evaluation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Internship Hub. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#privacy" class="text-light me-3">Privacy Policy</a>
+                    <a href="#terms" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        let currentInternId = null;
+
+        // Initialize theme and fetch data
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                fetchInterns(token);
+                fetchEvaluations(token);
+                fetchStats(token);
+            } else {
+                window.location.href = 'login.html';
+            }
+
+            // Search functionality
+            document.getElementById('search-input').addEventListener('input', filterInterns);
+        });
+
+        // Fetch interns
+        function fetchInterns(token) {
+            fetch('/api/interns', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderInterns(data);
+            })
+            .catch(error => {
+                console.error('Error fetching interns:', error);
+                document.getElementById('interns-list').innerHTML = '<div class="col-12 text-center">Error loading interns</div>';
+            });
+        }
+
+        // Render interns
+        function renderInterns(interns) {
+            const container = document.getElementById('interns-list');
+            container.innerHTML = '';
+
+            if (interns.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center">No interns found</div>';
+                return;
+            }
+
+            interns.forEach(intern => {
+                const div = document.createElement('div');
+                div.className = 'col-md-4 mb-3';
+                div.innerHTML = `
+                    <div class="card hover-lift">
+                        <div class="card-body text-center">
+                            <img src="${intern.avatar || 'images/company-default.svg'}" alt="Intern" class="rounded-circle mb-3" style="width: 80px; height: 80px;">
+                            <h6>${intern.name}</h6>
+                            <p class="text-muted">${intern.position}</p>
+                            <p class="text-muted small">Rating: ${intern.rating || 'Not rated'}</p>
+                            <button class="btn btn-primary btn-sm" onclick="openEvaluationModal(${intern.id}, '${intern.name}', '${intern.position}', '${intern.avatar || 'images/company-default.svg'}')">
+                                <i class="fas fa-star me-1"></i>Evaluate
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Fetch evaluations
+        function fetchEvaluations(token) {
+            fetch('/api/evaluations', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderEvaluations(data);
+            })
+            .catch(error => {
+                console.error('Error fetching evaluations:', error);
+            });
+        }
+
+        // Render evaluations
+        function renderEvaluations(evaluations) {
+            const table = document.getElementById('evaluations-table');
+            table.innerHTML = '';
+
+            evaluations.slice(0, 5).forEach(eval => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${eval.intern_name}</td>
+                    <td>${'★'.repeat(eval.rating)}${'☆'.repeat(5 - eval.rating)}</td>
+                    <td>${new Date(eval.created_at).toLocaleDateString()}</td>
+                    <td><span class="badge bg-success">Completed</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="viewEvaluation(${eval.id})">View</button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Fetch stats
+        function fetchStats(token) {
+            fetch('/api/evaluations/stats', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total-interns').textContent = data.total_interns || 0;
+                document.getElementById('evaluated-interns').textContent = data.evaluated || 0;
+                document.getElementById('pending-evaluations').textContent = data.pending || 0;
+                document.getElementById('avg-rating').textContent = data.avg_rating || 0;
+            })
+            .catch(error => {
+                console.error('Error fetching stats:', error);
+            });
+        }
+
+        // Open evaluation modal
+        function openEvaluationModal(id, name, position, avatar) {
+            currentInternId = id;
+            document.getElementById('intern-name').textContent = name;
+            document.getElementById('intern-position').textContent = position;
+            document.getElementById('intern-avatar').src = avatar;
+            document.getElementById('evaluation-form').reset();
+
+            // Load skills for assessment
+            loadSkillsForIntern(id);
+
+            new bootstrap.Modal(document.getElementById('evaluationModal')).show();
+        }
+
+        // Load skills for intern
+        function loadSkillsForIntern(id) {
+            // Placeholder for skills loading
+            const container = document.getElementById('skills-assessment');
+            container.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label>Technical Skills</label>
+                        <select class="form-select" name="technical">
+                            <option value="5">Excellent</option>
+                            <option value="4">Good</option>
+                            <option value="3">Average</option>
+                            <option value="2">Below Average</option>
+                            <option value="1">Poor</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Communication</label>
+                        <select class="form-select" name="communication">
+                            <option value="5">Excellent</option>
+                            <option value="4">Good</option>
+                            <option value="3">Average</option>
+                            <option value="2">Below Average</option>
+                            <option value="1">Poor</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Submit evaluation
+        function submitEvaluation() {
+            const token = localStorage.getItem('auth_token');
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+            const comments = document.getElementById('evaluation-comments').value;
+            const technical = document.querySelector('select[name="technical"]').value;
+            const communication = document.querySelector('select[name="communication"]').value;
+
+            fetch(`/api/evaluations`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    intern_id: currentInternId,
+                    rating,
+                    comments,
+                    skills: { technical, communication }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                bootstrap.Modal.getInstance(document.getElementById('evaluationModal')).hide();
+                fetchInterns(token); // Refresh interns
+                fetchEvaluations(token); // Refresh evaluations
+                fetchStats(token); // Refresh stats
+                alert('Evaluation submitted successfully');
+            })
+            .catch(error => {
+                console.error('Error submitting evaluation:', error);
+                alert('Error submitting evaluation');
+            });
+        }
+
+        // View evaluation
+        function viewEvaluation(id) {
+            // Implement view functionality
+            console.log('View evaluation:', id);
+        }
+
+        // Filter interns
+        function filterInterns() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('#interns-list .card');
+
+            cards.forEach(card => {
+                const name = card.querySelector('h6').textContent.toLowerCase();
+                const position = card.querySelector('.text-muted').textContent.toLowerCase();
+
+                const matchesSearch = !searchTerm || name.includes(searchTerm) || position.includes(searchTerm);
+
+                card.closest('.col-md-4').style.display = matchesSearch ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

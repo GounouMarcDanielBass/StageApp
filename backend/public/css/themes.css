@@ -2,33 +2,59 @@
 :root {
     /* Thème clair */
     --light-primary: #4e73df;
+    --light-primary-rgb: 78, 115, 223;
     --light-secondary: #858796;
+    --light-secondary-rgb: 133, 135, 150;
     --light-success: #1cc88a;
+    --light-success-rgb: 28, 200, 138;
     --light-info: #36b9cc;
+    --light-info-rgb: 54, 185, 204;
     --light-warning: #f6c23e;
+    --light-warning-rgb: 246, 194, 62;
     --light-danger: #e74a3b;
+    --light-danger-rgb: 231, 74, 59;
     --light-bg: #f8f9fc;
+    --light-bg-rgb: 248, 249, 252;
     --light-text: #5a5c69;
+    --light-text-rgb: 90, 92, 105;
     --light-heading: #2e3235;
+    --light-heading-rgb: 46, 50, 53;
     --light-card: #ffffff;
+    --light-card-rgb: 255, 255, 255;
     --light-border: #e3e6f0;
+    --light-border-rgb: 227, 230, 240;
     --light-input: #ffffff;
+    --light-input-rgb: 255, 255, 255;
     --light-input-border: #d1d3e2;
+    --light-input-border-rgb: 209, 211, 226;
 
     /* Thème sombre */
     --dark-primary: #6f8df7;
+    --dark-primary-rgb: 111, 141, 247;
     --dark-secondary: #9fa6bc;
+    --dark-secondary-rgb: 159, 166, 188;
     --dark-success: #2de2a3;
+    --dark-success-rgb: 45, 226, 163;
     --dark-info: #4dd4e7;
+    --dark-info-rgb: 77, 212, 231;
     --dark-warning: #f8d163;
+    --dark-warning-rgb: 248, 209, 99;
     --dark-danger: #ed6d60;
+    --dark-danger-rgb: 237, 109, 96;
     --dark-bg: #1a1c23;
+    --dark-bg-rgb: 26, 28, 35;
     --dark-text: #e0e2e7;
+    --dark-text-rgb: 224, 226, 231;
     --dark-heading: #ffffff;
+    --dark-heading-rgb: 255, 255, 255;
     --dark-card: #2d2f38;
+    --dark-card-rgb: 45, 47, 56;
     --dark-border: #3d404c;
+    --dark-border-rgb: 61, 64, 76;
     --dark-input: #2d2f38;
+    --dark-input-rgb: 45, 47, 56;
     --dark-input-border: #3d404c;
+    --dark-input-border-rgb: 61, 64, 76;
 }
 
 /* Application des thèmes */
@@ -38,18 +64,31 @@ body {
 
 body[data-theme="light"] {
     --primary: var(--light-primary);
+    --primary-rgb: var(--light-primary-rgb);
     --secondary: var(--light-secondary);
+    --secondary-rgb: var(--light-secondary-rgb);
     --success: var(--light-success);
+    --success-rgb: var(--light-success-rgb);
     --info: var(--light-info);
+    --info-rgb: var(--light-info-rgb);
     --warning: var(--light-warning);
+    --warning-rgb: var(--light-warning-rgb);
     --danger: var(--light-danger);
+    --danger-rgb: var(--light-danger-rgb);
     --bg: var(--light-bg);
+    --bg-rgb: var(--light-bg-rgb);
     --text: var(--light-text);
+    --text-rgb: var(--light-text-rgb);
     --heading: var(--light-heading);
+    --heading-rgb: var(--light-heading-rgb);
     --card: var(--light-card);
+    --card-rgb: var(--light-card-rgb);
     --border: var(--light-border);
+    --border-rgb: var(--light-border-rgb);
     --input: var(--light-input);
+    --input-rgb: var(--light-input-rgb);
     --input-border: var(--light-input-border);
+    --input-border-rgb: var(--light-input-border-rgb);
     
     background-color: var(--bg);
     color: var(--text);
@@ -57,18 +96,31 @@ body[data-theme="light"] {
 
 body[data-theme="dark"] {
     --primary: var(--dark-primary);
+    --primary-rgb: var(--dark-primary-rgb);
     --secondary: var(--dark-secondary);
+    --secondary-rgb: var(--dark-secondary-rgb);
     --success: var(--dark-success);
+    --success-rgb: var(--dark-success-rgb);
     --info: var(--dark-info);
+    --info-rgb: var(--dark-info-rgb);
     --warning: var(--dark-warning);
+    --warning-rgb: var(--dark-warning-rgb);
     --danger: var(--dark-danger);
+    --danger-rgb: var(--dark-danger-rgb);
     --bg: var(--dark-bg);
+    --bg-rgb: var(--dark-bg-rgb);
     --text: var(--dark-text);
+    --text-rgb: var(--dark-text-rgb);
     --heading: var(--dark-heading);
+    --heading-rgb: var(--dark-heading-rgb);
     --card: var(--dark-card);
+    --card-rgb: var(--dark-card-rgb);
     --border: var(--dark-border);
+    --border-rgb: var(--dark-border-rgb);
     --input: var(--dark-input);
+    --input-rgb: var(--dark-input-rgb);
     --input-border: var(--dark-input-border);
+    --input-border-rgb: var(--dark-input-border-rgb);
     
     background-color: var(--bg);
     color: var(--text);

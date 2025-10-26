@@ -1,525 +1,499 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord Administrateur - StageApp</title>
+    <title>Admin Dashboard - Internship Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/themes.css" rel="stylesheet">
+    <link href="css/animations.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #7c3aed;
-            --background-color: #f8fafc;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-            --card-shadow: rgba(0, 0, 0, 0.05);
-            --gradient-start: #4f46e5;
-            --gradient-end: #7c3aed;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #818cf8;
-            --secondary-color: #a78bfa;
-            --background-color: #0f172a;
-            --text-color: #e2e8f0;
-            --card-bg: #1e293b;
-            --card-shadow: rgba(0, 0, 0, 0.2);
-            --gradient-start: #3730a3;
-            --gradient-end: #5b21b6;
-        }
-
-        body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
+        /* Custom styles for the new dashboard */
+        .sidebar {
+            background-color: var(--card);
             min-height: 100vh;
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.9);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(30, 41, 59, 0.9);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-        
-        [data-theme="dark"] .nav-link {
-            color: var(--text-color) !important;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .main-content {
-            flex-grow: 1;
-            padding: 40px 0;
-        }
-
-        .card {
-            border: none;
-            background: var(--card-bg);
-            box-shadow: 0 8px 32px var(--card-shadow);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px var(--card-shadow);
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border-bottom: none;
-            color: white;
-            font-weight: 600;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-        
-        .stat-card {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 8px 32px var(--card-shadow);
-        }
-        
-        .stat-card .icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .theme-switcher {
+            border-right: 1px solid var(--border);
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            top: 0;
+            left: 0;
+            width: 250px;
             z-index: 1000;
-        }
-
-        .theme-switcher button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border: none;
-            box-shadow: 0 4px 20px var(--card-shadow);
-            cursor: pointer;
             transition: all 0.3s ease;
         }
-
-        .theme-switcher button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px var(--card-shadow);
+        .sidebar.collapsed {
+            width: 70px;
         }
-
-        .theme-switcher i {
-            font-size: 1.5rem;
-            color: white;
+        .sidebar .nav-item {
+            margin: 5px 0;
         }
-
-        footer {
-            background-color: var(--card-bg);
+        .sidebar .nav-link {
+            color: var(--text);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
         }
-        
-        .table {
-            color: var(--text-color);
+        .sidebar .nav-link:hover {
+            background-color: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary);
         }
-        
-        .list-group-item {
-            background-color: var(--card-bg);
-            color: var(--text-color);
+        .sidebar .nav-link.active {
+            background-color: var(--primary);
+            color: #fff;
+        }
+        .sidebar.collapsed .nav-link {
+            text-align: center;
+            padding: 12px 10px;
+        }
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+        .main-wrapper {
+            margin-left: 250px;
+            transition: all 0.3s ease;
+        }
+        .main-wrapper.expanded {
+            margin-left: 70px;
+        }
+        .header-bar {
+            background-color: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 30px;
+        }
+        .content-area {
+            padding: 30px;
+            background-color: var(--bg);
+        }
+        .stats-card {
+            background-color: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .chart-container {
+            background-color: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        .table-card {
+            background-color: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        .theme-switcher-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .theme-switcher-btn:hover {
+            background-color: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+            .sidebar.show {
+                width: 250px;
+            }
         }
     </style>
 </head>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html" data-aos="fade-right">
-                <i class="fas fa-shield-alt me-2"></i>StageApp Admin
+<body data-theme="light">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="p-3">
+            <a href="#" class="d-flex align-items-center mb-4 text-decoration-none">
+                <i class="fas fa-graduation-cap fs-3 text-primary"></i>
+                <span class="fs-5 fw-bold ms-2">Admin Panel</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-users-cog me-1"></i> Utilisateurs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-cogs me-1"></i> Paramètres
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="User menu">
-                            <i class="fas fa-user-shield me-1"></i>
-                            <span id="admin-name-nav"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Mon Profil</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logout-button">Déconnexion</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
         </div>
+        <ul class="nav flex-column px-2" id="navmenu-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#dashboard">
+                    <i class="fas fa-tachometer-alt nav-icon"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#users">
+                    <i class="fas fa-users nav-icon"></i>
+                    <span class="nav-text">Users</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#companies">
+                    <i class="fas fa-building nav-icon"></i>
+                    <span class="nav-text">Companies</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#internships">
+                    <i class="fas fa-briefcase nav-icon"></i>
+                    <span class="nav-text">Internships</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports">
+                    <i class="fas fa-chart-bar nav-icon"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#settings">
+                    <i class="fas fa-cog nav-icon"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
+        </ul>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
+    <!-- Main Wrapper -->
+    <div class="main-wrapper" id="main-wrapper">
+        <!-- Header Bar -->
+        <div class="header-bar d-flex justify-content-between align-items-center">
+            <div>
+                <button class="btn btn-outline-primary d-lg-none" id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav aria-label="breadcrumb" class="d-none d-lg-block">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="theme-switcher-btn me-3" id="theme-toggle">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                <div class="dropdown">
+                    <button class="btn p-0 border-0" type="button" data-bs-toggle="dropdown">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="ms-2" id="admin-name">Admin</span>
+                        </div>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#profile">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#logout" id="logout-btn">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Page Title -->
             <div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-down">
-                <h1 class="fw-bold">Tableau de Bord Administrateur</h1>
-                <button class="btn btn-primary">
-                    <i class="fas fa-plus-circle me-2"></i>Créer un utilisateur
+                <h1 class="fw-bold">Admin Dashboard</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <i class="fas fa-plus me-2"></i>Add User
                 </button>
             </div>
 
             <!-- Stats Cards -->
-            <div class="row g-4 mb-4">
-                <div class="col-md-3" data-aos="fade-up">
-                    <div class="stat-card h-100">
-                        <div class="icon"><i class="fas fa-users"></i></div>
-                        <h3 class="fw-bold" id="total-users">0</h3>
-                        <p class="text-muted mb-0">Utilisateurs Actifs</p>
+            <div class="row g-4 mb-5">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up">
+                    <div class="stats-card text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-users fs-1 text-primary"></i>
+                        </div>
+                        <h2 class="mb-1" id="total-users">0</h2>
+                        <p class="text-muted mb-0">Total Users</p>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-card h-100">
-                        <div class="icon"><i class="fas fa-building"></i></div>
-                        <h3 class="fw-bold" id="total-companies">0</h3>
-                        <p class="text-muted mb-0">Entreprises Partenaires</p>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stats-card text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-building fs-1 text-success"></i>
+                        </div>
+                        <h2 class="mb-1" id="total-companies">0</h2>
+                        <p class="text-muted mb-0">Companies</p>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stat-card h-100">
-                        <div class="icon"><i class="fas fa-briefcase"></i></div>
-                        <h3 class="fw-bold" id="active-offers">0</h3>
-                        <p class="text-muted mb-0">Offres Actives</p>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stats-card text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-briefcase fs-1 text-warning"></i>
+                        </div>
+                        <h2 class="mb-1" id="active-internships">0</h2>
+                        <p class="text-muted mb-0">Active Internships</p>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="stat-card h-100">
-                        <div class="icon"><i class="fas fa-check-circle"></i></div>
-                        <h3 class="fw-bold" id="completed-internships">0</h3>
-                        <p class="text-muted mb-0">Stages Terminés</p>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stats-card text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-check-circle fs-1 text-info"></i>
+                        </div>
+                        <h2 class="mb-1" id="completed-internships">0</h2>
+                        <p class="text-muted mb-0">Completed</p>
                     </div>
                 </div>
             </div>
 
-            <div class="row g-4">
-                <!-- Charts -->
-                <div class="col-lg-8">
-                    <div class="card h-100" data-aos="zoom-in">
-                        <div class="card-header">Inscriptions (6 derniers mois)</div>
-                        <div class="card-body">
-                            <canvas id="registrationsChart"></canvas>
-                        </div>
+            <!-- Charts and Tables -->
+            <div class="row g-4 mb-5">
+                <!-- Chart 1 -->
+                <div class="col-lg-8" data-aos="zoom-in">
+                    <div class="chart-container">
+                        <h5 class="mb-3">User Registrations (Last 6 Months)</h5>
+                        <canvas id="registrationsChart"></canvas>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card h-100" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="card-header">Répartition des Rôles</div>
-                        <div class="card-body d-flex align-items-center justify-content-center">
-                            <canvas id="rolesChart"></canvas>
-                        </div>
+                <!-- Chart 2 -->
+                <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="chart-container">
+                        <h5 class="mb-3">User Roles Distribution</h5>
+                        <canvas id="rolesChart"></canvas>
                     </div>
                 </div>
+            </div>
 
-                <!-- Recent Users -->
-                <div class="col-12">
-                    <div class="card" data-aos="fade-up">
-                        <div class="card-header">Derniers Utilisateurs Inscrits</div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th>Nom</th>
-                                            <th>Email</th>
-                                            <th>Rôle</th>
-                                            <th>Date d'inscription</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="users-table-body">
-                                        <!-- Data will be populated by JS -->
-                                    </tbody>
-                                </table>
-                            </div>
+            <!-- Recent Activities Table -->
+            <div class="row">
+                <div class="col-12" data-aos="fade-up">
+                    <div class="table-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Recent Activities</h5>
+                            <button class="btn btn-outline-primary btn-sm">View All</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User</th>
+                                        <th>Activity</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activities-table-body">
+                                    <!-- Data populated by JS -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-4 mt-auto">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 StageApp. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <button id="theme-toggle" class="btn btn-secondary" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
     </div>
 
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="userName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="userEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userRole" class="form-label">Role</label>
+                            <select class="form-select" id="userRole" required>
+                                <option value="">Select Role</option>
+                                <option value="student">Student</option>
+                                <option value="company">Company</option>
+                                <option value="supervisor">Supervisor</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Add User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/theme.js"></script>
     <script>
+        // Initialize AOS
         AOS.init({
             duration: 800,
             once: true
         });
 
-        // Theme switcher logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const root = document.documentElement;
-        const applyTheme = (theme) => {
-            if (theme === 'dark') {
-                root.setAttribute('data-theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                root.removeAttribute('data-theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        };
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) applyTheme(currentTheme);
-        themeToggle.addEventListener('click', () => {
-            let theme = root.getAttribute('data-theme');
-            if (theme === 'dark') {
-                localStorage.removeItem('theme');
-                applyTheme('light');
-            } else {
-                localStorage.setItem('theme', 'dark');
-                applyTheme('dark');
-            }
+        // Sidebar toggle
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('show');
         });
 
-        // Dashboard logic
+
+        // Load dashboard data
         document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                const token = localStorage.getItem('auth_token');
-                if (!token) {
-                    window.location.href = 'login.html';
-                    return;
-                }
-                
-                const userName = localStorage.getItem('user_name');
-                if(userName) {
-                    document.getElementById('admin-name-nav').textContent = userName;
-                }
-
-                // Mock data for admin - replace with API call
-                const response = await Promise.resolve({ 
-                    data: {
-                        admin: {
-                            name: "Admin User",
-                        },
-                        stats: {
-                            totalUsers: 258,
-                            totalCompanies: 42,
-                            activeOffers: 78,
-                            completedInternships: 134
-                        },
-                        registrations: {
-                            labels: ['Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre'],
-                            data: [30, 45, 60, 50, 70, 85]
-                        },
-                        roles: {
-                            students: 180,
-                            companies: 42,
-                            supervisors: 35,
-                            admins: 1
-                        },
-                        recentUsers: [
-                            { name: 'Léa Martin', email: 'lea.martin@example.com', role: 'Étudiant', date: '2025-10-03' },
-                            { name: 'Innovatech', email: 'contact@innovatech.com', role: 'Entreprise', date: '2025-10-02' },
-                            { name: 'Prof. Dubois', email: 'p.dubois@univ.com', role: 'Encadrant', date: '2025-10-02' },
-                            { name: 'Marc Petit', email: 'marc.petit@example.com', role: 'Étudiant', date: '2025-10-01' },
-                        ]
-                    }
-                });
-                
-                const dashboardData = response.data;
-
-                // Populate data
-                document.getElementById('admin-name-nav').textContent = dashboardData.admin.name;
-                localStorage.setItem('user_name', dashboardData.admin.name);
-                document.getElementById('total-users').textContent = dashboardData.stats.totalUsers;
-                document.getElementById('total-companies').textContent = dashboardData.stats.totalCompanies;
-                document.getElementById('active-offers').textContent = dashboardData.stats.activeOffers;
-                document.getElementById('completed-internships').textContent = dashboardData.stats.completedInternships;
-
-                // Populate users table
-                const usersTableBody = document.getElementById('users-table-body');
-                if (dashboardData.recentUsers && dashboardData.recentUsers.length > 0) {
-                    usersTableBody.innerHTML = dashboardData.recentUsers.map(user => {
-                        let roleBadge = '';
-                        switch(user.role) {
-                            case 'Étudiant': roleBadge = 'bg-primary bg-opacity-25 text-primary'; break;
-                            case 'Entreprise': roleBadge = 'bg-success bg-opacity-25 text-success'; break;
-                            case 'Encadrant': roleBadge = 'bg-info bg-opacity-25 text-info'; break;
-                            default: roleBadge = 'bg-secondary bg-opacity-25 text-secondary';
-                        }
-                        return `
-                            <tr>
-                                <td>${user.name}</td>
-                                <td>${user.email}</td>
-                                <td><span class="badge ${roleBadge}">${user.role}</span></td>
-                                <td>${new Date(user.date).toLocaleDateString()}</td>
-                                <td><a href="#" class="btn btn-sm btn-outline-primary">Gérer</a></td>
-                            </tr>
-                        `;
-                    }).join('');
-                } else {
-                    usersTableBody.innerHTML = '<tr><td colspan="5" class="text-center">Aucun utilisateur récent.</td></tr>';
-                }
-
-                // Charts
-                const chartColors = {
-                    primary: getComputedStyle(root).getPropertyValue('--primary-color').trim(),
-                    student: '#3b82f6',
-                    company: '#10b981',
-                    supervisor: '#0ea5e9',
-                    admin: '#64748b',
-                    grid: 'rgba(128, 128, 128, 0.1)'
-                };
-
-                // Registrations Chart (Line)
-                const registrationsCtx = document.getElementById('registrationsChart').getContext('2d');
-                new Chart(registrationsCtx, {
-                    type: 'line',
-                    data: {
-                        labels: dashboardData.registrations.labels,
-                        datasets: [{
-                            label: 'Nouvelles Inscriptions',
-                            data: dashboardData.registrations.data,
-                            backgroundColor: chartColors.primary.replace(')', ', 0.2)'),
-                            borderColor: chartColors.primary,
-                            borderWidth: 2,
-                            fill: true,
-                            tension: 0.4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: chartColors.grid },
-                                ticks: { color: getComputedStyle(root).getPropertyValue('--text-color').trim() }
-                            },
-                            x: {
-                                grid: { display: false },
-                                ticks: { color: getComputedStyle(root).getPropertyValue('--text-color').trim() }
-                            }
-                        },
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-
-                // Roles Chart (Doughnut)
-                const rolesCtx = document.getElementById('rolesChart').getContext('2d');
-                new Chart(rolesCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Étudiants', 'Entreprises', 'Encadrants', 'Admins'],
-                        datasets: [{
-                            data: [
-                                dashboardData.roles.students, 
-                                dashboardData.roles.companies, 
-                                dashboardData.roles.supervisors, 
-                                dashboardData.roles.admins
-                            ],
-                            backgroundColor: [chartColors.student, chartColors.company, chartColors.supervisor, chartColors.admin],
-                            borderColor: getComputedStyle(root).getPropertyValue('--card-bg').trim(),
-                            borderWidth: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    color: getComputedStyle(root).getPropertyValue('--text-color').trim()
-                                }
-                            }
-                        }
-                    }
-                });
-
-            } catch (error) {
-                console.error('Error loading dashboard data:', error);
-                if (error.response?.status === 401 || error.response?.status === 403) {
-                    localStorage.removeItem('auth_token');
-                    localStorage.removeItem('user_name');
-                    window.location.href = 'login.html';
-                }
+            const token = localStorage.getItem('auth_token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
             }
+
+            // Mock data for demo
+            const mockData = {
+                stats: {
+                    totalUsers: 1247,
+                    totalCompanies: 89,
+                    activeInternships: 156,
+                    completedInternships: 342
+                },
+                registrations: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    data: [120, 150, 180, 200, 240, 280]
+                },
+                roles: {
+                    students: 800,
+                    companies: 89,
+                    supervisors: 58,
+                    admins: 2
+                },
+                activities: [
+                    { user: 'John Doe', activity: 'Registered as Student', date: '2023-10-25' },
+                    { user: 'Tech Corp', activity: 'Posted Internship', date: '2023-10-24' },
+                    { user: 'Jane Smith', activity: 'Completed Internship', date: '2023-10-23' }
+                ]
+            };
+
+            // Populate stats
+            document.getElementById('total-users').textContent = mockData.stats.totalUsers;
+            document.getElementById('total-companies').textContent = mockData.stats.totalCompanies;
+            document.getElementById('active-internships').textContent = mockData.stats.activeInternships;
+            document.getElementById('completed-internships').textContent = mockData.stats.completedInternships;
+
+            // Populate activities table
+            const activitiesBody = document.getElementById('activities-table-body');
+            mockData.activities.forEach((activity, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${activity.user}</td>
+                    <td>${activity.activity}</td>
+                    <td>${activity.date}</td>
+                    <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                `;
+                activitiesBody.appendChild(row);
+            });
+
+            // Charts
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: document.body.getAttribute('data-theme') === 'dark' ? '#e0e2e7' : '#5a5c69'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            color: document.body.getAttribute('data-theme') === 'dark' ? '#e0e2e7' : '#5a5c69'
+                        },
+                        grid: {
+                            color: document.body.getAttribute('data-theme') === 'dark' ? '#3d404c' : '#e3e6f0'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: document.body.getAttribute('data-theme') === 'dark' ? '#e0e2e7' : '#5a5c69'
+                        },
+                        grid: {
+                            color: document.body.getAttribute('data-theme') === 'dark' ? '#3d404c' : '#e3e6f0'
+                        }
+                    }
+                }
+            };
+
+            // Registrations Chart
+            const regCtx = document.getElementById('registrationsChart').getContext('2d');
+            new Chart(regCtx, {
+                type: 'line',
+                data: {
+                    labels: mockData.registrations.labels,
+                    datasets: [{
+                        label: 'Registrations',
+                        data: mockData.registrations.data,
+                        borderColor: 'rgb(78, 115, 223)',
+                        backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: chartOptions
+            });
+
+            // Roles Chart
+            const rolesCtx = document.getElementById('rolesChart').getContext('2d');
+            new Chart(rolesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Students', 'Companies', 'Supervisors', 'Admins'],
+                    datasets: [{
+                        data: [mockData.roles.students, mockData.roles.companies, mockData.roles.supervisors, mockData.roles.admins],
+                        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: document.body.getAttribute('data-theme') === 'dark' ? '#e0e2e7' : '#5a5c69'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Set admin name
+            const userName = localStorage.getItem('user_name') || 'Admin User';
+            document.getElementById('admin-name').textContent = userName;
         });
 
-        // Logout logic
-        document.getElementById('logout-button').addEventListener('click', (e) => {
-            e.preventDefault();
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', function() {
             localStorage.removeItem('auth_token');
             localStorage.removeItem('user_name');
             window.location.href = 'login.html';

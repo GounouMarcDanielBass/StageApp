@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Internship Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-theme="light" class="fade-in">
+    <!-- Header -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>
+                <span>Internship Hub</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-envelope me-1"></i> Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notifications.html"><i class="fas fa-bell me-1"></i> Notifications</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> User
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profil-etudiant.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="parametres-compte.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="theme-toggle" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container-fluid p-4">
+        <!-- Page Header -->
+        <div class="row mb-4 fade-in">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 mb-0">Messages</h1>
+                        <p class="text-muted">Send and receive messages with other users</p>
+                    </div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#composeModal">
+                        <i class="fas fa-plus me-2"></i>Compose Message
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row mb-4 slide-in">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Inbox</h5>
+                                <h3 class="text-primary" id="inbox-count">0</h3>
+                            </div>
+                            <i class="fas fa-inbox fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Sent</h5>
+                                <h3 class="text-success" id="sent-count">0</h3>
+                            </div>
+                            <i class="fas fa-paper-plane fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Unread</h5>
+                                <h3 class="text-warning" id="unread-count">0</h3>
+                            </div>
+                            <i class="fas fa-envelope fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title text-muted">Archived</h5>
+                                <h3 class="text-info" id="archived-count">0</h3>
+                            </div>
+                            <i class="fas fa-archive fa-2x text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Interface -->
+        <div class="row slide-in">
+            <div class="col-lg-4 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-list me-2"></i>Conversations</h5>
+                        <div class="d-flex">
+                            <select class="form-select form-select-sm me-2" id="folder-filter">
+                                <option value="inbox">Inbox</option>
+                                <option value="sent">Sent</option>
+                                <option value="archived">Archived</option>
+                            </select>
+                            <input type="text" class="form-control form-control-sm" id="search-input" placeholder="Search messages...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush" id="conversations-list">
+                            <!-- Conversations will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-header">
+                        <h5 id="message-subject">Select a conversation</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="messages-container" id="messages-container" style="height: 400px; overflow-y: auto;">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                        <div class="mt-3" id="reply-form" style="display: none;">
+                            <form id="reply-message-form">
+                                <div class="mb-3">
+                                    <textarea class="form-control" id="reply-text" rows="3" placeholder="Type your reply..." required></textarea>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="sendReply()">Send Reply</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Compose Modal -->
+    <div class="modal fade" id="composeModal" tabindex="-1" aria-labelledby="composeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="composeModalLabel">Compose Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="compose-form">
+                        <div class="mb-3">
+                            <label for="recipient" class="form-label">To</label>
+                            <select class="form-select" id="recipient" required>
+                                <option value="">Select recipient</option>
+                                <!-- Recipients will be loaded here -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Internship Hub. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#privacy" class="text-light me-3">Privacy Policy</a>
+                    <a href="#terms" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        let currentConversationId = null;
+
+        // Initialize theme and fetch data
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                fetchConversations(token);
+                fetchRecipients(token);
+                fetchStats(token);
+            } else {
+                window.location.href = 'login.html';
+            }
+
+            // Filter functionality
+            document.getElementById('folder-filter').addEventListener('change', fetchConversations);
+            document.getElementById('search-input').addEventListener('input', filterConversations);
+        });
+
+        // Fetch conversations
+        function fetchConversations(token, filter = 'inbox') {
+            fetch(`/api/messages?folder=${filter}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderConversations(data);
+            })
+            .catch(error => {
+                console.error('Error fetching conversations:', error);
+                document.getElementById('conversations-list').innerHTML = '<div class="text-center">Error loading conversations</div>';
+            });
+        }
+
+        // Render conversations
+        function renderConversations(conversations) {
+            const list = document.getElementById('conversations-list');
+            list.innerHTML = '';
+
+            if (conversations.length === 0) {
+                list.innerHTML = '<div class="text-center">No conversations found</div>';
+                return;
+            }
+
+            conversations.forEach(conv => {
+                const div = document.createElement('div');
+                div.className = 'list-group-item hover-scale';
+                div.innerHTML = `
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">${conv.subject}</h6>
+                        <small>${new Date(conv.last_message_date).toLocaleString()}</small>
+                    </div>
+                    <p class="mb-1">${conv.last_message}</p>
+                    <small class="text-muted">With: ${conv.other_party}</small>
+                `;
+                div.addEventListener('click', () => openConversation(conv.id, conv.subject, conv.other_party));
+                list.appendChild(div);
+            });
+        }
+
+        // Fetch recipients
+        function fetchRecipients(token) {
+            fetch('/api/users', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('recipient');
+                data.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.id;
+                    option.textContent = `${user.name} (${user.email})`;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching recipients:', error);
+            });
+        }
+
+        // Fetch stats
+        function fetchStats(token) {
+            fetch('/api/messages/stats', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('inbox-count').textContent = data.inbox || 0;
+                document.getElementById('sent-count').textContent = data.sent || 0;
+                document.getElementById('unread-count').textContent = data.unread || 0;
+                document.getElementById('archived-count').textContent = data.archived || 0;
+            })
+            .catch(error => {
+                console.error('Error fetching stats:', error);
+            });
+        }
+
+        // Open conversation
+        function openConversation(id, subject, otherParty) {
+            currentConversationId = id;
+            document.getElementById('message-subject').textContent = subject;
+            document.getElementById('reply-form').style.display = 'block';
+
+            const token = localStorage.getItem('auth_token');
+            fetch(`/api/messages/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderMessages(data);
+            })
+            .catch(error => {
+                console.error('Error fetching messages:', error);
+            });
+        }
+
+        // Render messages
+        function renderMessages(messages) {
+            const container = document.getElementById('messages-container');
+            container.innerHTML = '';
+
+            messages.forEach(message => {
+                const div = document.createElement('div');
+                div.className = 'd-flex mb-3';
+                div.innerHTML = `
+                    <div class="flex-shrink-0">
+                        <img src="${message.sender_avatar || 'images/company-default.svg'}" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">${message.sender_name}</h6>
+                            <small>${new Date(message.created_at).toLocaleString()}</small>
+                        </div>
+                        <p class="mb-1">${message.content}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Send reply
+        function sendReply() {
+            const token = localStorage.getItem('auth_token');
+            const content = document.getElementById('reply-text').value;
+
+            if (!content) {
+                alert('Please enter a message');
+                return;
+            }
+
+            fetch(`/api/messages/${currentConversationId}/reply`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ content })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('reply-text').value = '';
+                openConversation(currentConversationId, document.getElementById('message-subject').textContent, 'Other Party');
+            })
+            .catch(error => {
+                console.error('Error sending reply:', error);
+                alert('Error sending reply');
+            });
+        }
+
+        // Send message
+        function sendMessage() {
+            const token = localStorage.getItem('auth_token');
+            const recipient = document.getElementById('recipient').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (!recipient || !subject || !message) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            fetch('/api/messages', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ recipient_id: recipient, subject, content: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('compose-form').reset();
+                bootstrap.Modal.getInstance(document.getElementById('composeModal')).hide();
+                fetchConversations(token);
+                fetchStats(token);
+                alert('Message sent successfully');
+            })
+            .catch(error => {
+                console.error('Error sending message:', error);
+                alert('Error sending message');
+            });
+        }
+
+        // Filter conversations
+        function filterConversations() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const items = document.querySelectorAll('#conversations-list .list-group-item');
+
+            items.forEach(item => {
+                const subject = item.querySelector('h6').textContent.toLowerCase();
+                const content = item.querySelector('p').textContent.toLowerCase();
+
+                const matchesSearch = !searchTerm || subject.includes(searchTerm) || content.includes(searchTerm);
+
+                item.style.display = matchesSearch ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

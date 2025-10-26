@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile - Internship Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-theme="light" class="fade-in">
+    <!-- Header -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-building me-2"></i>
+                <span>Internship Hub</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="offres-entreprise.html"><i class="fas fa-briefcase me-1"></i> My Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="candidatures-entreprise.html"><i class="fas fa-users me-1"></i> Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="evaluation-stagiaire.html"><i class="fas fa-star me-1"></i> Evaluations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profil-entreprise.html"><i class="fas fa-building me-1"></i> Profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> Company
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profil-entreprise.html"><i class="fas fa-building me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="parametres-compte.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="theme-toggle" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container-fluid p-4">
+        <!-- Profile Header -->
+        <div class="row mb-4 fade-in">
+            <div class="col-12">
+                <div class="card hover-lift">
+                    <div class="card-body text-center py-5">
+                        <div class="position-relative d-inline-block mb-3">
+                            <img src="images/company-default.svg" alt="Company Logo" class="rounded-circle" id="company-logo" style="width: 120px; height: 120px;">
+                            <button class="btn btn-primary btn-sm position-absolute bottom-0 end-0 rounded-circle" data-bs-toggle="modal" data-bs-target="#logoModal">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2 id="company-name">Company Name</h2>
+                        <p class="text-muted" id="company-email">company@example.com</p>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2" onclick="editProfile()">Edit Profile</button>
+                            <button class="btn btn-outline-primary" onclick="changePassword()">Change Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Information -->
+        <div class="row mb-4 slide-in">
+            <div class="col-lg-8 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-header">
+                        <h5><i class="fas fa-building me-2"></i>Company Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company Name</label>
+                                <p id="company-name-display">Company Name</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <p id="email">email@example.com</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone</label>
+                                <p id="phone">+1234567890</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Website</label>
+                                <p id="website">www.company.com</p>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Address</label>
+                                <p id="address">123 Business St</p>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Description</label>
+                                <p id="description">Company description...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+                <div class="card hover-lift">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-bar me-2"></i>Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Active Offers:</strong> <span id="active-offers">0</span></p>
+                        <p><strong>Total Applications:</strong> <span id="total-applications">0</span></p>
+                        <p><strong>Interns Hired:</strong> <span id="interns-hired">0</span></p>
+                        <p><strong>Profile Views:</strong> <span id="profile-views">0</span></p>
+                    </div>
+                </div>
+                <div class="card hover-lift mt-3">
+                    <div class="card-header">
+                        <h5><i class="fas fa-industry me-2"></i>Industry</h5>
+                    </div>
+                    <div class="card-body">
+                        <p id="industry">Technology</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="row slide-in">
+            <div class="col-12">
+                <div class="card hover-lift">
+                    <div class="card-header">
+                        <h5><i class="fas fa-history me-2"></i>Recent Activity</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush" id="activity-list">
+                            <!-- Activity will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Logo Upload Modal -->
+    <div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoModalLabel">Change Logo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="logo-form" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="logo-file" class="form-label">Select Logo</label>
+                            <input type="file" class="form-control" id="logo-file" accept="image/*" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="uploadLogo()">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Internship Hub. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#privacy" class="text-light me-3">Privacy Policy</a>
+                    <a href="#terms" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Initialize theme and fetch data
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                fetchProfileData(token);
+                fetchStats(token);
+                fetchActivity(token);
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Fetch profile data
+        function fetchProfileData(token) {
+            fetch('/api/company/profile', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                populateProfile(data);
+            })
+            .catch(error => {
+                console.error('Error fetching profile data:', error);
+            });
+        }
+
+        // Populate profile
+        function populateProfile(data) {
+            document.getElementById('company-name').textContent = data.name || 'Company Name';
+            document.getElementById('company-email').textContent = data.email;
+            document.getElementById('company-name-display').textContent = data.name || 'Company Name';
+            document.getElementById('email').textContent = data.email;
+            document.getElementById('phone').textContent = data.phone || 'N/A';
+            document.getElementById('website').textContent = data.website || 'N/A';
+            document.getElementById('address').textContent = data.address || 'N/A';
+            document.getElementById('description').textContent = data.description || 'No description available.';
+            document.getElementById('industry').textContent = data.industry || 'N/A';
+            document.getElementById('company-logo').src = data.logo_url || 'images/company-default.svg';
+        }
+
+        // Fetch stats
+        function fetchStats(token) {
+            fetch('/api/company/stats', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('active-offers').textContent = data.active_offers || 0;
+                document.getElementById('total-applications').textContent = data.total_applications || 0;
+                document.getElementById('interns-hired').textContent = data.interns_hired || 0;
+                document.getElementById('profile-views').textContent = data.profile_views || 0;
+            })
+            .catch(error => {
+                console.error('Error fetching stats:', error);
+            });
+        }
+
+        // Fetch activity
+        function fetchActivity(token) {
+            fetch('/api/company/activity', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderActivity(data);
+            })
+            .catch(error => {
+                console.error('Error fetching activity:', error);
+            });
+        }
+
+        // Render activity
+        function renderActivity(activity) {
+            const list = document.getElementById('activity-list');
+            list.innerHTML = '';
+
+            activity.slice(0, 5).forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'list-group-item';
+                div.innerHTML = `
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">${item.title}</h6>
+                        <small>${new Date(item.created_at).toLocaleString()}</small>
+                    </div>
+                    <p class="mb-1">${item.description}</p>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // Edit profile
+        function editProfile() {
+            // Implement edit functionality
+            console.log('Edit profile');
+        }
+
+        // Change password
+        function changePassword() {
+            window.location.href = 'parametres-compte.html';
+        }
+
+        // Upload logo
+        function uploadLogo() {
+            const token = localStorage.getItem('auth_token');
+            const file = document.getElementById('logo-file').files[0];
+
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('logo', file);
+
+            fetch('/api/company/logo', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('logo-form').reset();
+                bootstrap.Modal.getInstance(document.getElementById('logoModal')).hide();
+                location.reload(); // Refresh to show new logo
+            })
+            .catch(error => {
+                console.error('Error uploading logo:', error);
+                alert('Error uploading logo');
+            });
+        }
+    </script>
+</body>
+</html>
