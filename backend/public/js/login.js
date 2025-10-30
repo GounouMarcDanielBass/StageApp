@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 // Sauvegarder le token
-                localStorage.setItem('token', data.access_token);
+                localStorage.setItem('auth_token', data.access_token);
                 
                 // Sauvegarder l'email si "Se souvenir de moi" est coché
                 if (rememberMe.checked) {
