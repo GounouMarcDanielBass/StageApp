@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +13,8 @@
     <link href="css/themes.css" rel="stylesheet" type="text/css" />
     <link href="css/animations.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
+    <link href="css/style.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/cursor.css" rel="stylesheet" type="text/css" />
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
     <!-- Icons -->
@@ -28,7 +30,7 @@
     <link rel="preload" href="images/logo-dark.webp" as="image">
 </head>
 
-<body>
+<body data-theme="light">
     <!-- Navbar Placeholder -->
     <div id="navbar-placeholder"></div>
 
@@ -38,17 +40,23 @@
             <div class="row g-4 align-items-center">
                 <div class="col-md-6">
                     <div class="title-heading">
-                        <h1 class="heading text-white fw-bold">Gérez vos stages <br> avec excellence</h1>
-                        <p class="para-desc text-white-50 mb-0">Plateforme N°1 au Cameroun pour la gestion de stages. Connectez étudiants, entreprises et encadrants en toute simplicité.</p>
+                        <h1 class="heading text-white fw-bold">Launch Your Career with Premier Internship Opportunities</h1>
+                        <p class="para-desc text-white-50 mb-4">Join thousands of students and companies across Cameroon in our comprehensive internship management platform. Discover exclusive opportunities, streamline applications, and connect with industry leaders.</p>
+
+                        <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+                            <a href="signup.html" class="btn btn-light btn-lg px-4 py-2 fw-semibold">Get Started - Create Account</a>
+                            <a href="login.html" class="btn btn-outline-light btn-lg px-4 py-2 fw-semibold">Sign In to Your Account</a>
+                        </div>
 
                         <div class="text-center subscribe-form mt-4">
+                            <p class="text-white-50 mb-3">New here? Join our community of over 2,500+ students and 500+ companies</p>
                             <form id="searchForm" style="max-width: 800px;">
                                 <div class="mb-0">
                                     <div class="position-relative">
                                         <i data-feather="search" class="fea icon-20 position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                                        <input type="text" id="searchInput" name="search" class="shadow rounded-pill bg-white ps-5" required="" placeholder="Rechercher des stages, entreprises...">
+                                        <input type="text" id="searchInput" name="search" class="shadow rounded-pill bg-white ps-5" required="" placeholder="Search internships by company, field, or location...">
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-pills">Rechercher</button>
+                                    <button type="submit" class="btn btn-primary btn-pills mt-3">Explore Opportunities</button>
                                 </div>
                             </form>
                         </div>
@@ -98,8 +106,8 @@
             <div class="row justify-content-center mb-4 pb-2">
                 <div class="col-12">
                     <div class="section-title text-center">
-                        <h4 class="title mb-3">Fonctionnalités Clés</h4>
-                        <p class="text-muted para-desc mx-auto mb-0">Découvrez les outils puissants de notre plateforme de gestion de stages</p>
+                        <h4 class="title mb-3">Why Choose Our Platform</h4>
+                        <p class="text-muted para-desc mx-auto mb-0">Experience the most comprehensive internship management solution designed for students, companies, and educators</p>
                     </div>
                 </div>
             </div>
@@ -111,8 +119,8 @@
                             <i data-feather="search" class="fea icon-ex-md"></i>
                         </div>
                         <div class="mt-4">
-                            <a href="" class="title h5 text-dark">Recherche Avancée</a>
-                            <p class="text-muted mb-0 mt-3">Trouvez des stages adaptés à votre profil avec des filtres précis</p>
+                            <a href="login.html" class="title h5 text-dark">Advanced Search & Matching</a>
+                            <p class="text-muted mb-0 mt-3">Find perfect internships with intelligent matching algorithms and personalized recommendations</p>
                         </div>
                     </div>
                 </div>
@@ -123,8 +131,8 @@
                             <i data-feather="users" class="fea icon-ex-md"></i>
                         </div>
                         <div class="mt-4">
-                            <a href="" class="title h5 text-dark">Gestion des Candidatures</a>
-                            <p class="text-muted mb-0 mt-3">Suivez et gérez vos candidatures en temps réel</p>
+                            <a href="login.html" class="title h5 text-dark">Seamless Application Process</a>
+                            <p class="text-muted mb-0 mt-3">Apply to multiple internships with one-click applications and real-time status tracking</p>
                         </div>
                     </div>
                 </div>
@@ -135,8 +143,8 @@
                             <i data-feather="briefcase" class="fea icon-ex-md"></i>
                         </div>
                         <div class="mt-4">
-                            <a href="" class="title h5 text-dark">Entreprises Partenaires</a>
-                            <p class="text-muted mb-0 mt-3">Accédez à un réseau d'entreprises de premier plan</p>
+                            <a href="login.html" class="title h5 text-dark">Premium Company Network</a>
+                            <p class="text-muted mb-0 mt-3">Access exclusive internships from Cameroon's leading companies and multinational corporations</p>
                         </div>
                     </div>
                 </div>
@@ -147,8 +155,8 @@
                             <i data-feather="file-text" class="fea icon-ex-md"></i>
                         </div>
                         <div class="mt-4">
-                            <a href="" class="title h5 text-dark">Documents Sécurisés</a>
-                            <p class="text-muted mb-0 mt-3">Gérez vos documents en toute sécurité</p>
+                            <a href="login.html" class="title h5 text-dark">Secure Document Management</a>
+                            <p class="text-muted mb-0 mt-3">Store and share documents securely with advanced encryption and version control</p>
                         </div>
                     </div>
                 </div>
@@ -159,8 +167,8 @@
                             <i data-feather="bell" class="fea icon-ex-md"></i>
                         </div>
                         <div class="mt-4">
-                            <a href="" class="title h5 text-dark">Notifications</a>
-                            <p class="text-muted mb-0 mt-3">Restez informé de toutes les mises à jour</p>
+                            <a href="login.html" class="title h5 text-dark">Smart Notifications</a>
+                            <p class="text-muted mb-0 mt-3">Stay updated with personalized alerts about applications, deadlines, and opportunities</p>
                         </div>
                     </div>
                 </div>
@@ -171,10 +179,18 @@
                             <i data-feather="bar-chart" class="fea icon-ex-md"></i>
                         </div>
                         <div class="mt-4">
-                            <a href="" class="title h5 text-dark">Tableaux de Bord</a>
-                            <p class="text-muted mb-0 mt-3">Analysez vos performances avec des dashboards intuitifs</p>
+                            <a href="login.html" class="title h5 text-dark">Comprehensive Analytics</a>
+                            <p class="text-muted mb-0 mt-3">Track your internship journey with detailed progress reports and performance insights</p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <p class="text-muted mb-4">Ready to start your internship journey?</p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a href="signup.html" class="btn btn-primary btn-lg px-4 py-2 fw-semibold">Create Your Free Account</a>
+                    <a href="login.html" class="btn btn-outline-primary btn-lg px-4 py-2 fw-semibold">Already Have an Account? Sign In</a>
                 </div>
             </div>
         </div>
@@ -184,11 +200,15 @@
     <section id="stats" class="section bg-light animate-fade-in">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-4 fw-bold mb-3">Notre Impact en Chiffres</h2>
-                <p class="lead text-muted">Des résultats qui parlent d'eux-mêmes</p>
+                <h2 class="display-4 fw-bold mb-3">Our Impact in Numbers</h2>
+                <p class="lead text-muted">Join thousands of successful internships and growing careers</p>
             </div>
             <div class="row g-4" id="stats-list">
                 <!-- Stats will be loaded here -->
+            </div>
+            <div class="text-center mt-5">
+                <p class="text-muted mb-4">Be part of our success story</p>
+                <a href="signup.html" class="btn btn-primary btn-lg px-5 py-3 fw-semibold">Start Your Journey Today</a>
             </div>
         </div>
     </section><!--end section-->
@@ -199,8 +219,8 @@
             <div class="row justify-content-center">
                 <div class="col">
                     <div class="section-title text-center mb-4 pb-2">
-                        <h4 class="title mb-3">Témoignages</h4>
-                        <p class="text-muted para-desc mb-0 mx-auto">Ce que disent nos utilisateurs</p>
+                        <h4 class="title mb-3">Success Stories</h4>
+                        <p class="text-muted para-desc mb-0 mx-auto">Hear from our community of successful interns and satisfied companies</p>
                     </div>
                 </div>
             </div>
@@ -209,12 +229,12 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card blog blog-primary shadow rounded overflow-hidden border-0 hover-lift">
                         <div class="card-body blog-content p-4">
-                            <p class="mb-3">"Cette plateforme a révolutionné ma recherche de stage. J'ai trouvé l'opportunité parfaite en quelques jours !"</p>
+                            <p class="mb-3">"This platform transformed my internship search. I landed my dream opportunity within a week and now I'm on track for a full-time position!"</p>
                             <div class="d-flex align-items-center">
                                 <img src="images/team/01.webp" class="avatar avatar-small rounded-pill me-3" alt="" loading="lazy">
                                 <div>
-                                    <h6 class="mb-0">Marie Dupont</h6>
-                                    <small class="text-muted">Étudiante en Informatique</small>
+                                    <h6 class="mb-0">Sarah Nkono</h6>
+                                    <small class="text-muted">Computer Science Student, University of Yaoundé</small>
                                 </div>
                             </div>
                         </div>
@@ -224,12 +244,12 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card blog blog-primary shadow rounded overflow-hidden border-0 hover-lift">
                         <div class="card-body blog-content p-4">
-                            <p class="mb-3">"Interface intuitive et support réactif. Parfait pour gérer nos offres de stages."</p>
+                            <p class="mb-3">"Streamlined our entire internship program. The platform's analytics help us find the perfect candidates and track their progress effectively."</p>
                             <div class="d-flex align-items-center">
                                 <img src="images/team/02.jpg" class="avatar avatar-small rounded-pill me-3" alt="">
                                 <div>
-                                    <h6 class="mb-0">Jean Martin</h6>
-                                    <small class="text-muted">Responsable RH</small>
+                                    <h6 class="mb-0">Michael Ebong</h6>
+                                    <small class="text-muted">HR Director, Orange Cameroon</small>
                                 </div>
                             </div>
                         </div>
@@ -239,73 +259,32 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card blog blog-primary shadow rounded overflow-hidden border-0 hover-lift">
                         <div class="card-body blog-content p-4">
-                            <p class="mb-3">"Un outil indispensable pour le suivi des stages. Recommandé à tous les encadrants !"</p>
+                            <p class="mb-3">"Essential tool for monitoring student progress and ensuring quality internship experiences. Our graduation rates have improved significantly."</p>
                             <div class="d-flex align-items-center">
                                 <img src="images/team/03.jpg" class="avatar avatar-small rounded-pill me-3" alt="">
                                 <div>
-                                    <h6 class="mb-0">Sophie Laurent</h6>
-                                    <small class="text-muted">Encadrante Pédagogique</small>
+                                    <h6 class="mb-0">Dr. Grace Mbarga</h6>
+                                    <small class="text-muted">Academic Supervisor, University of Douala</small>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <p class="text-muted mb-4">Join thousands who have already transformed their careers</p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a href="signup.html" class="btn btn-primary btn-lg px-4 py-2 fw-semibold">Register as Student</a>
+                    <a href="signup.html" class="btn btn-outline-primary btn-lg px-4 py-2 fw-semibold">Register as Company</a>
                 </div>
             </div>
         </div>
     </section><!--end section-->
 
-    <!-- Footer Start -->
-    <footer class="bg-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="py-5">
-                        <div class="row align-items-center">
-                            <div class="col-sm-3">
-                                <div class="text-center text-sm-start">
-                                    <a href="index.html"><img src="images/logo-light.png" alt=""></a>
-                                </div>
-                            </div>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
 
-                            <div class="col-sm-9 mt-4 mt-sm-0">
-                                <ul class="list-unstyled footer-list terms-service text-center text-sm-end mb-0">
-                                    <li class="list-inline-item my-2"><a href="index.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Home</a></li>
-                                    <li class="list-inline-item my-2"><a href="offres-stage.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Stages</a></li>
-                                    <li class="list-inline-item my-2"><a href="about.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> About</a></li>
-                                    <li class="list-inline-item my-2"><a href="contact.html" class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> Contact</a></li>
-                                    <li class="list-inline-item my-2"><a href="faq.html" class="text-foot fs-6 fw-medium"><i class="mdi mdi-circle-small"></i> FAQ</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="py-4 footer-bar">
-            <div class="container text-center">
-                <div class="row align-items-center">
-                    <div class="col-sm-6">
-                        <div class="text-sm-start">
-                            <p class="mb-0 fw-medium">© <script>document.write(new Date().getFullYear())</script> StageApp. Design with <i class="mdi mdi-heart text-danger"></i> by StageApp.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 mt-4 mt-sm-0">
-                        <ul class="list-unstyled social-icon foot-social-icon text-sm-end mb-0">
-                            <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="linkedin" class="fea icon-sm align-middle"></i></a></li>
-                            <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="facebook" class="fea icon-sm align-middle"></i></a></li>
-                            <li class="list-inline-item"><a href="#" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm align-middle"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer><!--end footer-->
-    <!-- Footer End -->
-
-    <!-- Back to top -->
-    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5"><i data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
 
     <!-- JAVASCRIPTS -->
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -316,6 +295,7 @@
     <script src="js/app.js"></script>
     <script src="js/components.js"></script>
     <script src="js/theme.js"></script>
+    <script src="js/cursor.js"></script>
 
     <script>
         console.log('Index HTML loaded and JS started');

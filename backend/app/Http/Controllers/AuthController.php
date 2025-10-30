@@ -77,7 +77,22 @@ class AuthController extends Controller
             }
         }
 
-        return $this->respondWithToken($token);
+        $redirectUrl = $this->getRedirectUrlForUser($user);
+        return $this->respondWithToken($token, $redirectUrl);
+    }
+
+    protected function getRedirectUrlForUser(User $user)
+    {
+        if ($user->isAdmin()) {
+            return '/admin/dashboard';
+        } elseif ($user->isEtudiant()) {
+            return '/etudiant/candidatures';
+        } elseif ($user->isEntreprise()) {
+            return '/entreprise/offres';
+        } elseif ($user->isEncadrant()) {
+            return '/encadrant/suivi-etudiants';
+        }
+        return '/dashboard'; // Default redirect
     }
 
     public function register(Request $request, $role)
@@ -160,7 +175,8 @@ class AuthController extends Controller
             DB::commit();
 
             $token = JWTAuth::fromUser($user);
-            return $this->respondWithToken($token);
+            $redirectUrl = $this->getRedirectUrlForUser($user);
+            return $this->respondWithToken($token, $redirectUrl);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['error' => 'Erreur lors de l\'inscription', 'details' => $e->getMessage()], 500);
@@ -189,7 +205,8 @@ class AuthController extends Controller
             DB::commit();
 
             $token = JWTAuth::fromUser($user);
-            return $this->respondWithToken($token);
+            $redirectUrl = $this->getRedirectUrlForUser($user);
+            return $this->respondWithToken($token, $redirectUrl);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['error' => 'Erreur lors de l\'inscription', 'details' => $e->getMessage()], 500);
@@ -218,7 +235,8 @@ class AuthController extends Controller
             DB::commit();
 
             $token = JWTAuth::fromUser($user);
-            return $this->respondWithToken($token);
+            $redirectUrl = $this->getRedirectUrlForUser($user);
+            return $this->respondWithToken($token, $redirectUrl);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['error' => 'Erreur lors de l\'inscription', 'details' => $e->getMessage()], 500);
@@ -241,7 +259,8 @@ class AuthController extends Controller
             DB::commit();
 
             $token = JWTAuth::fromUser($user);
-            return $this->respondWithToken($token);
+            $redirectUrl = $this->getRedirectUrlForUser($user);
+            return $this->respondWithToken($token, $redirectUrl);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['error' => 'Erreur lors de l\'inscription', 'details' => $e->getMessage()], 500);
@@ -269,14 +288,20 @@ class AuthController extends Controller
         return response()->json(JWTAuth::user());
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $redirectUrl = null)
     {
-        return response()->json([
+        $response = [
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
             'user' => JWTAuth::user()
-        ]);
+        ];
+
+        if ($redirectUrl) {
+            $response['redirect_url'] = $redirectUrl;
+        }
+
+        return response()->json($response);
     }
 
     public function generate2faSecret(Google2FA $google2fa)

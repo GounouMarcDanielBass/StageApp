@@ -129,8 +129,25 @@
 					const data = await response.json();
 
 					if (response.ok) {
-						localStorage.setItem('auth_token', data.access_token);
-						window.location.href = data.user.role === 'admin' ? 'admin-dashboard.html' : 'dashboard.html';
+					    localStorage.setItem('auth_token', data.access_token);
+					    let redirectUrl;
+					    switch(data.user.role) {
+					        case 'admin':
+					            redirectUrl = 'admin-dashboard.html';
+					            break;
+					        case 'etudiant':
+					            redirectUrl = 'student-dashboard.html';
+					            break;
+					        case 'entreprise':
+					            redirectUrl = 'dashboard-entreprise.html';
+					            break;
+					        case 'encadrant':
+					            redirectUrl = 'dashboard-encadrant.html';
+					            break;
+					        default:
+					            redirectUrl = 'dashboard.html';
+					    }
+					    window.location.href = redirectUrl;
 					} else {
 						alert(data.message || 'Login failed. Please try again.');
 					}

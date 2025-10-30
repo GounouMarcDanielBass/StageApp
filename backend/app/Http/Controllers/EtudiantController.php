@@ -101,12 +101,16 @@ class EtudiantController extends BaseController
      */
     public function getCandidatures()
     {
+        Log::info('getCandidatures called for user: ' . Auth::id());
         $etudiant = Auth::user()->etudiant;
-        
+        Log::info('Etudiant found: ', ['id' => $etudiant->id]);
+
         $candidatures = Candidature::where('etudiant_id', $etudiant->id)
-            ->with(['stage', 'stage.entreprise'])
+            ->with(['offre', 'offre.entreprise'])
             ->orderBy('created_at', 'desc')
             ->get();
+
+        Log::info('Candidatures fetched: ', ['count' => $candidatures->count(), 'data' => $candidatures->toArray()]);
 
         return response()->json($candidatures);
     }

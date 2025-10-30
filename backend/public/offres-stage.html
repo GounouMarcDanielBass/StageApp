@@ -1,56 +1,37 @@
-<!DOCTYPE html>
-<html lang="fr" data-bs-theme="light">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Offres de Stage - StageApp</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <meta name="description" content="Discover internship opportunities and apply to positions in Cameroon. Connect with leading companies and start your professional journey." />
+    <meta name="keywords" content="internships, Cameroon, jobs, students, companies, opportunities" />
+    <meta name="author" content="StageApp" />
+    <!-- Favicon -->
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <!-- Custom CSS -->
+    <link href="css/themes.css" rel="stylesheet" type="text/css" />
+    <link href="css/animations.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
+    <link href="css/style.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/cursor.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/themes.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Tiny Slider -->
+    <link href="css/tiny-slider.css" rel="stylesheet" type="text/css" />
+    <!-- Tobii -->
+    <link href="css/tobii.min.css" rel="stylesheet" type="text/css" />
+    <!-- Preload critical assets -->
+    <link rel="preload" href="css/bootstrap.min.css" as="style">
+    <link rel="preload" href="js/bootstrap.bundle.min.js" as="script">
+    <link rel="preload" href="images/logo-dark.webp" as="image">
 </head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html" data-aos="fade-right">
-                <i class="fas fa-graduation-cap me-2"></i>StageApp
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="offres-stage.html">Offres de Stage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">À propos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="faq.html">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="login.html" class="btn btn-outline-primary me-3 px-4">
-                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                    </a>
-                    <a href="signup.html" class="btn btn-primary px-4">
-                        <i class="fas fa-user-plus me-2"></i>S'inscrire
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body data-theme="light">
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
 
     <!-- Hero Section -->
     <section class="hero-section text-white text-center">
@@ -68,78 +49,130 @@
         </div>
     </section>
 
-    <!-- Offers Section -->
-    <section class="py-5">
+    <!-- Tab Navigation -->
+    <section class="py-4 bg-light">
         <div class="container">
-            <div class="row">
-                <!-- Filters -->
-                <div class="col-lg-3 mb-4">
-                    <div class="p-4 rounded-3 filters-sidebar" data-aos="fade-right">
-                        <h4 class="mb-4 fw-bold">Filtres</h4>
-                        <div class="mb-3">
-                            <label for="filter-domain" class="form-label">Domaine</label>
-                            <select id="filter-domain" class="form-select">
-                                <option value="">Tous</option>
-                            </select>
+            <ul class="nav nav-pills justify-content-center mb-4" id="offers-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="all-offers-tab" data-bs-toggle="pill" data-bs-target="#all-offers" type="button" role="tab" aria-controls="all-offers" aria-selected="true">
+                        <i class="fas fa-list me-2"></i>Toutes les Offres
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation" id="my-applications-tab-item" style="display: none;">
+                    <button class="nav-link" id="my-applications-tab" data-bs-toggle="pill" data-bs-target="#my-applications" type="button" role="tab" aria-controls="my-applications" aria-selected="false">
+                        <i class="fas fa-user-check me-2"></i>Mes Candidatures
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation" id="saved-offers-tab-item" style="display: none;">
+                    <button class="nav-link" id="saved-offers-tab" data-bs-toggle="pill" data-bs-target="#saved-offers" type="button" role="tab" aria-controls="saved-offers" aria-selected="false">
+                        <i class="fas fa-heart me-2"></i>Offres Sauvegardées
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Tab Content -->
+    <section class="py-3">
+        <div class="container">
+            <div class="tab-content" id="offers-tab-content">
+                <!-- All Offers Tab -->
+                <div class="tab-pane fade show active" id="all-offers" role="tabpanel" aria-labelledby="all-offers-tab">
+                    <div class="row">
+                        <!-- Filters -->
+                        <div class="col-lg-3 mb-4">
+                            <div class="p-4 rounded-3 filters-sidebar" data-aos="fade-right">
+                                <h4 class="mb-4 fw-bold">Filtres</h4>
+                                <div class="mb-3">
+                                    <label for="filter-domain" class="form-label">Domaine</label>
+                                    <select id="filter-domain" class="form-select">
+                                        <option value="">Tous</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="filter-location" class="form-label">Localisation</label>
+                                    <select id="filter-location" class="form-select">
+                                        <option value="">Toutes</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="filter-duration" class="form-label">Durée (mois)</label>
+                                    <input type="range" id="filter-duration" class="form-range" min="1" max="12" step="1" value="12">
+                                    <div class="text-center">Max: <span id="duration-value">12</span> mois</div>
+                                </div>
+                                <div class="d-grid">
+                                    <button id="filter-button" class="btn btn-primary">Appliquer</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="filter-location" class="form-label">Localisation</label>
-                            <select id="filter-location" class="form-select">
-                                <option value="">Toutes</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="filter-duration" class="form-label">Durée (mois)</label>
-                            <input type="range" id="filter-duration" class="form-range" min="1" max="12" step="1" value="12">
-                            <div class="text-center">Max: <span id="duration-value">12</span> mois</div>
-                        </div>
-                        <div class="d-grid">
-                            <button id="filter-button" class="btn btn-primary">Appliquer</button>
+
+                        <!-- Offers Grid -->
+                        <div class="col-lg-9">
+                            <div id="offers-grid" class="row g-4">
+                                <!-- Offers will be populated by JS -->
+                            </div>
+                            <div id="no-results" class="text-center d-none mt-5">
+                                <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                <h4 class="fw-bold">Aucune offre trouvée</h4>
+                                <p>Essayez d'ajuster vos filtres de recherche.</p>
+                            </div>
+                            <nav id="pagination-container" class="d-flex justify-content-center mt-5"></nav>
                         </div>
                     </div>
                 </div>
 
-                <!-- Offers Grid -->
-                <div class="col-lg-9">
-                    <div id="offers-grid" class="row g-4">
-                        <!-- Offers will be populated by JS -->
+                <!-- My Applications Tab -->
+                <div class="tab-pane fade" id="my-applications" role="tabpanel" aria-labelledby="my-applications-tab">
+                    <div id="applications-grid" class="row g-4">
+                        <!-- Applications will be populated by JS -->
                     </div>
-                    <div id="no-results" class="text-center d-none mt-5">
-                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                        <h4 class="fw-bold">Aucune offre trouvée</h4>
-                        <p>Essayez d'ajuster vos filtres de recherche.</p>
+                    <div id="no-applications" class="text-center d-none mt-5">
+                        <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                        <h4 class="fw-bold">Aucune candidature trouvée</h4>
+                        <p>Vous n'avez pas encore postulé à des offres.</p>
                     </div>
-                    <nav id="pagination-container" class="d-flex justify-content-center mt-5"></nav>
+                </div>
+
+                <!-- Saved Offers Tab -->
+                <div class="tab-pane fade" id="saved-offers" role="tabpanel" aria-labelledby="saved-offers-tab">
+                    <div id="saved-offers-grid" class="row g-4">
+                        <!-- Saved offers will be populated by JS -->
+                    </div>
+                    <div id="no-saved" class="text-center d-none mt-5">
+                        <i class="fas fa-heart fa-3x text-muted mb-3"></i>
+                        <h4 class="fw-bold">Aucune offre sauvegardée</h4>
+                        <p>Sauvegardez des offres qui vous intéressent.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-4 mt-auto">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 StageApp. Tous droits réservés.</p>
-        </div>
-    </footer>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
 
-    <!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <button id="theme-toggle" class="btn btn-secondary" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
-    </div>
+    <!-- Back to top -->
+    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5"><i data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- JAVASCRIPTS -->
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/tiny-slider.js"></script>
+    <script src="js/tobii.min.js"></script>
+    <script src="js/feather.min.js"></script>
+    <script src="js/plugins.init.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/components.js"></script>
     <script src="js/theme.js"></script>
+    <script src="js/cursor.js"></script>
     <script>
                 // Dynamic script for offers
         document.addEventListener('DOMContentLoaded', function() {
             fetchOffers();
             setupFilters();
             setupSearch();
+            checkAuth();
+            setupApplyButtons();
+            setupTabs();
 
             // Check for search query in URL
             const urlParams = new URLSearchParams(window.location.search);
@@ -151,15 +184,24 @@
                     searchOffers();  // Apply the filter immediately
                 }
             }
-        });</search>
-</search_and_replace>
+        });
 
         let allOffers = [];
         let filteredOffers = [];
+        let currentUser = null;
 
         function fetchOffers() {
-            fetch('/api/offers')
-                .then(response => response.json())
+            fetch('/api/offers', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error! status: ' + response.status);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     allOffers = data;
                     filteredOffers = data;
@@ -172,10 +214,34 @@
                 });
         }
 
+        function checkAuth() {
+            fetch('/api/auth/me', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Not authenticated');
+                }
+            })
+            .then(data => {
+                currentUser = data;
+                renderOffers(filteredOffers); // Re-render to show apply buttons if student
+                updateTabVisibility(); // Show/hide tabs based on user role
+            })
+            .catch(error => {
+                console.log('User not authenticated:', error);
+                currentUser = null;
+            });
+        }
+
         function populateFilters(offers) {
-            const domains = [...new Set(offers.map(o => o.description.split(' ').slice(0,2).join(' ')))];
+            const domains = [...new Set(offers.map(o => o.title.split(' ').slice(0,2).join(' ')))];
             const locations = [...new Set(offers.map(o => o.location))];
-            
+
             const domainSelect = document.getElementById('filter-domain');
             domainSelect.innerHTML = '<option value="">Tous</option>';
             domains.forEach(domain => {
@@ -217,13 +283,13 @@
                     <div class="card-body p-4">
                         <span class="badge bg-primary mb-2">${offer.status}</span>
                         <h5 class="card-title">${offer.title}</h5>
-                        <p class="company-name text-muted"><i class="fas fa-building me-2"></i>${offer.entreprise.name}</p>
+                        <p class="company-name text-muted"><i class="fas fa-building me-2"></i>${offer.entreprise ? offer.entreprise.company_name : 'Entreprise inconnue'}</p>
                         <p class="location text-muted"><i class="fas fa-map-marker-alt me-2"></i>${offer.location}</p>
                         <p class="duration text-muted"><i class="fas fa-calendar-alt me-2"></i>${offer.duration} mois</p>
                         <p class="description">${offer.description.substring(0,100)}...</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted">Publié récemment</span>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Voir détails</a>
+                            ${currentUser && currentUser.role === 'etudiant' ? `<button class="btn btn-sm btn-primary apply-btn" data-offer-id="${offer.id}">Postuler</button>` : `<a href="#" class="btn btn-sm btn-outline-primary">Voir détails</a>`}
                         </div>
                     </div>
                 </div>
@@ -244,7 +310,7 @@
             const duration = document.getElementById('filter-duration').value;
 
             filteredOffers = allOffers.filter(offer => {
-                return (domain === '' || offer.description.includes(domain)) &&
+                return (domain === '' || offer.title.includes(domain)) &&
                        (location === '' || offer.location === location) &&
                        offer.duration <= duration;
             });
@@ -256,16 +322,183 @@
             document.getElementById('search-input').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') searchOffers();
             });
+            document.getElementById('search-input').addEventListener('input', searchOffers);
+        }
+
+        function setupApplyButtons() {
+            document.getElementById('offers-grid').addEventListener('click', function(e) {
+                if (e.target.classList.contains('apply-btn')) {
+                    const offerId = e.target.getAttribute('data-offer-id');
+                    applyForOffer(offerId);
+                }
+            });
+        }
+
+        function applyForOffer(offerId) {
+            if (!currentUser || currentUser.role !== 'etudiant') {
+                alert('Vous devez être connecté en tant qu\'étudiant pour postuler.');
+                return;
+            }
+            fetch('/api/applications', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ offer_id: offerId })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Candidature soumise avec succès!');
+                } else {
+                    return response.json().then(err => { throw new Error(err.message || 'Erreur lors de la soumission'); });
+                }
+            })
+            .catch(error => {
+                alert('Erreur: ' + error.message);
+            });
         }
 
         function searchOffers() {
             const query = document.getElementById('search-input').value.toLowerCase();
-            filteredOffers = allOffers.filter(offer => 
+            filteredOffers = allOffers.filter(offer =>
                 offer.title.toLowerCase().includes(query) ||
                 offer.description.toLowerCase().includes(query) ||
-                offer.entreprise.name.toLowerCase().includes(query)
+                (offer.entreprise && offer.entreprise.company_name.toLowerCase().includes(query))
             );
             renderOffers(filteredOffers);
+        }
+
+        // Tab switching functionality
+        function setupTabs() {
+            const tabButtons = document.querySelectorAll('#offers-tabs .nav-link');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetTab = this.id;
+
+                    // Remove active class from all buttons
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Hide all tab panes
+                    const tabPanes = document.querySelectorAll('.tab-pane');
+                    tabPanes.forEach(pane => pane.classList.remove('show', 'active'));
+
+                    // Show target tab pane
+                    const targetPane = document.getElementById(targetTab.replace('-tab', ''));
+                    targetPane.classList.add('show', 'active');
+
+                    // Load tab content
+                    switch(targetTab) {
+                        case 'all-offers-tab':
+                            renderOffers(filteredOffers);
+                            break;
+                        case 'my-applications-tab':
+                            fetchMyApplications();
+                            break;
+                        case 'saved-offers-tab':
+                            fetchSavedOffers();
+                            break;
+                    }
+                });
+            });
+        }
+
+        // Fetch user's applications
+        function fetchMyApplications() {
+            if (!currentUser || currentUser.role !== 'etudiant') {
+                document.getElementById('my-applications-tab-item').style.display = 'none';
+                return;
+            }
+
+            fetch('/api/applications', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                renderApplications(data);
+            })
+            .catch(error => {
+                console.error('Error fetching applications:', error);
+                document.getElementById('applications-grid').innerHTML = '<p class="text-center">Erreur lors du chargement des candidatures.</p>';
+            });
+        }
+
+        // Render applications
+        function renderApplications(applications) {
+            const grid = document.getElementById('applications-grid');
+            grid.innerHTML = '';
+            if (applications.length === 0) {
+                document.getElementById('no-applications').classList.remove('d-none');
+                return;
+            }
+            document.getElementById('no-applications').classList.add('d-none');
+            applications.forEach(app => {
+                const card = createApplicationCard(app);
+                grid.appendChild(card);
+            });
+        }
+
+        // Create application card
+        function createApplicationCard(app) {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4';
+            col.innerHTML = `
+                <div class="card offer-card h-100">
+                    <div class="card-body p-4">
+                        <span class="badge bg-${getStatusBadgeColor(app.status)} mb-2">${getStatusText(app.status)}</span>
+                        <h5 class="card-title">${app.offer.title}</h5>
+                        <p class="company-name text-muted"><i class="fas fa-building me-2"></i>${app.offer.entreprise ? app.offer.entreprise.company_name : 'Entreprise inconnue'}</p>
+                        <p class="location text-muted"><i class="fas fa-map-marker-alt me-2"></i>${app.offer.location}</p>
+                        <p class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Candidature du ${new Date(app.created_at).toLocaleDateString('fr-FR')}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Statut: ${getStatusText(app.status)}</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Voir détails</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return col;
+        }
+
+        // Get status badge color
+        function getStatusBadgeColor(status) {
+            switch(status) {
+                case 'pending': return 'warning';
+                case 'accepted': return 'success';
+                case 'rejected': return 'danger';
+                default: return 'secondary';
+            }
+        }
+
+        // Get status text
+        function getStatusText(status) {
+            switch(status) {
+                case 'pending': return 'En attente';
+                case 'accepted': return 'Acceptée';
+                case 'rejected': return 'Refusée';
+                default: return status;
+            }
+        }
+
+        // Fetch saved offers (placeholder for future implementation)
+        function fetchSavedOffers() {
+            document.getElementById('saved-offers-grid').innerHTML = '<p class="text-center">Fonctionnalité à venir.</p>';
+            document.getElementById('no-saved').classList.add('d-none');
+        }
+
+        // Update tab visibility based on user role
+        function updateTabVisibility() {
+            if (currentUser && currentUser.role === 'etudiant') {
+                document.getElementById('my-applications-tab-item').style.display = 'inline-block';
+                document.getElementById('saved-offers-tab-item').style.display = 'inline-block';
+            } else {
+                document.getElementById('my-applications-tab-item').style.display = 'none';
+                document.getElementById('saved-offers-tab-item').style.display = 'none';
+            }
         }
     </script>
 </body>

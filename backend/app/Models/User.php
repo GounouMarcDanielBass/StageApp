@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Carbon\Carbon;
 
-use Illuminate\Support\Facades\Log;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
@@ -32,59 +34,32 @@ class User extends Authenticatable implements JWTSubject
         'google2fa_secret',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'google2fa_enabled' => 'boolean',
+        'failed_attempts' => 'integer',
+        'locked_until' => 'datetime',
     ];
 
-    public function etudiant()
-    {
-        return $this->hasOne(Etudiant::class);
-    }
-
-    public function entreprise()
-    {
-        return $this->hasOne(Entreprise::class);
-    }
-
-    public function encadrant()
-    {
-        return $this->hasOne(Encadrant::class);
-    }
-
-    public function isAdmin()
-    {
-        return $this->role && $this->role->name === 'admin';
-    }
-
-        
-    public function isEtudiant()
-    {
-        return $this->role && $this->role->name === 'etudiant';
-    }
-
-    public function isEntreprise()
-    {
-        return $this->role && $this->role->name === 'entreprise';
-    }
-
-    public function isEncadrant()
-    {
-        return $this->role && $this->role->name === 'encadrant';
-    }
-
-    public function hasRole($role)
-    {
-        return $this->role && $this->role->name === $role;
-    }
-
-    public function role()
+    // Relationships
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function student(): HasOne
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function company(): HasOne
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function supervisor(): HasOne
+    {
+        return $this->hasOne(Supervisor::class);
     }
 
     public function applications(): HasMany
@@ -92,58 +67,126 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Application::class, 'student_id');
     }
 
-    public function candidatures(): HasMany
+    public function stages(): HasMany
     {
-        return $this->hasMany(Candidature::class, 'user_id');
-    }
-
-    public function stages()
-    {
-        return $this->hasMany(Stage::class);
+        return $this->hasMany(Stage::class, 'student_id');
     }
 
     public function documents(): HasMany
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'student_id');
     }
 
-    public function offers()
+    public function offers(): HasMany
     {
-        return $this->hasManyThrough(Offer::class, Entreprise::class, 'user_id', 'entreprise_id');
+        return $this->hasMany(Offer::class, 'company_id');
     }
 
-    public function notifications()
+    public function notifications(): MorphMany
     {
-        return $this->hasMany(Notification::class);
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 
-    public function sentMessages()
+    public function sentMessages(): HasMany
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
 
-    public function receivedMessages()
+    public function receivedMessages(): HasMany
     {
         return $this->hasMany(Message::class, 'receiver_id');
     }
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
+    public function evaluations(): HasMany
+    {
+        return $this->hasMany(Evaluation::class, 'evaluator_id');
+    }
+
+    // Scopes
+    public function scopeByRole($query, string $roleName)
+    {
+        return $query->whereHas('role', function ($q) use ($roleName) {
+            $q->where('name', $roleName);
+        });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('locked_until', '<=', now())->orWhereNull('locked_until');
+    }
+
+    // Accessors & Mutators
+    public function getIsLockedAttribute(): bool
+    {
+        return $this->locked_until && $this->locked_until->isFuture();
+    }
+
+    public function getRoleNameAttribute(): ?string
+    {
+        return $this->role?->name;
+    }
+
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->role_name === 'admin';
+    }
+
+    public function getIsStudentAttribute(): bool
+    {
+        return $this->role_name === 'student';
+    }
+
+    public function getIsCompanyAttribute(): bool
+    {
+        return $this->role_name === 'company';
+    }
+
+    public function getIsSupervisorAttribute(): bool
+    {
+        return $this->role_name === 'supervisor';
+    }
+
+    // Methods
+    public function hasRole(string $role): bool
+    {
+        return $this->role_name === $role;
+    }
+
+    public function canAccessAdminPanel(): bool
+    {
+        return $this->is_admin;
+    }
+
+    public function incrementFailedAttempts(): void
+    {
+        $this->increment('failed_attempts');
+        if ($this->failed_attempts >= 5) {
+            $this->locked_until = now()->addMinutes(30);
+            $this->save();
+        }
+    }
+
+    public function resetFailedAttempts(): void
+    {
+        $this->update(['failed_attempts' => 0, 'locked_until' => null]);
+    }
+
+    public function isAccountLocked(): bool
+    {
+        return $this->is_locked;
+    }
+
+    // JWT methods
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
-        return [];
+        return [
+            'role' => $this->role_name,
+            'is_locked' => $this->is_locked,
+        ];
     }
 }

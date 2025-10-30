@@ -12,13 +12,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Seed in logical order: roles first, then users, then entities, then relationships
 
         $this->call([
+            // Foundation data
             RoleSeeder::class,
+
+            // User-related data
             UserSeeder::class,
-            ComprehensiveSeeder::class,
+
+            // Entity data with relationships
             CameroonDataSeeder::class,
+
+            // Additional comprehensive data if needed
+            ComprehensiveSeeder::class,
         ]);
     }
 }

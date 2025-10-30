@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,19 +9,25 @@
     <meta name="author" content="Internship Management System" />
     <!-- Favicon -->
     <link href="images/favicon.ico" rel="shortcut icon">
-    <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Icons -->
-    <link href="css/materialdesignicons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/themes.css" rel="stylesheet" type="text/css" />
+    <link href="css/animations.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
+    <link href="css/style.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/cursor.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Styles -->
-    <link href="css/style.css" rel="stylesheet" id="theme-opt">
-    <link href="css/themes.css" rel="stylesheet">
-    <link href="css/animations.css" rel="stylesheet">
     <!-- Tiny Slider -->
-    <link href="css/tiny-slider.css" rel="stylesheet">
-    <!-- Tobii Lightbox -->
-    <link href="css/tobii.min.css" rel="stylesheet">
+    <link href="css/tiny-slider.css" rel="stylesheet" type="text/css" />
+    <!-- Tobii -->
+    <link href="css/tobii.min.css" rel="stylesheet" type="text/css" />
+    <!-- Preload critical assets -->
+    <link rel="preload" href="css/bootstrap.min.css" as="style">
+    <link rel="preload" href="js/bootstrap.bundle.min.js" as="script">
+    <link rel="preload" href="images/logo-dark.webp" as="image">
 </head>
 <body data-theme="light">
     <!-- Navbar Placeholder -->
@@ -74,6 +80,7 @@
                 <div class="col-12">
                     <div class="text-center">
                         <h4 class="title mb-4">Browse by Category</h4>
+                        <p class="text-muted mb-4">Get answers to your questions and start your internship journey today</p>
                         <div class="faq-categories">
                             <ul class="nav nav-pills justify-content-center mb-0" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -89,6 +96,13 @@
                                     <button class="nav-link" id="pills-general-tab" data-bs-toggle="pill" data-bs-target="#pills-general" type="button" role="tab">General</button>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-muted mb-3">Ready to get started? Join our platform now.</p>
+                            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                                <a href="signup.html" class="btn btn-primary btn-lg px-4 py-2 fw-semibold">Create Account</a>
+                                <a href="login.html" class="btn btn-outline-primary btn-lg px-4 py-2 fw-semibold">Sign In</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,7 +123,7 @@
                                     </h2>
                                     <div id="regCollapse1" class="accordion-collapse collapse show" aria-labelledby="regHeading1" data-bs-parent="#registrationAccordion">
                                         <div class="accordion-body text-muted">
-                                            Our platform connects students, companies, and educational institutions to streamline the internship process.
+                                            Our platform connects students, companies, and educational institutions to streamline the internship process. Join thousands of successful interns and companies.
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +135,7 @@
                                     </h2>
                                     <div id="regCollapse2" class="accordion-collapse collapse" aria-labelledby="regHeading2" data-bs-parent="#registrationAccordion">
                                         <div class="accordion-body text-muted">
-                                            Click the "Sign Up" button and choose your profile type (Student, Company, Supervisor).
+                                            Click the "Sign Up" button and choose your profile type (Student, Company, Supervisor). It's quick and easy to get started.
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +147,7 @@
                                     </h2>
                                     <div id="regCollapse3" class="accordion-collapse collapse" aria-labelledby="regHeading3" data-bs-parent="#registrationAccordion">
                                         <div class="accordion-body text-muted">
-                                            Yes, basic features are free for students. Premium options available for companies.
+                                            Yes, basic features are free for students. Premium options available for companies. Create your account today and explore all possibilities.
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +169,7 @@
                                     </h2>
                                     <div id="appCollapse1" class="accordion-collapse collapse show" aria-labelledby="appHeading1" data-bs-parent="#applicationsAccordion">
                                         <div class="accordion-body text-muted">
-                                            Complete your profile, browse offers, and submit your application directly.
+                                            Complete your profile, browse offers, and submit your application directly. Join our platform today to access exclusive opportunities.
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +181,7 @@
                                     </h2>
                                     <div id="appCollapse2" class="accordion-collapse collapse" aria-labelledby="appHeading2" data-bs-parent="#applicationsAccordion">
                                         <div class="accordion-body text-muted">
-                                            Check your dashboard for real-time updates on your applications.
+                                            Check your dashboard for real-time updates on your applications. Sign up now to start tracking your internship journey.
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +203,7 @@
                                     </h2>
                                     <div id="compCollapse1" class="accordion-collapse collapse show" aria-labelledby="compHeading1" data-bs-parent="#companiesAccordion">
                                         <div class="accordion-body text-muted">
-                                            Create a company account and use the dashboard to post new opportunities.
+                                            Create a company account and use the dashboard to post new opportunities. Join leading companies in Cameroon today.
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +225,7 @@
                                     </h2>
                                     <div id="genCollapse1" class="accordion-collapse collapse show" aria-labelledby="genHeading1" data-bs-parent="#generalAccordion">
                                         <div class="accordion-body text-muted">
-                                            Use the contact form or email support@platform.com for assistance.
+                                            Use the contact form or email support@platform.com for assistance. Join our community for instant support and resources.
                                         </div>
                                     </div>
                                 </div>
@@ -221,20 +235,33 @@
                 </div>
             </div>
         </div>
+
+        <div class="text-center mt-5">
+            <p class="text-muted mb-4">Still have questions? Join our platform and get personalized support</p>
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <a href="signup.html" class="btn btn-primary btn-lg px-4 py-2 fw-semibold">Get Started Today</a>
+                <a href="contact.html" class="btn btn-outline-primary btn-lg px-4 py-2 fw-semibold">Contact Support</a>
+                <a href="login.html" class="btn btn-link px-4 py-2 fw-semibold">Sign In to Dashboard</a>
+            </div>
+        </div>
     </section>
 
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
-    <!-- Back to Top -->
+    <!-- Back to top -->
     <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5"><i data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
 
-    <!-- Scripts -->
+    <!-- JAVASCRIPTS -->
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/tiny-slider.js"></script>
+    <script src="js/tobii.min.js"></script>
     <script src="js/feather.min.js"></script>
     <script src="js/plugins.init.js"></script>
     <script src="js/app.js"></script>
     <script src="js/components.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/cursor.js"></script>
 
     <!-- FAQ Search Script -->
     <script>

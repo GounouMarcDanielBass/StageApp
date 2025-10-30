@@ -80,19 +80,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     switch(data.user.role) {
                         case 'admin':
-                            window.location.href = '/admin/dashboard.html';
+                            window.location.href = 'admin-dashboard.html';
                             break;
                         case 'etudiant':
-                            window.location.href = '/etudiant/dashboard.html';
+                            window.location.href = 'student-dashboard.html';
                             break;
                         case 'entreprise':
-                            window.location.href = '/entreprise/dashboard.html';
+                            window.location.href = 'dashboard-entreprise.html';
                             break;
                         case 'encadrant':
-                            window.location.href = '/encadrant/dashboard.html';
+                            window.location.href = 'dashboard-encadrant.html';
                             break;
                         default:
-                            window.location.href = '/dashboard.html';
+                            window.location.href = 'dashboard.html';
                     }
                 }, 1500);
             } else {

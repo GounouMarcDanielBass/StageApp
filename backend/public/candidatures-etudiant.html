@@ -247,15 +247,20 @@
 
         // Fetch applications data
         function fetchApplications(token) {
-            fetch('/api/candidatures', {
+            console.log('Fetching applications from /api/candidatures with token:', token);
+            fetch('/api/etudiant/candidatures', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
             .then(data => {
+                console.log('Data received:', data);
                 renderApplications(data);
             })
             .catch(error => {
@@ -278,8 +283,8 @@
                 const row = document.createElement('tr');
                 row.className = 'hover-scale';
                 row.innerHTML = `
-                    <td>${app.company_name}</td>
-                    <td>${app.position}</td>
+                    <td>${app.offre.entreprise.company_name}</td>
+                    <td>${app.offre.title}</td>
                     <td><span class="badge bg-${getStatusColor(app.status)}">${app.status}</span></td>
                     <td>${new Date(app.created_at).toLocaleDateString()}</td>
                     <td>
@@ -336,7 +341,7 @@
 
         // Fetch stats
         function fetchStats(token) {
-            fetch('/api/candidatures/stats', {
+            fetch('/api/etudiant/statistics', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -345,15 +350,16 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('total-apps').textContent = data.total || 0;
-                document.getElementById('pending-apps').textContent = data.pending || 0;
-                document.getElementById('accepted-apps').textContent = data.accepted || 0;
-                document.getElementById('rejected-apps').textContent = data.rejected || 0;
+                document.getElementById('total-apps').textContent = data.candidatures_count || 0;
+                document.getElementById('pending-apps').textContent = data.pending_count || 0;
+                document.getElementById('accepted-apps').textContent = data.interviews_count || 0;
+                document.getElementById('rejected-apps').textContent = 0;
             })
             .catch(error => {
                 console.error('Error fetching stats:', error);
             });
         }
     </script>
+    <script src="js/cursor.js"></script>
 </body>
 </html>

@@ -36,7 +36,9 @@ Route::get('latest-offers', [ApiController::class, 'latestOffers']);
 Route::get('stats', [ApiController::class, 'stats']);
 Route::get('testimonials', [ApiController::class, 'testimonials']);
 
-Route::get('/admin/dashboard', [DashboardController::class, 'admin'])->middleware('auth:api');
+// Public offers route without authentication
+Route::get('offers', [OffreController::class, 'index']);
+Route::get('offers/{offer}', [OffreController::class, 'show']);
 
 Route::group([
     'middleware' => 'api',
@@ -90,9 +92,14 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/charts-data', [EntrepriseController::class, 'getChartsData']);
     });
 
-    // Public-like resources but authenticated
-    Route::apiResource('offers', OffreController::class)->only(['index', 'show']);
-    Route::apiResource('stages', StageController::class)->only(['index', 'show']);
+    // Public offers route without authentication
+    Route::get('offers', [OffreController::class, 'index']);
+    Route::get('offers/{offer}', [OffreController::class, 'show']);
+
+    // Role-specific resources
+    Route::middleware(['role:entreprise'])->group(function () {
+        Route::apiResource('offers', OffreController::class)->except(['index', 'show']);
+    });
 
     // Role-specific resources
     Route::middleware(['role:entreprise'])->group(function () {

@@ -1,29 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact Us - Internship Management System</title>
     <meta name="description" content="Get in touch with us for your internship management needs." />
     <meta name="keywords" content="Contact, Internship, Management" />
     <meta name="author" content="Internship System" />
-
     <!-- Favicon -->
-    <link href="images/favicon.ico" rel="icon">
-
-    <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="images/favicon.ico" rel="shortcut icon">
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet" id="theme-opt">
-    <link href="css/themes.css" rel="stylesheet">
-    <link href="css/animations.css" rel="stylesheet">
-
-    <!-- Material Icons -->
-    <link href="css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="css/themes.css" rel="stylesheet" type="text/css" />
+    <link href="css/animations.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
+    <link href="css/style.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/cursor.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tiny Slider -->
+    <link href="css/tiny-slider.css" rel="stylesheet" type="text/css" />
+    <!-- Tobii -->
+    <link href="css/tobii.min.css" rel="stylesheet" type="text/css" />
+    <!-- Preload critical assets -->
+    <link rel="preload" href="css/bootstrap.min.css" as="style">
+    <link rel="preload" href="js/bootstrap.bundle.min.js" as="script">
+    <link rel="preload" href="images/logo-dark.webp" as="image">
 </head>
-<body>
+<body data-theme="light">
     <!-- Loader -->
     <div id="preloader">
         <div id="status">
@@ -78,6 +84,7 @@
                 <div class="col-md-6">
                     <div class="p-4 rounded shadow card hover-lift animate-fade-in">
                         <h4 class="mb-3">Send us a Message</h4>
+                        <p class="text-muted mb-4">Ready to start your internship journey? Contact us today and join thousands of successful students and companies.</p>
                         <form class="mt-4" id="contactForm">
                             <div class="row">
                                 <div class="col-md-6">
@@ -118,6 +125,13 @@
                         </form>
                         <div id="success-message" class="alert alert-success mt-3" style="display: none;"></div>
                         <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+                        <div class="text-center mt-4">
+                            <p class="text-muted mb-3">Prefer to join directly?</p>
+                            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
+                                <a href="signup.html" class="btn btn-outline-primary btn-sm">Create Student Account</a>
+                                <a href="signup.html" class="btn btn-outline-success btn-sm">Register Company</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,7 +150,7 @@
                         </div>
                         <div class="mt-4">
                             <h5 class="mb-3">Phone</h5>
-                            <p class="text-muted">Call us for any inquiries about our services.</p>
+                            <p class="text-muted">Call us for any inquiries about our services. Our team is ready to help you get started.</p>
                             <a href="tel:+237600000000" class="text-primary">+237 600 000 000</a>
                         </div>
                     </div>
@@ -148,7 +162,7 @@
                         </div>
                         <div class="mt-4">
                             <h5 class="mb-3">Email</h5>
-                            <p class="text-muted">Send us an email for detailed questions.</p>
+                            <p class="text-muted">Send us an email for detailed questions. Join our growing community of successful interns.</p>
                             <a href="mailto:contact@internship.com" class="text-primary">contact@internship.com</a>
                         </div>
                     </div>
@@ -164,6 +178,13 @@
                             <a href="https://maps.google.com" target="_blank" rel="noopener" class="text-primary">View on Google Maps</a>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p class="text-muted mb-4">Ready to begin your internship journey? Join the platform that connects students with opportunities.</p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a href="signup.html" class="btn btn-primary btn-lg px-4 py-2 fw-semibold">Start Your Journey</a>
+                    <a href="login.html" class="btn btn-outline-primary btn-lg px-4 py-2 fw-semibold">Sign In to Account</a>
                 </div>
             </div>
         </div>
@@ -190,7 +211,18 @@
     <div id="footer-placeholder"></div>
 
     <!-- Back to top -->
-    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5 hover-bounce"><i data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
+    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5"><i data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
+
+    <!-- JAVASCRIPTS -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/tiny-slider.js"></script>
+    <script src="js/tobii.min.js"></script>
+    <script src="js/feather.min.js"></script>
+    <script src="js/plugins.init.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/cursor.js"></script>
 
     <!-- Style switcher (optional, from original) -->
     <div id="style-switcher" class="bg-light border p-3 pt-2 pb-2" style="display: none;">
@@ -210,9 +242,11 @@
     <!-- JavaScript -->
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/feather.min.js"></script>
-    <script src="js/app.js"></script>
     <script src="js/plugins.init.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/components.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/cursor.js"></script>
 
     <script>
         // Contact form submission

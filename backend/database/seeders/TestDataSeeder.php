@@ -57,23 +57,26 @@ class TestDataSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            User::create($user);
+            User::firstOrCreate(
+                ['email' => $user['email']],
+                $user
+            );
         }
 
         // Création des entreprises
         $entreprises = [
             [
-                'name' => 'Tech Solutions Cameroun',
-                'description' => 'Entreprise de solutions technologiques',
-                'address' => 'Douala, Cameroun',
-                'phone' => '+237612345678',
-                'email' => 'contact@techsolutions.cm',
+                'company_name' => 'Tech Solutions Cameroun',
+                'siret' => '123456789',
                 'user_id' => 2
             ]
         ];
 
         foreach ($entreprises as $entreprise) {
-            Entreprise::create($entreprise);
+            Entreprise::firstOrCreate(
+                ['siret' => $entreprise['siret']],
+                $entreprise
+            );
         }
 
         // Création des offres
@@ -83,7 +86,8 @@ class TestDataSeeder extends Seeder
                 'description' => 'Stage de 6 mois en développement web',
                 'requirements' => 'Connaissance en PHP, JavaScript',
                 'duration' => '6 mois',
-                'entreprise_id' => 1
+                'location' => 'Douala',
+                'company_id' => 1
             ]
         ];
 

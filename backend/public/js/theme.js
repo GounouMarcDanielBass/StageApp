@@ -52,10 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Mise à jour de l'icône du thème
 function updateThemeIcon(theme) {
-    const themeIcon = document.getElementById('theme-icon');
+    const themeIcon = document.querySelector('.theme-switcher-icon');
     if (themeIcon) {
-        themeIcon.className = theme === 'light' 
-            ? 'fas fa-moon theme-switcher-icon' 
+        themeIcon.className = theme === 'light'
+            ? 'fas fa-moon theme-switcher-icon'
             : 'fas fa-sun theme-switcher-icon';
     }
 }

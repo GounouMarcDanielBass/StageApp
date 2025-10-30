@@ -19,15 +19,20 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        Log::info('RoleMiddleware: Starting handle for route ' . $request->route()->getName());
+        Log::info('RoleMiddleware: Starting handle for route ' . ($request->route() ? $request->route()->getName() : 'N/A'));
+        Log::info('RoleMiddleware: Authorization header: ' . $request->header('Authorization'));
 
-        if (!Auth::check()) {
-            Log::info('RoleMiddleware: Auth check failed');
+        if (!Auth::guard('api')->check()) {
+            Log::info('RoleMiddleware: Auth check failed for API guard.');
             return response()->json(['error' => 'Unauthorized.'], 401);
         }
 
-        $user = Auth::user();
-        Log::info('RoleMiddleware: User authenticated, checking roles: ' . json_encode($roles));
+        $user = Auth::guard('api')->user();
+        if (!$user) {
+            Log::info('RoleMiddleware: User not found after Auth::guard(\'api\')->user() call.');
+            return response()->json(['error' => 'Unauthorized.'], 401);
+        }
+        Log::info('RoleMiddleware: User authenticated: ' . $user->email . ', checking roles: ' . json_encode($roles));
 
         foreach ($roles as $role) {
             Log::info('RoleMiddleware: Checking role ' . $role);

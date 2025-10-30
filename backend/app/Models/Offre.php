@@ -18,7 +18,7 @@ class Offre extends Model
         'start_date',
         'end_date',
         'status',
-        'company_id',
+        'entreprise_id',
     ];
 
     public function entreprise()
